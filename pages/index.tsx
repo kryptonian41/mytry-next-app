@@ -3,7 +3,8 @@ import { getProducts } from 'api-utils'
 import { ProductTile } from 'components/ProductTile'
 import { useEffect } from 'react'
 import { useQuery } from 'react-query'
-
+import { GetServerSideProps, InferGetServerSidePropsType } from 'next'
+import { getProductsServerSide } from './api/products'
 
 const renderProductTiles = (products: Product[]) => {
   return products.map(product => {
@@ -11,9 +12,27 @@ const renderProductTiles = (products: Product[]) => {
   })
 }
 
-export default function Home() {
+interface Props {
+  products: Product[]
+}
 
-  const { data, error, isLoading, isError } = useQuery('products', getProducts)
+export const getServerSideProps: GetServerSideProps<Props> = async () => {
+  const { data } = await getProductsServerSide()
+  return {
+    props: {
+      products: data
+    }
+  }
+}
+
+
+export const Home: React.FC<InferGetServerSidePropsType<typeof getServerSideProps>> = ({
+  products
+}) => {
+
+  const { data, error, isLoading, isError } = useQuery('products', getProducts, {
+    initialData: products
+  })
 
 
   useEffect(() => {
@@ -39,3 +58,5 @@ export default function Home() {
     </div>
   )
 }
+
+export default Home
