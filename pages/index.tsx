@@ -40,12 +40,10 @@ export const Home: React.FC<InferGetServerSidePropsType<typeof getServerSideProp
     console.log(data)
   }, [data])
 
-
   const pageBody = useMemo(() => {
     if (isLoading) return <div>
       Loading....
     </div>
-
 
     if (isError) return <div>
       There was some error fetching products list
