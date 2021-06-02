@@ -1,3 +1,4 @@
+import { useState } from "react"
 import { Category } from "types/commons"
 
 interface ColorMap {
@@ -10,18 +11,28 @@ interface ColorConfig {
 }
 
 
+const appTheme = {
+  orange: '#F26722',
+  green: '#034a38',
+  blue: '#002ab2',
+  pink: '#ED2385',
+  yellow: '#fffa4d',
+  yellowDark: '#f8ec00'
+}
+
+
 export const colorMap: ColorMap = {
   'cosmetics': {
-    bgColor: '#004C37',
-    panelColor: '#F26722'
+    bgColor: appTheme.blue,
+    panelColor: appTheme.pink
   },
   'facewash': {
-    bgColor: '#002AB2',
-    panelColor: '#ED2385'
+    bgColor: appTheme.green,
+    panelColor: appTheme.orange
   },
   default: {
-    bgColor: '#002AB2',
-    panelColor: '#ED2385'
+    bgColor: appTheme.green,
+    panelColor: appTheme.orange
   }
 }
 
@@ -30,4 +41,9 @@ export const getColorSchemeByCategory = (categories: Category[]) => {
     if (colorMap[category.name]) return colorMap[category.name]
   }
   return colorMap.default
+}
+
+export const useTheme = () => {
+  const [theme, setTheme] = useState(appTheme)
+  return theme
 }
