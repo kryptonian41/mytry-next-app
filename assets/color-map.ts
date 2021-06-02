@@ -10,18 +10,28 @@ interface ColorConfig {
 }
 
 
+const theme = {
+  orange: '#F26722',
+  green: '#034a38',
+  blue: '#002ab2',
+  pink: '#ED2385',
+  yellow: '#fffa4d',
+  yellowDark: '#f8ec00'
+}
+
+
 export const colorMap: ColorMap = {
   'cosmetics': {
-    bgColor: '#004C37',
-    panelColor: '#F26722'
+    bgColor: theme.blue,
+    panelColor: theme.pink
   },
   'facewash': {
-    bgColor: '#002AB2',
-    panelColor: '#ED2385'
+    bgColor: theme.green,
+    panelColor: theme.orange
   },
   default: {
-    bgColor: '#002AB2',
-    panelColor: '#ED2385'
+    bgColor: theme.green,
+    panelColor: theme.orange
   }
 }
 
@@ -30,4 +40,8 @@ export const getColorSchemeByCategory = (categories: Category[]) => {
     if (colorMap[category.name]) return colorMap[category.name]
   }
   return colorMap.default
+}
+
+export const useTheme = () => {
+  return theme
 }
