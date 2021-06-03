@@ -20,3 +20,22 @@ export const getProduct = async (slug: string) => {
   if (data.length === 0) throw Error('Product not found')
   return data[0]
 }
+
+export const getReviews = async () => {
+  const { data } = await axios.get('/api/reviews')
+  return data
+}
+
+// interface ReviewFilters {
+//   id: number
+// }
+
+// export const getReview = async (id) => {
+//   const { data } = await axios.get('/api/products', {
+//     params: {
+//       id
+//     } as ReviewFilters
+//   })
+//   if(!data.length) throw Error('Review not found')
+//   return data
+// } 

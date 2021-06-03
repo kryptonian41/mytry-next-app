@@ -1,9 +1,9 @@
-import Review from "../../components/Product/Review";
+import Review from "../../components/Product/Reviews/Reviews";
 import { useRouter } from "next/router";
 import { colorMap, getColorSchemeByCategory } from "assets/color-map";
 import styles from "./styles.module.scss";
 import { Navbar } from "components/Navbar";
-import { useMemo } from "react";
+import { useMemo, useEffect } from "react";
 import { useQuery } from "react-query";
 import { getProduct } from "api-utils";
 
@@ -19,6 +19,10 @@ export const ProductPage = () => {
     if (!productData || isLoading || isError) return colorMap.default;
     return getColorSchemeByCategory(productData.categories);
   }, [productData, isLoading, isError]);
+
+  useEffect(() => {
+    console.log(productData)
+  })
 
   return (
     <div>
@@ -52,7 +56,7 @@ export const ProductPage = () => {
           )}
         </div>
       </div>
-      <Review />
+      {productData && <Review productId={productData.id} ratingCount={productData.rating_count} />}
     </div>
   );
 };
