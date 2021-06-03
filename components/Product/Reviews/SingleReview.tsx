@@ -3,9 +3,9 @@ import FilledStar from "assets/svgs/icons/rating-star-filled.svg";
 import EmptyStar from "assets/svgs/icons/rating-star.svg";
 import reviewStyles from "./review.module.css";
 
-const SingleReview = ({ rating, reviewText }) => {
+const SingleReview = ({ rating, reviewText, reviewer }) => {
   return (
-    <div>
+    <div className={reviewStyles.singleReviewContainer}>
       <div className={reviewStyles.starsContainer}>
         {rating
           ? Array(rating)
@@ -18,7 +18,8 @@ const SingleReview = ({ rating, reviewText }) => {
               .map((_, i) => <EmptyStar />)
           : ""}
       </div>
-      {reviewText.substr(3, reviewText.length - 8)}
+      <p className={reviewStyles.review}>{reviewText.substr(3, reviewText.length - 8)}</p>
+      <p className={reviewStyles.reviewer}>{reviewer}</p>
     </div>
   );
 };
