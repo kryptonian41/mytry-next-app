@@ -1,0 +1,49 @@
+.container {
+  width: 90%;
+  margin: 3.2rem auto;
+}
+
+.heading {
+  display: flex;
+  align-items: center;
+}
+
+.heading h2 {
+  text-transform: uppercase;
+  color: #ed2385;
+  font-size: 2rem;
+  margin-right: 5rem;
+}
+
+.heading button:focus {
+  outline: none;
+}
+
+.heading svg {
+  transform: scale(0.6);
+  cursor: pointer;
+}
+
+.container hr {
+  border: 1px solid #002ab2;
+  background-color: #002ab2;
+  margin: 2.5rem auto;
+}
+
+.reviewsContainer {
+  display: grid;
+  grid-template-columns: repeat(16, 1fr);
+}
+
+.reviewsContainer h2 {
+  grid-column: 1/6;
+  grid-row: 1/2;
+  font-size: 5rem;
+  line-height: 1;
+  color: #034a38;
+}
+
+.reviews {
+  grid-row-start: 2;
+  grid-column: 8/17;
+}
