@@ -41,7 +41,7 @@ export const About = () => {
     <div className="py-20 text-center">
       <p className="mb-10 uppercase text-2xl" style={{ color: theme.green }}>Vegan skincare</p>
       <p className="mb-10 text-6xl" style={{ color: theme.pink }}>Nicely with nature</p>
-      <p className="w-3/5 m-auto mb-20" style={{ color: theme.green }}>
+      <p className="w-3/5 m-auto mb-20 text-xl" style={{ color: theme.green }}>
         Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril
       </p>
       <div className="mb-20">
@@ -49,7 +49,7 @@ export const About = () => {
       </div>
       <p className="mb-10 text-6xl" style={{ color: theme.pink }}>You, first </p>
 
-      <p className="w-3/5 m-auto" style={{ color: theme.green }}>
+      <p className="w-3/5 m-auto text-xl" style={{ color: theme.green }}>
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga quo asperiores vero expedita alias minus incidunt, nam debitis consequatur suscipit mollitia laborum aperiam, cumque eveniet facere placeat, sequi maxime recusandae molestias necessitatibus impedit. Tempora illo quo voluptatem excepturi optio non delectus molestiae quas harum hic, illum enim porro pariatur ullam praesentium. Perspiciatis quia error odio assumenda sequi magnam deleniti, commodi temporibus provident sit accusamus nihil culpa maxime, ut incidunt placeat excepturi eum repellat eligendi officiis? Magni, exercitationem dolores architecto minima vitae nisi beatae dicta! Officiis nisi facilis rerum explicabo ut dolores vitae, iusto quasi saepe assumenda magni recusandae quibusdam sint?
         <br />
         <br />
