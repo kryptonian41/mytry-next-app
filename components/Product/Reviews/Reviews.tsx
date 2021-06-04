@@ -25,38 +25,41 @@ const Review = ({ productId, ratingCount }) => {
   }, [reviews]);
 
   return (
-    <div className={reviewStyles.container}>
-      <div className={reviewStyles.heading}>
-        <h2>Write a Review</h2>
-        {!isFormOpen && (
-          <button
-            type="button"
-            onClick={() => {
-              setFormOpen(true);
-            }}
-          >
-            <ExpandIcon />
-          </button>
+    <div className={reviewStyles.outerContainer}>
+      <div className={reviewStyles.container}>
+        <div className={reviewStyles.heading}>
+          <h2>Write a Review</h2>
+          {!isFormOpen && (
+            <button
+              type="button"
+              onClick={() => {
+                setFormOpen(true);
+              }}
+            >
+              <ExpandIcon />
+            </button>
+          )}
+        </div>
+        {isFormOpen && <CreateReview />}
+        {ratingCount > 0 && productReviews.length && (
+          <>
+            <hr />
+            <div className={reviewStyles.reviewsContainer}>
+              <h2>What people are saying</h2>
+              <div className={reviewStyles.reviews}>
+                {productReviews.map((productReview) => (
+                  <SingleReview
+                    key={productReview.id}
+                    rating={productReview.rating}
+                    reviewText={productReview.review}
+                    reviewer={productReview.reviewer}
+                  />
+                ))}
+              </div>
+            </div>
+          </>
         )}
       </div>
-      {isFormOpen && <CreateReview />}
-      {ratingCount > 0 && productReviews.length && (
-        <>
-          <hr />
-          <div className={reviewStyles.reviewsContainer}>
-            <h2>What people are saying</h2>
-            <div className={reviewStyles.reviews}>
-              {productReviews.map((productReview) => (
-                <SingleReview
-                  rating={productReview.rating}
-                  reviewText={productReview.review}
-                  reviewer={productReview.reviewer}
-                />
-              ))}
-            </div>
-          </div>
-        </>
-      )}
     </div>
   );
 };

@@ -1,6 +1,11 @@
+.outerContainer {
+  display: grid;
+  grid-template-columns: repeat(20, 1fr);
+}
+
 .container {
-  width: 90%;
-  margin: 3.2rem auto;
+  grid-column: 3/19;
+  margin: 3.2rem 0;
   padding-bottom: 10rem;
 }
 

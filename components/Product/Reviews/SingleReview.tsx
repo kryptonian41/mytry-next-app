@@ -10,15 +10,17 @@ const SingleReview = ({ rating, reviewText, reviewer }) => {
         {rating
           ? Array(rating)
               .fill(" ")
-              .map((_, i) => <FilledStar />)
+              .map((_, i) => <FilledStar key={rating + 1 + i} />)
           : ""}
         {rating
           ? Array(5 - rating)
               .fill(" ")
-              .map((_, i) => <EmptyStar />)
+              .map((_, i) => <EmptyStar key={rating + i} />)
           : ""}
       </div>
-      <p className={reviewStyles.review}>{reviewText.substr(3, reviewText.length - 8)}</p>
+      <p className={reviewStyles.review}>
+        {reviewText.substr(3, reviewText.length - 8)}
+      </p>
       <p className={reviewStyles.reviewer}>{reviewer}</p>
     </div>
   );
