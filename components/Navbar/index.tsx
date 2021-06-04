@@ -25,7 +25,7 @@ export const Navbar: React.FC<Props> = ({
 
     <div>
       <Link href="/">
-        <MyTryLogo className={styles['mytry-logo']} />
+        <MyTryLogo className={clsx(styles['mytry-logo'], 'cursor-pointer')} />
       </Link>
     </div>
   </div>
