@@ -6,7 +6,7 @@ export const getProducts = async () => {
   return data
 }
 
-interface ProductFilters {
+export interface ProductFilters {
   id?: number
   slug?: string
 }
