@@ -33,12 +33,9 @@ export const Home: React.FC<InferGetServerSidePropsType<typeof getServerSideProp
 }) => {
 
   const { data, isLoading, isError } = useQuery('products', getProducts, {
-    initialData: products
+    initialData: products,
+    staleTime: 1000 * 60 * 10
   })
-
-  useEffect(() => {
-    console.log(data)
-  }, [data])
 
   const pageBody = useMemo(() => {
     if (isLoading) return <div>

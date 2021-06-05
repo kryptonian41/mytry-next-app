@@ -1,15 +1,53 @@
-import { useRouter } from 'next/router'
+import { getProduct } from 'api-utils'
+import {
+  ProductFilters
+} from 'api-utils/api-calls'
 import { colorMap, getColorSchemeByCategory } from 'assets/color-map'
-import styles from './styles.module.scss'
 import { Navbar } from 'components/Navbar'
+import { GetStaticProps, InferGetServerSidePropsType } from 'next'
+import { useRouter } from 'next/router'
+import { getProductsServerSide } from 'pages/api/products'
 import { useMemo } from 'react'
 import { useQuery } from 'react-query'
-import { getProduct } from 'api-utils'
+import { Product } from 'types/commons'
+import styles from './styles.module.scss'
+interface Props {
+  product: Product
+}
 
-export const ProductPage = () => {
+export async function getStaticPaths() {
+  const { data: products } = await getProductsServerSide()
+  const paths = products.map((product) => ({
+    params: { slug: product.slug },
+  }))
+
+  return { paths, fallback: 'blocking' }
+}
+
+export const getStaticProps: GetStaticProps<Props> = async ({
+  params
+}) => {
+  const { slug } = params
+  const { data } = await getProductsServerSide({
+    slug
+  } as ProductFilters)
+  return {
+    props: {
+      product: data[0],
+    },
+    revalidate: 20
+  }
+}
+
+export const ProductPage: React.FC<InferGetServerSidePropsType<typeof getStaticProps>> = ({
+  product
+}) => {
   const router = useRouter()
   const { slug } = router.query
-  const { data: productData, isLoading, isError } = useQuery(slug, () => getProduct(slug as string))
+  const { data: productData, isLoading, isError } = useQuery(slug, () => getProduct(slug as string), {
+    initialData: product,
+    staleTime: 1000 * 60 * 10
+  })
   const colorScheme = useMemo(() => {
     if (!productData || isLoading || isError) return colorMap.default
     return getColorSchemeByCategory(productData.categories)
@@ -34,7 +72,6 @@ export const ProductPage = () => {
         </div>
       </div>}
     </div>
-
   </div>
 }
 
