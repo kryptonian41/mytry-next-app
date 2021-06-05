@@ -46,7 +46,6 @@ export const ProductPage: React.FC<InferGetServerSidePropsType<typeof getStaticP
   const { slug } = router.query
   const { data: productData, isLoading, isError } = useQuery(slug, () => getProduct(slug as string), {
     initialData: product,
-    staleTime: 1000 * 60 * 10
   })
   const colorScheme = useMemo(() => {
     if (!productData || isLoading || isError) return colorMap.default
