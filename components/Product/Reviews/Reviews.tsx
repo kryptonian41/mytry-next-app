@@ -1,28 +1,11 @@
 import React, { useState, useEffect } from "react";
 import reviewStyles from "./review.module.css";
 import ExpandIcon from "assets/svgs/icons/expand.svg";
-import { getReviews } from "api-utils";
-import { useQuery } from "react-query";
 import SingleReview from "./SingleReview";
 import CreateReview from "./CreateReview";
 
-const Review = ({ productId, ratingCount }) => {
-  const {
-    data: reviews,
-    isLoading,
-    isError,
-  } = useQuery("reviews", () => getReviews());
-
+const Review = ({ ratingCount, reviews }) => {
   const [isFormOpen, setFormOpen] = useState(false);
-
-  const [productReviews, setProductReviews] = useState([]);
-
-  useEffect(() => {
-    if (reviews)
-      setProductReviews(
-        reviews.filter((review) => review.product_id === productId)
-      );
-  }, [reviews]);
 
   return (
     <div className={reviewStyles.outerContainer}>
@@ -41,13 +24,13 @@ const Review = ({ productId, ratingCount }) => {
           )}
         </div>
         {isFormOpen && <CreateReview />}
-        {ratingCount > 0 && productReviews.length && (
+        {ratingCount > 0 && reviews.length && (
           <>
             <hr />
             <div className={reviewStyles.reviewsContainer}>
               <h2>What people are saying</h2>
               <div className={reviewStyles.reviews}>
-                {productReviews.map((productReview) => (
+                {reviews.map((productReview) => (
                   <SingleReview
                     key={productReview.id}
                     rating={productReview.rating}

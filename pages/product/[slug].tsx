@@ -11,8 +11,9 @@ import {
   getProductServerSide,
   getProductsServerSide,
 } from "pages/api/products";
+import { getReviewsServerSide } from "pages/api/reviews";
 
-export const ProductPage = ({ relatedProducts }) => {
+export const ProductPage = ({ relatedProducts, reviews }) => {
   const router = useRouter();
   const { slug } = router.query;
   const {
@@ -43,7 +44,29 @@ export const ProductPage = ({ relatedProducts }) => {
                   backgroundColor: colorScheme.panelColor,
                 }}
               >
-                {productData.name}
+                <div className={styles.productInfoContainer}>
+                  <h1 className={styles.productName}>{productData.name}</h1>
+                  <p className={styles.productInfo}>
+                    {productData.attributes[0]?.options[0]}
+                  </p>
+                  <p className={styles.productInfo}>INR {productData.price}</p>
+                  <p className={`${styles.productInfo} ${styles.productDesc}`}>
+                    {productData.description.substr(
+                      3,
+                      productData.description.length - 8
+                    )}
+                  </p>
+                  <hr className={styles.ingredientsDivider} />
+                  <h3
+                    className={`${styles.productInfo} ${styles.ingredientsHeader}`}
+                  >
+                    Ingredients
+                  </h3>
+                  <p className={styles.productsIngredients}>
+                    {productData.attributes[1]?.options[0]}
+                  </p>
+                  <hr className={styles.ingredientsDivider} />
+                </div>
               </div>
 
               <div>
@@ -57,11 +80,13 @@ export const ProductPage = ({ relatedProducts }) => {
           )}
         </div>
       </div>
-      {productData && relatedProducts.length &&  <RelatedProducts relatedProducts={relatedProducts} />}
+      {productData && relatedProducts.length && (
+        <RelatedProducts relatedProducts={relatedProducts} />
+      )}
       {productData && (
         <Review
-          productId={productData.id}
           ratingCount={productData.rating_count}
+          reviews={reviews}
         />
       )}
     </div>
@@ -69,7 +94,7 @@ export const ProductPage = ({ relatedProducts }) => {
 };
 
 export const getServerSideProps = async (context) => {
-  const { data } = await getProductsServerSide({ slug: context.params.slug });
+  let { data } = await getProductsServerSide({ slug: context.params.slug });
   let relatedProducts = [];
 
   relatedProducts.push(
@@ -79,9 +104,13 @@ export const getServerSideProps = async (context) => {
     await getProductServerSide(data[0].related_ids[1]).then((res) => res.data)
   );
 
+  const allReviews = await getReviewsServerSide().then((res) => res.data);
+  const reviews = allReviews.filter(review => review.product_id === data[0].id)
+
   return {
     props: {
       relatedProducts,
+      reviews,
     },
   };
 };
