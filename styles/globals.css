@@ -2,9 +2,36 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: "Briet";
+  font-style: normal;
+  font-weight: normal;
+  src: local("Myriad Pro Regular"), url("/assets/fonts/briet/test-soehne-breit-kraftig.woff") format("woff");
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Myriad Pro";
+  font-style: normal;
+  font-weight: normal;
+  src: local("Myriad Pro Regular"), url("/assets/fonts/myriad-pro/MYRIADPRO-REGULAR.woff") format("woff");
+  font-display: swap;
+}
+
 html,
 body {
   height: 100%;
+}
+
+.font-primary {
+  font-family: Briet;
+}
+.font-secondary {
+  font-family: "Myriad Pro";
+}
+
+body {
+  font-family: Briet;
 }
 
 #__next {

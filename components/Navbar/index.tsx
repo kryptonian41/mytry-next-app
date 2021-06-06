@@ -13,7 +13,7 @@ const numberofItemsInCart = 0
 export const Navbar: React.FC<Props> = ({
   color = 'dark'
 }) => {
-  return <div className={clsx("font-semibold p-4 px-8 flex items-start space-x-4 justify-between", {
+  return <div className={clsx("p-4 px-8 flex items-start space-x-4 justify-between", {
     'text-white': color === 'light',
     'text-green-900': color === 'dark',
   })}>
@@ -25,7 +25,7 @@ export const Navbar: React.FC<Props> = ({
 
     <div>
       <Link href="/">
-        <MyTryLogo className={styles['mytry-logo']} />
+        <MyTryLogo className={clsx(styles['mytry-logo'], 'cursor-pointer')} />
       </Link>
     </div>
   </div>

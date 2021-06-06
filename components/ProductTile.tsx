@@ -1,5 +1,7 @@
-import { Product } from "types/commons";
-import Link from "next/link";
+import { Product } from "types/commons"
+import Link from 'next/link'
+import { RUPEES_SYMBOL } from "components"
+
 interface Props {
   product: Product;
 }
@@ -22,9 +24,9 @@ export const ProductTile: React.FC<Props> = ({ product }) => {
             )}
             <p className="text-xl font-medium mt-4">{product.name}</p>
             <p>
-              {product.sale_price}
+              {RUPEES_SYMBOL} {product.sale_price}
               <span className="line-through pl-2 text-red-500">
-                {product.regular_price}
+                {RUPEES_SYMBOL} {product.regular_price}
               </span>
             </p>
             <button className="absolute translate-x-1/2 right-0 bottom-28 transform py-1 px-4 bg-pink-800 text-white rounded-full">
@@ -36,3 +38,4 @@ export const ProductTile: React.FC<Props> = ({ product }) => {
     </Link>
   );
 };
+

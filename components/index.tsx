@@ -1,0 +1,1 @@
+export const RUPEES_SYMBOL = <>INR</>
