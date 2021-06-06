@@ -22,6 +22,7 @@ export const Navbar: React.FC<Props> = ({
       <span>Cart ({numberofItemsInCart})</span>
       <span>Account</span>
       <Link href="/about">About Us</Link>
+      <Link href="/contact">Contact Us</Link>
     </div>
 
     <div>
