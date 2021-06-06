@@ -29,59 +29,56 @@ export const ProductPage = ({ relatedProducts, reviews, product }) => {
   }, [productData, isLoading, isError]);
 
   return (
-    <div>
-      <div
-        className={styles.root}
-        style={{
-          backgroundColor: colorScheme.bgColor,
-        }}
-      >
-        <div className={styles.hero}>
-          <Navbar color="light" />
-          {productData && (
-            <div className={styles["hero-product-info"]}>
-              <div
-                className="p-4"
-                style={{
-                  backgroundColor: colorScheme.panelColor,
-                }}
-              >
-                <div className={styles.productInfoContainer}>
-                  <h1 className={styles.productName}>{productData.name}</h1>
-                  <p className={styles.productInfo}>
-                    {productData.attributes[0]?.options[0]}
-                  </p>
-                  <p className={styles.productInfo}>INR {productData.price}</p>
-                  <p className={`${styles.productInfo} ${styles.productDesc}`}>
-                    {productData.description.substr(
-                      3,
-                      productData.description.length - 8
-                    )}
-                  </p>
-                  <hr className={styles.ingredientsDivider} />
-                  <h3
-                    className={`${styles.productInfo} ${styles.ingredientsHeader}`}
-                  >
-                    Ingredients
-                  </h3>
-                  <p className={styles.productsIngredients}>
-                    {productData.attributes[1]?.options[0]}
-                  </p>
-                  <hr className={styles.ingredientsDivider} />
-                </div>
-              </div>
+    <div style={{ height: '100%' }}>
 
-              <div>
-                <img
-                  src={productData.images[0].src}
-                  alt="product-image"
-                  className={styles["hero-product-info-image"]}
-                />
+      <div className={styles.hero} style={{
+        backgroundColor: colorScheme.bgColor,
+      }}>
+        <Navbar color="light" />
+        {productData && (
+          <div className={styles["hero-product-info"]}>
+            <div
+              className="p-4"
+              style={{
+                backgroundColor: colorScheme.panelColor,
+              }}
+            >
+              <div className={styles.productInfoContainer}>
+                <h1 className={styles.productName}>{productData.name}</h1>
+                <p className={styles.productInfo}>
+                  {productData.attributes[0]?.options[0]}
+                </p>
+                <p className={styles.productInfo}>INR {productData.price}</p>
+                <p className={`${styles.productInfo} ${styles.productDesc}`}>
+                  {productData.description.substr(
+                    3,
+                    productData.description.length - 8
+                  )}
+                </p>
+                <hr className={styles.ingredientsDivider} />
+                <h3
+                  className={`${styles.productInfo} ${styles.ingredientsHeader}`}
+                >
+                  Ingredients
+                  </h3>
+                <p className={styles.productsIngredients}>
+                  {productData.attributes[1]?.options[0]}
+                </p>
+                <hr className={styles.ingredientsDivider} />
               </div>
             </div>
-          )}
-        </div>
+
+            <div>
+              <img
+                src={productData.images[0].src}
+                alt="product-image"
+                className={styles["hero-product-info-image"]}
+              />
+            </div>
+          </div>
+        )}
       </div>
+
       {productData && relatedProducts.length && (
         <RelatedProducts relatedProducts={relatedProducts} />
       )}
