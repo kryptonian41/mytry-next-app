@@ -1,1 +1,1 @@
-export const RUPEES_SYMBOL = <>&#8377;</>
+export const RUPEES_SYMBOL = <>INR</>

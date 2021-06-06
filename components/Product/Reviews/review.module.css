@@ -1,0 +1,147 @@
+.outerContainer {
+  display: grid;
+  grid-template-columns: repeat(20, 1fr);
+}
+
+.container {
+  grid-column: 3/19;
+  margin: 3.2rem 0;
+  padding-bottom: 10rem;
+}
+
+.heading {
+  display: flex;
+  align-items: center;
+}
+
+.heading h2 {
+  text-transform: uppercase;
+  color: #ed2385;
+  font-size: 2rem;
+  margin-right: 5rem;
+}
+
+.heading button:focus {
+  outline: none;
+}
+
+.heading svg {
+  transform: scale(0.6);
+  cursor: pointer;
+}
+
+.container hr {
+  border: 1px solid #002ab2;
+  background-color: #002ab2;
+  margin: 2.5rem auto;
+}
+
+.reviewsContainer {
+  display: grid;
+  grid-template-columns: repeat(16, 1fr);
+}
+
+.reviewsContainer h2 {
+  grid-column: 1/6;
+  grid-row: 1/2;
+  font-size: 5rem;
+  line-height: 1;
+  color: #034a38;
+}
+
+.reviews {
+  grid-row-start: 2;
+  grid-column: 8/15;
+}
+
+.singleReviewContainer {
+  margin-bottom: 5rem;
+}
+
+.starsContainer {
+  display: flex;
+}
+
+.starsContainer svg {
+  margin-right: 5px;
+}
+
+.review {
+  color: #f26722;
+  font-size: 2.8rem;
+}
+
+.reviewer {
+  color: #034a38;
+  text-transform: uppercase;
+  font-size: 1.5rem;
+}
+
+.formContainer {
+  display: grid;
+  grid-template-columns: repeat(16, 1fr);
+  margin-top: 2rem;
+  margin-bottom: 4rem;
+}
+
+.formContainer form {
+  grid-column: 2/12;
+}
+
+.formContainer label {
+  display: flex;
+  margin-bottom: 1rem;
+}
+
+.formContainer p {
+  color: #034a38;
+  font-size: 1.5rem;
+  align-self: center;
+  margin-right: 1rem;
+}
+
+.formContainer input {
+  border: 1px solid #002ab2;
+  width: 100%;
+  border-radius: 50px;
+  padding: 0 20px;
+  font-size: 1.5rem;
+}
+
+.formContainer input:focus {
+  outline: none;
+}
+
+.ratingInputContainer button:focus {
+  outline: none;
+}
+
+.ratingInputContainer svg {
+  cursor: pointer;
+}
+
+.reviewTextArea {
+  height: 9rem;
+  border: 1px solid #002ab2;
+  width: 100%;
+  border-radius: 20px;
+  padding: 10px 20px;
+  margin-bottom: 1rem;
+}
+
+.reviewTextArea:focus {
+  outline: none;
+  font-size: 1.5rem;
+  resize: none;
+}
+
+.submitBtn {
+  font-size: 1.125rem;
+  background-color: #ed2385;
+  color: #f8ec00;
+  justify-self: end;
+  border-radius: 50px;
+  height: 2.5rem;
+  width: 8.125rem;
+  float: right;
+}

@@ -1,0 +1,38 @@
+.container {
+  margin: auto;
+  display: grid;
+  grid-template-columns: repeat(20, 1fr);
+  padding: 5rem 0;
+}
+
+.container h2 {
+  grid-column: 2/6;
+  font-size: 5rem;
+  color: #fffa4d;
+  line-height: 1;
+}
+
+.productsContainer {
+  grid-column: 7/20;
+  display: grid;
+  grid-template-columns: repeat(14, 1fr);
+  margin-top: 2rem;
+}
+
+.productsContainer > a:first-child {
+  grid-column: 1/6;
+}
+
+.productsContainer > a:last-child {
+  grid-column: 7/15;
+}
+.dividerContainer {
+  margin-bottom: 10rem;
+  position: relative;
+}
+
+.sticker {
+  position: absolute;
+  top: -5.5rem;
+  left: 4rem;
+}
