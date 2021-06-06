@@ -13,14 +13,16 @@ import {
 } from "pages/api/products";
 import { getReviewsServerSide } from "pages/api/reviews";
 
-export const ProductPage = ({ relatedProducts, reviews }) => {
+export const ProductPage = ({ relatedProducts, reviews, product }) => {
   const router = useRouter();
   const { slug } = router.query;
   const {
     data: productData,
     isLoading,
     isError,
-  } = useQuery(slug, () => getProduct(slug as string));
+  } = useQuery(slug, () => getProduct(slug as string), {
+    initialData: product
+  });
   const colorScheme = useMemo(() => {
     if (!productData || isLoading || isError) return colorMap.default;
     return getColorSchemeByCategory(productData.categories);
@@ -94,25 +96,33 @@ export const ProductPage = ({ relatedProducts, reviews }) => {
 };
 
 export const getServerSideProps = async (context) => {
-  let { data } = await getProductsServerSide({ slug: context.params.slug });
-  let relatedProducts = [];
+  try {
+    let { data } = await getProductsServerSide({ slug: context.params.slug });
+    const product = data[0]
+    const reviews = await getReviewsServerSide({
+      product_id: product.id
+    }).then((res) => res.data);
 
-  relatedProducts.push(
-    await getProductServerSide(data[0].related_ids[0]).then((res) => res.data)
-  );
-  relatedProducts.push(
-    await getProductServerSide(data[0].related_ids[1]).then((res) => res.data)
-  );
+    let relatedProducts;
+    if (product.related_ids.length) {
+      const relatedProductIds = product.related_ids.slice(0, Math.min(2, product.related_ids.length))
 
-  const allReviews = await getReviewsServerSide().then((res) => res.data);
-  const reviews = allReviews.filter(review => review.product_id === data[0].id)
+      relatedProducts = await Promise.all(relatedProductIds.map(async productId => {
+        const { data } = await getProductServerSide(productId)
+        return data
+      }))
 
-  return {
-    props: {
-      relatedProducts,
-      reviews,
-    },
-  };
+    }
+    return {
+      props: {
+        relatedProducts,
+        reviews,
+        product
+      },
+    };
+  } catch (error) {
+    console.log("🚀 ~ file: [slug].tsx ~ line 118 ~ getServerSideProps ~ error", error)
+  }
 };
 
 export default ProductPage;

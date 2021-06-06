@@ -6,12 +6,14 @@ interface Props {
 
 export const ProductTile: React.FC<Props> = ({ product }) => {
   return (
-    <Link href="/product/[slug]" as={`/product/${product.slug}`}>
+    <Link href={`/product/${product.slug}`}>
       <a>
         <div className="px-7">
           <div className="cursor-pointer relative">
             {product.images.length > 0 && (
-              <div className="h-80">
+              <div className="h-80" style={{
+                height: '100%'
+              }}>
                 <img
                   src={product.images[0].src}
                   className="object-cover block w-full h-full"
