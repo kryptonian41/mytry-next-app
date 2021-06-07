@@ -42,7 +42,7 @@ export const getStaticProps: GetStaticProps<Props> = async ({
   } as ProductFilters)
   const product = data[0]
   const reviews = await getReviewsServerSide({
-    product_id: product.id
+    product: product.id
   }).then((res) => res.data);
 
   let relatedProducts;
