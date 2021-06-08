@@ -20,10 +20,10 @@ const defaultProps: Props = {
 export const HomeProductTile = ({ textPosition = 'bottom', imageSrc, subtitle, title }: Props = defaultProps) => {
   const theme = useTheme()
 
-  const textContent = <div className="textContent py-2">
+  const textContent = <div className="textContent py-4">
     {title && <p style={{
       color: theme.orange
-    }} className="lowercase text-xl mb-1">
+    }} className="lowercase text-2xl mb-3">
       {title}
     </p>}
 
