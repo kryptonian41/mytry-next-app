@@ -13,7 +13,7 @@ const numberofItemsInCart = 0
 export const Navbar: React.FC<Props> = ({
   color = 'dark'
 }) => {
-  return <div className={clsx("p-4 px-8 flex items-start space-x-4 justify-between", {
+  return <div className={clsx("p-4 px-8 flex items-start space-x-4 justify-between text-base", {
     'text-white': color === 'light',
     'text-green-900': color === 'dark',
   })}>
