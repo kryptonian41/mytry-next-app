@@ -1,16 +1,17 @@
 import { useTheme } from 'assets/color-map'
+import clsx from 'clsx'
 import { HomeProductTile } from 'components/HomeProductTile'
 import { Navbar } from 'components/Navbar'
 import React from 'react'
 import { Product } from 'types/commons'
-
+import styles from './styles.module.css'
+import GreenOvalSticker from 'assets/svgs/stickers/green-oval-badge.svg'
 interface Props {
   products: Product[]
 }
 
 
-export const Home: React.FC = ({
-}) => {
+export const Home: React.FC = () => {
   const theme = useTheme()
 
   return (
@@ -22,10 +23,10 @@ export const Home: React.FC = ({
         }}></div>
       </div>
       <div className="py-16">
-        <h1 className="text-center text-5xl mb-8" style={{
+        <h1 className="text-center text-6xl mb-8" style={{
           color: theme.orange
         }}>Sustainable, vegan beauty </h1>
-        <p className="text-center text-lg w-2/5 m-auto mb-16" style={{
+        <p className="text-center text-2xl w-2/5 m-auto mb-24" style={{
           color: theme.green
         }}>
           100% Vegan | Responsibly Sourced Ingredients & Materials |
@@ -47,30 +48,49 @@ export const Home: React.FC = ({
           </div>
         </div>
 
-        <div className="py-20 grid grid-cols-2 gap-x-40 border-t border-gray-800 w-5/6 m-auto mt-12">
+        <div className="pt-10 pb-20 grid grid-cols-2 gap-x-40 border-t border-gray-800 w-5/6 m-auto mt-12">
           <p className="text-lg" style={{
             color: theme.green
           }}>
 
-            <span className="block text-6xl mb-32" style={{
+            <span className="block text-6xl mb-24" style={{
               color: theme.pink
             }}>
               Nicely with <br /> nature
           </span>
-            <span className="w-3/4 block">
+            <span className="w-3/4 block text-xl" style={{
+              color: theme.greenLight
+            }}>
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Itaque ad tempora dolorum hic ipsa corrupti consequuntur sequi ipsum, enim, eum ea earum molestias cupiditate culpa voluptas? Voluptatum blanditiis dolores ex modi pariatur tempore illum voluptate veniam ratione temporibus ad praesentium cum accusantium numquam, accusamus at aliquid eligendi! Eveniet accusamus provident tempore sapiente similique quam alias amet neque! Consequuntur, nam quia?
               <br />
               <br />
             Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nam rem voluptas cum consequuntur exercitationem quis rerum blanditiis perferendis, cumque tenetur.
           </span>
           </p>
-          <div className="ypl-12">
+          <div className="ypl-12 relative">
+
+            <div className="absolute left-1/2 transform -translate-x-1/2 -translate-y-1/2" style={{
+              width: 350
+            }}>
+              <GreenOvalSticker className="w-full h-auto block" />
+            </div>
+
+            <div className="absolute left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-2xl rotate-6" style={{
+              color: theme.yellow
+            }}>
+              In Plants
+              <br />
+              We Trust
+            </div>
+
             <img className="w-full h-full object-cover" src="/assets/images/Screenshot 2021-06-04 at 4.57.11 PM@2x.png" alt="" />
           </div>
         </div>
 
-        <div className="w-5/6 mb-12 m-auto relative h-96">
-          <p className="text-5xl absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2" style={{
+        <div className="w-5/6 mb-12 m-auto relative" style={{
+          height: 500
+        }}>
+          <p className="text-6xl absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 filter drop-shadow-xl" style={{
             color: theme.yellow
           }}>
             packaged with love
@@ -97,7 +117,15 @@ export const Home: React.FC = ({
             color: theme.pink
           }}>
             FOLLOW ALONG OUR JOURNEY
-        </p>
+          </p>
+
+          <div className="flex space-x-8">
+            <div className={clsx('flex-1', styles.image)}></div>
+            <div className={clsx('flex-1', styles.image)}></div>
+            <div className={clsx('flex-1', styles.image)}></div>
+            <div className={clsx('flex-1', styles.image)}></div>
+            <div className={clsx('flex-1', styles.image)}></div>
+          </div>
         </div>
 
       </div>

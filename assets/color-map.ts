@@ -13,6 +13,7 @@ interface ColorConfig {
 const theme = {
   orange: '#F26722',
   green: '#034a38',
+  greenLight: '#3C6A28',
   blue: '#002ab2',
   pink: '#ED2385',
   yellow: '#fffa4d',
