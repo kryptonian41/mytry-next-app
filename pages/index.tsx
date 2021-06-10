@@ -7,8 +7,6 @@ import React, { useEffect, useMemo } from "react";
 import { useQuery } from "react-query";
 import { Product } from "types/commons";
 import { getProductsServerSide } from "./api/products";
-import { connect } from "react-redux";
-import { fetchCart } from "actions/cartActions";
 
 const renderProductTiles = (products: Product[]) => {
   return products.map((product) => {
@@ -31,7 +29,7 @@ export const getServerSideProps: GetServerSideProps<Props> = async () => {
 
 export const Home: React.FC<
   InferGetServerSidePropsType<typeof getServerSideProps>
-> = ({ products: productsFromServer, cart, fetchCart }) => {
+> = ({ products: productsFromServer}) => {
   const { data, isLoading, isError } = useQuery("products", getProducts, {
     initialData: productsFromServer,
     staleTime: 1000 * 60,
@@ -40,14 +38,6 @@ export const Home: React.FC<
   useEffect(() => {
     reactQueryClient.setQueryData("products", productsFromServer);
   }, [productsFromServer]);
-
-  useEffect(() => {
-    fetchCart();
-  }, []);
-
-  useEffect(() => {
-    console.log(cart);
-  });
 
   const pageBody = useMemo(() => {
     if (isLoading) return <div>Loading...</div>;
@@ -70,8 +60,4 @@ export const Home: React.FC<
   );
 };
 
-const mapStateToProps = (state) => ({
-  cart: state.cart.items,
-});
-
-export default connect(mapStateToProps, { fetchCart })(Home);
+export default Home;
