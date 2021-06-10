@@ -1,12 +1,18 @@
-import { QueryClientProvider, QueryClient } from 'react-query'
-import '../styles/globals.css'
+import { QueryClientProvider, QueryClient } from "react-query";
+import { Provider } from "react-redux";
+import store from "../store";
+import "../styles/globals.css";
 
-export const reactQueryClient = new QueryClient()
+export const reactQueryClient = new QueryClient();
 
 function MyApp({ Component, pageProps }) {
-  return <QueryClientProvider client={reactQueryClient}>
-    <Component {...pageProps} />
-  </QueryClientProvider>
+  return (
+    <Provider store={store}>
+      <QueryClientProvider client={reactQueryClient}>
+        <Component {...pageProps} />
+      </QueryClientProvider>
+    </Provider>
+  );
 }
 
-export default MyApp
+export default MyApp;
