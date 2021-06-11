@@ -1,6 +1,6 @@
 import React from "react";
 import relatedStyles from "./relatedProducts.module.css";
-import { ProductTile } from "../../ProductTile";
+import ProductTile from "../../ProductTile";
 import YouGlow from "assets/svgs/stickers/you-glow.svg";
 
 const RelatedProducts = ({ relatedProducts }) => {

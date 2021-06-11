@@ -1,6 +1,6 @@
 import { getProducts } from "api-utils";
-import { Navbar } from "components/Navbar";
-import { ProductTile } from "components/ProductTile";
+import Navbar from "components/Navbar";
+import ProductTile from "components/ProductTile";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import { reactQueryClient } from "pages/_app";
 import React, { useEffect, useMemo } from "react";
@@ -29,7 +29,7 @@ export const getServerSideProps: GetServerSideProps<Props> = async () => {
 
 export const Home: React.FC<
   InferGetServerSidePropsType<typeof getServerSideProps>
-> = ({ products: productsFromServer}) => {
+> = ({ products: productsFromServer }) => {
   const { data, isLoading, isError } = useQuery("products", getProducts, {
     initialData: productsFromServer,
     staleTime: 1000 * 60,

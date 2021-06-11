@@ -1,5 +1,5 @@
 import { useTheme } from 'assets/color-map'
-import { Navbar } from 'components/Navbar'
+import Navbar from 'components/Navbar'
 import styles from './styles.module.scss'
 import clsx from 'clsx'
 
