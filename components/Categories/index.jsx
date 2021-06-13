@@ -1,22 +1,44 @@
+import { useState } from "react";
+import { connect } from "react-redux";
 import categoriesStyle from "./categories.module.css";
 
-const Categories = ({ categories, skinTypeCategories }) => {
+const Categories = ({ categories, skinTypeCategories, setCategory }) => {
+  const [test, setTest] = useState(false);
+
   return (
     <div className={categoriesStyle.container}>
       <h2 className={categoriesStyle.heading}>skin type</h2>
-      {skinTypeCategories.map((skinTypeCategory) => (
-        <p key={skinTypeCategory.id} className={categoriesStyle.category}>
-          {skinTypeCategory.name}
-        </p>
-      ))}
+      <div className={categoriesStyle.categoriesWrapper}>
+        {skinTypeCategories.map((skinTypeCategory) => (
+          <button
+            onClick={() => setCategory(skinTypeCategory.id)}
+            key={skinTypeCategory.id}
+            className={categoriesStyle.category}
+          >
+            {skinTypeCategory.name}
+          </button>
+        ))}
+      </div>
       <h2 className={categoriesStyle.heading}>categories</h2>
-      {categories.map((category) => (
-        <p key={category.id} className={categoriesStyle.category}>
-          {category.name}
-        </p>
-      ))}
+      <div className={categoriesStyle.categoriesWrapper}>
+        {categories.map((category) => (
+          <button
+            onClick={() => setCategory(category.id)}
+            key={category.id}
+            className={categoriesStyle.category}
+          >
+            {category.name}
+          </button>
+        ))}
+      </div>
     </div>
   );
 };
 
-export default Categories;
+const mapDispatchToProps = (dispatch) => ({
+  setCategory: (categoryId) => {
+    dispatch({ type: "SET_CATEGORY", payload: categoryId });
+  },
+});
+
+export default connect(null, mapDispatchToProps)(Categories);

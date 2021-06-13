@@ -1,19 +1,17 @@
 import { getProducts } from "api-utils";
 import Navbar from "components/Navbar";
-import ProductTile from "components/ProductTile";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import { reactQueryClient } from "pages/_app";
 import React, { useEffect, useMemo } from "react";
 import Categories from "components/Categories";
+import Products from "components/Products";
 import { useQuery } from "react-query";
 import { Product } from "types/commons";
 import { getCategoriesServerSide } from "./api/categories";
 import { getProductsServerSide } from "./api/products";
 
 const renderProductTiles = (products: Product[]) => {
-  return products.map((product) => {
-    return <ProductTile key={product.id} product={product} />;
-  });
+  return <Products products={products} />;
 };
 
 interface Props {

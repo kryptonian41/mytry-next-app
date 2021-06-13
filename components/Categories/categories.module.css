@@ -8,9 +8,19 @@
   color: #034a38;
 }
 
+.categoriesWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
 .category {
-    color: #F26722;
-    font-size: 1.5rem;
-    text-transform: lowercase;
-    margin-left: 3rem;
+  color: #f26722;
+  font-size: 1.5rem;
+  text-transform: lowercase;
+  margin-left: 3rem;
+}
+
+.category:focus {
+  outline: none;
 }
