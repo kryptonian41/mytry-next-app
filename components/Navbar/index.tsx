@@ -28,8 +28,10 @@ const Navbar: React.FC<Props> = ({ color = "dark", itemsCount }) => {
           </a>
         </Link>
         <span>Account</span>
+        <Link href="/products">Products</Link>
         <Link href="/about">About Us</Link>
         <Link href="/contact">Contact Us</Link>
+        <Link href="/register">Register</Link>
       </div>
 
       <div>
