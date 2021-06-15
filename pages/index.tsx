@@ -1,7 +1,7 @@
 import { useTheme } from 'assets/color-map'
 import clsx from 'clsx'
 import { HomeProductTile } from 'components/HomeProductTile'
-import { Navbar } from 'components/Navbar'
+import Navbar from 'components/Navbar'
 import React from 'react'
 import { Product } from 'types/commons'
 import styles from './styles.module.css'
@@ -31,7 +31,7 @@ export const Home: React.FC = () => {
         }}>
           100% Vegan | Responsibly Sourced Ingredients & Materials |
           Handcrafted + Highly Effective
-      </p>
+        </p>
 
         <div className="grid grid-cols-2 w-3/6 m-auto gap-24">
           <div>
@@ -57,15 +57,15 @@ export const Home: React.FC = () => {
               color: theme.pink
             }}>
               Nicely with <br /> nature
-          </span>
+            </span>
             <span className="w-3/4 block text-xl" style={{
               color: theme.greenLight
             }}>
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Itaque ad tempora dolorum hic ipsa corrupti consequuntur sequi ipsum, enim, eum ea earum molestias cupiditate culpa voluptas? Voluptatum blanditiis dolores ex modi pariatur tempore illum voluptate veniam ratione temporibus ad praesentium cum accusantium numquam, accusamus at aliquid eligendi! Eveniet accusamus provident tempore sapiente similique quam alias amet neque! Consequuntur, nam quia?
               <br />
               <br />
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nam rem voluptas cum consequuntur exercitationem quis rerum blanditiis perferendis, cumque tenetur.
-          </span>
+              Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nam rem voluptas cum consequuntur exercitationem quis rerum blanditiis perferendis, cumque tenetur.
+            </span>
           </p>
           <div className="ypl-12 relative">
 
@@ -94,7 +94,7 @@ export const Home: React.FC = () => {
             color: theme.yellow
           }}>
             packaged with love
-        </p>
+          </p>
           <img src="/assets/images/Intersection 4@2x.png" alt="" className="w-full h-full object-cover" />
         </div>
 
@@ -103,7 +103,7 @@ export const Home: React.FC = () => {
         }}>
           100% Vegan | Responsibly Sourced Ingredients & Materials |
           Handcrafted + Highly Effective
-      </p>
+        </p>
 
         <div className="border-t border-gray-700 w-5/6 mt-12 m-auto">
 
@@ -133,4 +133,4 @@ export const Home: React.FC = () => {
   )
 }
 
-export default Home
+export default Home;

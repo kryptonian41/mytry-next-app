@@ -1,21 +1,26 @@
-import { Product } from "types/commons"
-import Link from 'next/link'
-import { RUPEES_SYMBOL } from "components"
+import { Product } from "types/commons";
+import Link from "next/link";
+import { RUPEES_SYMBOL } from "components";
+import { connect } from "react-redux";
 
 interface Props {
   product: Product;
+  addItem: Function;
 }
 
-export const ProductTile: React.FC<Props> = ({ product }) => {
+const ProductTile: React.FC<Props> = ({ product, addItem }) => {
   return (
-    <Link href={`/product/${product.slug}`}>
+    <Link href={`/products/${product.slug}`}>
       <a>
         <div className="px-7">
           <div className="cursor-pointer relative">
             {product.images.length > 0 && (
-              <div className="h-80" style={{
-                height: '100%'
-              }}>
+              <div
+                className="h-80"
+                style={{
+                  height: "100%",
+                }}
+              >
                 <img
                   src={product.images[0].src}
                   className="object-cover block w-full h-full"
@@ -29,7 +34,12 @@ export const ProductTile: React.FC<Props> = ({ product }) => {
                 {RUPEES_SYMBOL} {product.regular_price}
               </span>
             </p>
-            <button className="absolute translate-x-1/2 right-0 bottom-28 transform py-1 px-4 bg-pink-800 text-white rounded-full">
+            <button
+              onClick={() => {
+                addItem(product);
+              }}
+              className="absolute translate-x-1/2 right-0 bottom-28 transform py-1 px-4 bg-pink-800 text-white rounded-full"
+            >
               Shop
             </button>
           </div>
@@ -39,3 +49,20 @@ export const ProductTile: React.FC<Props> = ({ product }) => {
   );
 };
 
+const mapDispatchToProps = (dispatch) => ({
+  addItem: (product) => {
+    const item = {
+      id: product.id,
+      name: product.name,
+      price: parseFloat(product.price),
+      qty: 1,
+      totalPrice: parseFloat(product.price),
+    };
+    dispatch({
+      type: "ADD_ITEM",
+      payload: item,
+    });
+  },
+});
+
+export default connect(null, mapDispatchToProps)(ProductTile);

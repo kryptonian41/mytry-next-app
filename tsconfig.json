@@ -26,6 +26,6 @@
   ],
   "exclude": [
     "node_modules",
-    "./redux/**/*.ts"
+    "redux-utils/**/*.ts"
   ]
 }

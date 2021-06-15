@@ -1,5 +1,5 @@
 import { useTheme } from "assets/color-map"
-import { Navbar } from "components/Navbar"
+import Navbar from "components/Navbar"
 import MyTrySvg from 'assets/svgs/icons/mytry.svg'
 
 export const About = () => {
