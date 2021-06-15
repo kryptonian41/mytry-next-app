@@ -9,7 +9,7 @@ export const About = () => {
     <p style={{
       color: theme.orange
     }}
-      className="w-3/6 py-28 m-auto text-center text-6xl">
+      className="w-3/6 py-28 m-auto text-center text-5xl">
       mytry is a celebration of finding
       joy in beauty, making conscious
       choices and creating a community
@@ -17,7 +17,7 @@ export const About = () => {
     </p>
 
     <div className="mt-10 relative">
-      <MyTrySvg className="w-full" />
+      <MyTrySvg className="w-full h-auto block" />
       <p className="absolute bottom-0 text-3xl right-1/4" style={{
         color: theme.green
       }}>
