@@ -39,7 +39,7 @@ export const getStaticProps: GetStaticProps<Props> = async ({ params }) => {
     product: product.id,
   }).then((res) => res.data);
 
-  let relatedProducts;
+  let relatedProducts = null;
   if (product.related_ids.length) {
     const relatedProductIds = product.related_ids.slice(
       0,
@@ -133,7 +133,7 @@ export const ProductPage: React.FC<
         )}
       </div>
 
-      {productData && relatedProducts.length && (
+      {productData && relatedProducts && (
         <RelatedProducts relatedProducts={relatedProducts} />
       )}
       {productData && (

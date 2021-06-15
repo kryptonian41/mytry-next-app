@@ -10,7 +10,7 @@ interface Props {
 
 const ProductTile: React.FC<Props> = ({ product, addItem }) => {
   return (
-    <Link href={`/product/${product.slug}`}>
+    <Link href={`/products/${product.slug}`}>
       <a>
         <div className="px-7">
           <div className="cursor-pointer relative">
