@@ -34,7 +34,7 @@ const Navbar: React.FC<Props> = ({ color = "dark", itemsCount }) => {
 
       <div>
         <Link href="/">
-          <MyTryLogo className={clsx(styles["mytry-logo"], "cursor-pointer")} />
+          <MyTryLogo />
         </Link>
       </div>
     </div>

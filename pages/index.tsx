@@ -72,7 +72,7 @@ export const Home: React.FC = () => {
             <div className="absolute left-1/2 transform -translate-x-1/2 -translate-y-1/2" style={{
               width: 350
             }}>
-              <GreenOvalSticker className="w-full h-auto block" />
+              <GreenOvalSticker />
             </div>
 
             <div className="absolute left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-2xl rotate-6" style={{

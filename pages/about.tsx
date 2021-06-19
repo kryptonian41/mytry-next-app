@@ -17,7 +17,7 @@ export const About = () => {
     </p>
 
     <div className="mt-10 relative">
-      <MyTrySvg className="w-full h-auto block" />
+      <MyTrySvg />
       <p className="absolute bottom-0 text-3xl right-1/4" style={{
         color: theme.green
       }}>
