@@ -4,7 +4,7 @@ import ExpandIcon from "assets/svgs/icons/expand.svg";
 import SingleReview from "./SingleReview";
 import CreateReview from "./CreateReview";
 
-const Review = ({ ratingCount, reviews }) => {
+const Review = ({ ratingCount, reviews, colorScheme }) => {
   const [isFormOpen, setFormOpen] = useState(false);
 
   return (
@@ -28,7 +28,9 @@ const Review = ({ ratingCount, reviews }) => {
           <>
             <hr />
             <div className={reviewStyles.reviewsContainer}>
-              <h2>What people are saying</h2>
+              <h2 style={{ color: colorScheme.bgColor }}>
+                What people are saying
+              </h2>
               <div className={reviewStyles.reviews}>
                 {reviews.map((productReview) => (
                   <SingleReview

@@ -3,14 +3,14 @@ import relatedStyles from "./relatedProducts.module.css";
 import ProductTile from "../../ProductTile";
 import YouGlow from "assets/svgs/stickers/you-glow.svg";
 
-const RelatedProducts = ({ relatedProducts }) => {
+const RelatedProducts = ({ relatedProducts, colorScheme }) => {
   return (
     <>
       <div className={relatedStyles.container}>
-        <h2>you may also like</h2>
+        <h2 style={{color: colorScheme.bgColor}}>you may also like</h2>
         <div className={relatedStyles.productsContainer}>
           {relatedProducts.map((relatedProduct) => (
-            <ProductTile key={relatedProduct.id} product={relatedProduct} />
+              <ProductTile key={relatedProduct.id} product={relatedProduct} />
           ))}
         </div>
       </div>

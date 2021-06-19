@@ -109,7 +109,10 @@ export const ProductPage: React.FC<
                     productData.description.length - 8
                   )}
                 </p>
-                <hr className={styles.ingredientsDivider} />
+                <hr
+                  style={{ borderColor: colorScheme.bgColor }}
+                  className={styles.ingredientsDivider}
+                />
                 <h3
                   className={`${styles.productInfo} ${styles.ingredientsHeader}`}
                 >
@@ -118,26 +121,39 @@ export const ProductPage: React.FC<
                 <p className={styles.productsIngredients}>
                   {productData.attributes[1]?.options[0]}
                 </p>
-                <hr className={styles.ingredientsDivider} />
+                <hr
+                  style={{ borderColor: colorScheme.bgColor }}
+                  className={styles.ingredientsDivider}
+                />
               </div>
             </div>
 
-            <div>
+            <div className={styles.imageContainer}>
               <img
                 src={productData.images[0].src}
                 alt="product-image"
                 className={styles["hero-product-info-image"]}
               />
+              <button type="button" className={styles.shopNowBtn}>
+                Shop Now
+              </button>
             </div>
           </div>
         )}
       </div>
 
       {productData && relatedProducts && (
-        <RelatedProducts relatedProducts={relatedProducts} />
+        <RelatedProducts
+          relatedProducts={relatedProducts}
+          colorScheme={colorScheme}
+        />
       )}
       {productData && (
-        <Review ratingCount={productData.rating_count} reviews={reviews} />
+        <Review
+          ratingCount={productData.rating_count}
+          reviews={reviews}
+          colorScheme={colorScheme}
+        />
       )}
     </div>
   );

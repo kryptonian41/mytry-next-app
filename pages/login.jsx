@@ -2,8 +2,15 @@ import { useState } from "react";
 import Navbar from "components/Navbar";
 import { useDispatch } from "react-redux";
 import { logIn } from "../actions/userActions";
+import { useSelector } from "react-redux";
+import { useRouter } from "next/router";
 
 const login = () => {
+  const user = useSelector((state) => state.user.user);
+  const router = useRouter();
+
+  if (user) router.push("/account");
+
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -42,7 +49,11 @@ const login = () => {
         />
         <br />
         <br />
-        <input style={{border: '1px solid black', padding: '5px'}} type="submit" value="Login" />
+        <input
+          style={{ border: "1px solid black", padding: "5px" }}
+          type="submit"
+          value="Login"
+        />
       </form>
     </div>
   );

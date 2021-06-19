@@ -33,20 +33,18 @@
 }
 
 .productName {
-  color: #f8ec00;
-  font-size: 5rem;
+  font-size: 3rem;
   text-transform: lowercase;
   line-height: 1;
   margin-bottom: 1rem;
 }
 
 .productInfo {
-  color: #f8ec00;
-  font-size: 1.125rem;
+  font-size: 0.9rem;
 }
 
 .productDesc {
-  margin: 4rem 0; 
+  margin: 2.5rem 0; 
 }
 
 .ingredientsHeader {
@@ -54,11 +52,24 @@
 }
 
 .productsIngredients {
-  font-size: 1.125rem;
-  color: #FFF9F7;
+  font-size: 0.8rem;
+  margin: 1rem 0;
 }
 
 .ingredientsDivider {
-  border-color: #002AB2;
   margin: 1rem 0;
+}
+
+.imageContainer {
+  position: relative;
+}
+
+.shopNowBtn {
+  position: absolute;
+  bottom: 0;
+  background-color: #F8EC00;
+  text-transform: uppercase;
+  width: 100%;
+  font-size: 1.2rem;
+  height: 2.5rem;
 }
