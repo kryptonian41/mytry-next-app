@@ -1,0 +1,45 @@
+$green: #034a38;
+$greenContrast: #f7faee;
+$yellow: #f8ec00;
+
+.container {
+  background-color: $green;
+  min-height: 100vh;
+
+  .cartContainer {
+    padding: 5rem 0rem;
+    display: grid;
+    grid-template-columns: repeat(20, 1fr);
+    gap: 15px;
+
+    .summaryContainer {
+      grid-column: 13/20;
+      position: sticky;
+      top: 9rem;
+      height: calc(100vh - 14rem);
+      margin-left: 2rem;
+
+      .amountSummary {
+        background-color: $greenContrast;
+        height: calc(100vh - 19rem);
+        border-top-right-radius: 8rem;
+        color: $green;
+        padding: 3rem 2rem 2rem 2rem;
+
+        h2 {
+          text-transform: uppercase;
+          font-size: 2rem;
+        }
+      }
+
+      .checkoutBtn {
+        background-color: $yellow;
+        color: $green;
+        text-transform: uppercase;
+        margin-top: 2rem;
+        height: 3rem;
+        width: 100%;
+      }
+    }
+  }
+}
