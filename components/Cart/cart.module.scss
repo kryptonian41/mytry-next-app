@@ -73,5 +73,15 @@ $yellow: #f8ec00;
         width: 100%;
       }
     }
+
+    .itemsContainer {
+      grid-column: 2/13;
+      margin-right: 2rem;
+      color: white;
+
+      h1 {
+        font-size: 3rem;
+      }
+    }
   }
 }
