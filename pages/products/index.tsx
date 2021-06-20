@@ -65,7 +65,7 @@ export const Home: React.FC<
 
     if (data)
       return (
-        <div style={{ display: "flex" }}>
+        <div style={{ display: "flex", borderTop: "1px solid black" }}>
           <Categories
             categories={categories}
             skinTypeCategories={skinTypeCategories}

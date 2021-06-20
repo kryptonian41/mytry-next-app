@@ -15,10 +15,15 @@ const numberofItemsInCart = 0;
 const Navbar: React.FC<Props> = ({ color = "dark", itemsCount }) => {
   return (
     <div
-      className={clsx("p-4 px-8 flex items-start space-x-4 justify-between", {
-        "text-white": color === "light",
-        "text-green-900": color === "dark",
-      })}
+      style={{ height: "4rem" }}
+      className={clsx(
+        styles["navbar"],
+        "p-4 px-8 flex items-start space-x-4 justify-between",
+        {
+          "text-white": color === "light",
+          "text-green-900": color === "dark",
+        }
+      )}
     >
       <div className="space-x-6 flex items-center">
         <HamburgerIcon />
@@ -27,14 +32,19 @@ const Navbar: React.FC<Props> = ({ color = "dark", itemsCount }) => {
             <span>Cart ({itemsCount})</span>
           </a>
         </Link>
-        <span>Account</span>
+        <Link href="/account">Account</Link>
+        <Link href="/products">Products</Link>
         <Link href="/about">About Us</Link>
         <Link href="/contact">Contact Us</Link>
+        <Link href="/login">Log In</Link>
+        <Link href="/register">Register</Link>
       </div>
 
       <div>
         <Link href="/">
-          <MyTryLogo />
+          <a className={styles.mytryLogo}>
+            <MyTryLogo />
+          </a>
         </Link>
       </div>
     </div>

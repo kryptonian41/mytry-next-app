@@ -2,11 +2,25 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --purpleLight: #d8a2df;
+  --orange: #f26722;
+  --orangeLight: #fae6d7;
+  --yellowDark: #f8ec00;
+  --pink: #ed2385;
+  --blue: #002ab2;
+  --blueLight: #eddeef;
+  --yellow: #fffa4d;
+  --green: #034a38;
+  --greenLight: #f7faee;
+}
+
 @font-face {
   font-family: "Briet";
   font-style: normal;
   font-weight: normal;
-  src: local("Myriad Pro Regular"), url("/assets/fonts/briet/test-soehne-breit-kraftig.woff") format("woff");
+  src: local("Myriad Pro Regular"),
+    url("/assets/fonts/briet/test-soehne-breit-kraftig.woff") format("woff");
   font-display: swap;
 }
 
@@ -14,7 +28,8 @@
   font-family: "Myriad Pro";
   font-style: normal;
   font-weight: normal;
-  src: local("Myriad Pro Regular"), url("/assets/fonts/myriad-pro/MYRIADPRO-REGULAR.woff") format("woff");
+  src: local("Myriad Pro Regular"),
+    url("/assets/fonts/myriad-pro/MYRIADPRO-REGULAR.woff") format("woff");
   font-display: swap;
 }
 
@@ -36,4 +51,10 @@ body {
 
 #__next {
   height: 100%;
+}
+
+.wfull_hfull_block_svg-container svg {
+  width: 100%;
+  height: auto;
+  display: block;
 }
