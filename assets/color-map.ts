@@ -40,12 +40,12 @@ export const newColorMaps = [
     panelColor: "#FAE6D7",
   },
   {
-    bgColor: "#F26722",
-    panelColor: "#FAE6D7",
+    bgColor: "#034A38",
+    panelColor: "#F7FAEE",
   },
   {
-    bgColor: "#F26722",
-    panelColor: "#FAE6D7",
+    bgColor: "#002AB2",
+    panelColor: "#EDDEEF",
   },
 ];
 
@@ -54,7 +54,9 @@ export const getColorSchemeByCategory = (categories: Category[]) => {
   //   if (colorMap[category.name]) return colorMap[category.name];
   // }
   // return colorMap.default;
-  return newColorMaps[0];
+  const max = newColorMaps.length;
+  const index = Math.floor(Math.random() * max)
+  return newColorMaps[index];
 };
 
 export const useTheme = () => {
