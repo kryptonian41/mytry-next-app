@@ -69,10 +69,10 @@ export const Home: React.FC = () => {
           </p>
           <div className="ypl-12 relative">
 
-            <div className="absolute left-1/2 transform -translate-x-1/2 -translate-y-1/2" style={{
+            <div className="absolute left-1/2 transform -translate-x-1/2 -translate-y-1/2 wfull_hfull_block_svg-container" style={{
               width: 350
             }}>
-              <GreenOvalSticker className="w-full h-auto block" />
+              <GreenOvalSticker />
             </div>
 
             <div className="absolute left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-2xl rotate-6" style={{

@@ -16,10 +16,14 @@ const Navbar: React.FC<Props> = ({ color = "dark", itemsCount }) => {
   return (
     <div
       style={{ height: "4rem" }}
-      className={clsx(styles["navbar"], "p-4 px-8 flex items-start space-x-4 justify-between", {
-        "text-white": color === "light",
-        "text-green-900": color === "dark",
-      })}
+      className={clsx(
+        styles["navbar"],
+        "p-4 px-8 flex items-start space-x-4 justify-between",
+        {
+          "text-white": color === "light",
+          "text-green-900": color === "dark",
+        }
+      )}
     >
       <div className="space-x-6 flex items-center">
         <HamburgerIcon />
@@ -38,7 +42,9 @@ const Navbar: React.FC<Props> = ({ color = "dark", itemsCount }) => {
 
       <div>
         <Link href="/">
-          <MyTryLogo className={clsx(styles["mytry-logo"], "cursor-pointer")} />
+          <a className={styles.mytryLogo}>
+            <MyTryLogo />
+          </a>
         </Link>
       </div>
     </div>

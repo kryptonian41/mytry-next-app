@@ -52,3 +52,9 @@ body {
 #__next {
   height: 100%;
 }
+
+.wfull_hfull_block_svg-container svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}

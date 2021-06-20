@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import Navbar from "components/Navbar";
 import { useSelector } from "react-redux";
 import { useRouter } from "next/router";
@@ -6,12 +7,13 @@ const account = () => {
   const user = useSelector((state) => state.user.user);
   const router = useRouter();
 
-  if (!user) router.push("/login");
+  useEffect(() => {
+    if (!user) router.push("/login");
+  }, [user]);
 
   return (
     <div>
-      <Navbar />
-      <h1>Hello, {user?.name}</h1>
+      <Navbar /> {user && <p>Hello, {user.name}</p>}
     </div>
   );
 };
