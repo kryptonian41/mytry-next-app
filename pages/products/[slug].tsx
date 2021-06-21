@@ -80,6 +80,9 @@ export const ProductPage: React.FC<
     return getColorSchemeByCategory(productData.categories);
   }, [productData, isLoading, isError]);
 
+  const productQuantity = productData.attributes.filter((attribute) => attribute.name.toLowerCase() === "quantity") 
+  const productIngredients = productData.attributes.filter((attribute) => attribute.name.toLowerCase() === "ingredients")
+
   return (
     <div style={{ height: "100%" }}>
       <div
@@ -100,7 +103,7 @@ export const ProductPage: React.FC<
               <div className={styles.productInfoContainer}>
                 <h1 className={styles.productName}>{productData.name}</h1>
                 <p className={styles.productInfo}>
-                  {productData.attributes[0]?.options[0]}
+                  {productQuantity.length && productQuantity[0].options[0]}
                 </p>
                 <p className={styles.productInfo}>INR {productData.price}</p>
                 <p className={`${styles.productInfo} ${styles.productDesc}`}>
@@ -119,7 +122,7 @@ export const ProductPage: React.FC<
                   Ingredients
                 </h3>
                 <p className={styles.productsIngredients}>
-                  {productData.attributes[1]?.options[0]}
+                  {productIngredients.length && productIngredients[0].options[0]}
                 </p>
                 <hr
                   style={{ borderColor: colorScheme.bgColor }}

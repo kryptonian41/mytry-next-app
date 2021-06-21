@@ -51,13 +51,19 @@ const ProductTile: React.FC<Props> = ({ product, addItem }) => {
 
 const mapDispatchToProps = (dispatch) => ({
   addItem: (product) => {
+    const productQuantity = product.attributes.filter(
+      (attribute) => attribute.name.toLowerCase() === "quantity"
+    );
     const item = {
       id: product.id,
       name: product.name,
+      image: product.images[0].src,
       price: parseFloat(product.price),
+      descQty: productQuantity.length ? productQuantity[0].options[0] : null,
       qty: 1,
       totalPrice: parseFloat(product.price),
     };
+    console.log(item);
     dispatch({
       type: "ADD_ITEM",
       payload: item,

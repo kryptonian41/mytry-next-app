@@ -78,9 +78,70 @@ $yellow: #f8ec00;
       grid-column: 2/13;
       margin-right: 2rem;
       color: white;
+      width: 100%;
 
       h1 {
         font-size: 3rem;
+      }
+
+      .itemContainer {
+        padding: 1rem 0;
+        display: flex;
+
+        img {
+          height: 180px;
+          margin-right: 2rem;
+        }
+
+        .productInfo {
+          width: 100%;
+          position: relative;
+
+          .heading {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+
+            h3 {
+              text-transform: uppercase;
+            }
+
+            button:focus {
+              outline: none;
+            }
+          }
+
+          .quantityContainer {
+            display: flex;
+            align-items: center;
+
+            .quantitySelector {
+              margin-left: 1rem;
+              border: 1px solid currentColor;
+              border-radius: 1rem;
+              width: max-content;
+
+              button {
+                margin: 0 1rem;
+
+                &:focus {
+                  outline: none
+                }
+              }
+            }
+          }
+
+          .price {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+          }
+        }
+      }
+
+      .itemDivider {
+        border-top: 0.2rem solid white;
+        margin: 0.5rem 0;
       }
     }
   }
