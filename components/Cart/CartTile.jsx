@@ -1,50 +1,49 @@
 import { useState } from "react";
 import { connect } from "react-redux";
+import cartStyles from "./cart.module.scss";
 
 const CartTile = ({ product, removeItem, updateItemQty }) => {
-  const { id, name, price, qty } = product;
+  const { id, name, descQty, image, price, qty } = product;
   const [currentQty, setCurrentQty] = useState(qty);
   return (
-    <div
-      style={{
-        width: "30%",
-        border: "1px solid black",
-        margin: "10px",
-        padding: "5px",
-      }}
-    >
-      <h3>Name: {name}</h3>
-      <p>Product Id: {id}</p>
-      <p>Price: {price}</p>
-      <p>
-        <button
-          onClick={() => {
-            if (currentQty > 1) {
-              updateItemQty(product, false);
-              setCurrentQty(currentQty - 1);
-            }
-          }}
-        >
-          -
-        </button>{" "}
-        {currentQty}{" "}
-        <button
-          onClick={() => {
-            updateItemQty(product, true);
-            setCurrentQty(currentQty + 1);
-          }}
-        >
-          +
-        </button>
-      </p>
-      <p>Toal Price: {currentQty * price}</p>
-      <button
-        onClick={() => removeItem(product)}
-        style={{ border: "1px solid black", padding: "5px" }}
-      >
-        Remove from cart
-      </button>
-    </div>
+    <>
+      <div className={cartStyles.itemContainer}>
+        <img src={image} alt={name} />
+        <div className={cartStyles.productInfo}>
+          <div className={cartStyles.heading}>
+            <h3>{name}</h3>
+            <button onClick={() => removeItem(product)}>X</button>
+          </div>
+          <p>{descQty}</p>
+          <div className={cartStyles.quantityContainer}>
+            <p>Quantity: </p>
+            <div className={cartStyles.quantitySelector}>
+              <button
+                onClick={() => {
+                  if (currentQty > 1) {
+                    updateItemQty(product, false);
+                    setCurrentQty(currentQty - 1);
+                  }
+                }}
+              >
+                -
+              </button>{" "}
+              {currentQty}{" "}
+              <button
+                onClick={() => {
+                  updateItemQty(product, true);
+                  setCurrentQty(currentQty + 1);
+                }}
+              >
+                +
+              </button>
+            </div>
+          </div>
+          <p className={cartStyles.price}>INR {price}</p>
+        </div>
+      </div>
+      <hr className={cartStyles.itemDivider} />
+    </>
   );
 };
 

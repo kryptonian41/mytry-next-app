@@ -1,6 +1,6 @@
 import cartStyles from "./cart.module.scss";
 
-const Summary = () => {
+const Summary = ({ cartTotal }) => {
   return (
     <div className={cartStyles.summaryContainer}>
       <div className={cartStyles.amountSummary}>
@@ -24,7 +24,7 @@ const Summary = () => {
             <hr />
             <div className={cartStyles.amountRow}>
               <h3>Total</h3>
-              <h3>INR 0</h3>
+              <h3>INR {cartTotal}</h3>
             </div>
           </div>
         </div>
