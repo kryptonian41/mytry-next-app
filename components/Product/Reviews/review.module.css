@@ -9,6 +9,18 @@
   padding-bottom: 10rem;
 }
 
+.createReviewContainer {
+  padding-top: 10rem;
+  grid-column: 1/21;
+  display: grid;
+  grid-template-columns: repeat(20, 1fr);
+  padding-bottom: 5rem;
+}
+
+.createReviewContent {
+  grid-column: 3/19;
+}
+
 .heading {
   display: flex;
   align-items: center;
@@ -93,22 +105,26 @@
 }
 
 .formContainer p {
-  color: #034a38;
-  font-size: 1.5rem;
+  font-size: 1rem;
   align-self: center;
   margin-right: 1rem;
 }
 
 .formContainer input {
-  border: 1px solid #002ab2;
+  border: none;
+  border-bottom: 1px solid currentColor;
   width: 100%;
-  border-radius: 50px;
-  padding: 0 20px;
-  font-size: 1.5rem;
+  padding: 5px 20px;
+  font-size: 1rem;
+  background: transparent;
 }
 
-.formContainer input:focus {
+.formContainer input:focus,
+.reviewTextArea:focus {
   outline: none;
+  border: none !important;
+  box-shadow: none !important;
+  border-bottom: 1px solid currentColor !important;
 }
 
 .ratingInputContainer button:focus {
@@ -121,22 +137,18 @@
 
 .reviewTextArea {
   height: 9rem;
-  border: 1px solid #002ab2;
   width: 100%;
-  border-radius: 20px;
+  border: none;
+  border-bottom: 1px solid currentColor;
   padding: 10px 20px;
   margin-bottom: 1rem;
-}
-
-.reviewTextArea:focus {
-  outline: none;
-  font-size: 1.5rem;
+  font-size: 1rem;
+  background: transparent;
   resize: none;
 }
 
 .submitBtn {
   font-size: 1.125rem;
-  background-color: #ed2385;
   color: #f8ec00;
   justify-self: end;
   border-radius: 50px;
