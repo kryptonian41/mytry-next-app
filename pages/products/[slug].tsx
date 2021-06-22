@@ -84,7 +84,7 @@ export const ProductPage: React.FC<
   const productIngredients = productData.attributes.filter((attribute) => attribute.name.toLowerCase() === "ingredients")
 
   return (
-    <div style={{ height: "100%" }}>
+    <div className={styles.singleProductPage}>
       <div
         className={styles.hero}
         style={{

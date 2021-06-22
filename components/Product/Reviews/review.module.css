@@ -28,7 +28,6 @@
 
 .heading h2 {
   text-transform: uppercase;
-  color: #ed2385;
   font-size: 1.6rem;
   margin-right: 5rem;
 }
@@ -155,4 +154,70 @@
   height: 2.5rem;
   width: 8.125rem;
   float: right;
+}
+
+@media screen and (max-width: 640px) {
+  .outerContainer {
+    display: block;
+  }
+
+  .createReviewContainer {
+    display: block;
+    padding-top: 6rem;
+    padding-bottom: 2rem;
+  }
+
+  .createReviewContent {
+    width: 80%;
+    margin: auto;
+  }
+
+  .formContainer {
+    display: block;
+  }
+
+  .heading {
+    display: block;
+  }
+
+  .heading h2 {
+    margin-right: 0;
+  }
+
+  .submitBtn {
+    margin-top: 1rem;
+    font-size: 1rem;
+  }
+
+  .reviewsContainer {
+    width: 80%;
+    margin: auto;
+    display: block;
+  }
+
+  .reviewsContainer h2 {
+    font-size: 2.2rem;
+  }
+
+  .reviews {
+    width: 85%;
+    margin: 1rem 0 1rem auto;
+  }
+
+  .singleReviewContainer {
+    margin: 2rem 0;
+  }
+
+  .review {
+    font-size: 1.2rem;
+  }
+
+  .reviewer {
+    font-size: 1rem;
+  }
+
+  .starsContainer svg {
+    transform: scale(0.8);
+    margin-right: 2px;
+  }
 }

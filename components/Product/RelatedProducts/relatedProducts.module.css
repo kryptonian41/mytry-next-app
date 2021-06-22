@@ -37,3 +37,39 @@
   top: -5.5rem;
   left: 4rem;
 }
+
+@media screen and (max-width: 640px) {
+  .container {
+    display: block;
+    width: 80%;
+    margin: auto;
+    padding: 2rem 0;
+  }
+
+  .container h2 {
+    font-size: 2.2rem;
+    line-height: 1;
+  }
+
+  .productsContainer {
+    display: block;
+    margin: 3rem 0;
+    width: 100%;
+  }
+
+  .productsContainer > a > div {
+    width: 60%;
+    margin: 2rem 0;
+    padding: 0;
+  }
+
+  .productsContainer > a:nth-of-type(2) > div {
+    margin: 2rem 8px 2rem auto;
+  }
+
+  .sticker {
+    top: -6.8rem;
+    left: 0;
+    transform: scale(0.65);
+  }
+}
