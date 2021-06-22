@@ -9,24 +9,31 @@ const Review = ({ ratingCount, reviews, colorScheme }) => {
 
   return (
     <div className={reviewStyles.outerContainer}>
-      <div className={reviewStyles.container}>
-        <div className={reviewStyles.heading}>
-          <h2>Write a Review</h2>
-          {!isFormOpen && (
-            <button
-              type="button"
-              onClick={() => {
-                setFormOpen(true);
-              }}
-            >
-              <ExpandIcon />
-            </button>
-          )}
+      <div
+        style={{ backgroundColor: colorScheme.panelColor }}
+        className={reviewStyles.createReviewContainer}
+      >
+        <div className={reviewStyles.createReviewContent}>
+          <div className={reviewStyles.heading}>
+            <h2>Write a Review</h2>
+            {!isFormOpen && (
+              <button
+                type="button"
+                onClick={() => {
+                  setFormOpen(true);
+                }}
+              >
+                <ExpandIcon />
+              </button>
+            )}
+          </div>
+          {isFormOpen && <CreateReview colorScheme={colorScheme} />}
         </div>
-        {isFormOpen && <CreateReview />}
+      </div>
+      <div className={reviewStyles.container}>
         {ratingCount > 0 && reviews.length && (
           <>
-            <hr />
+            {/* <hr /> */}
             <div className={reviewStyles.reviewsContainer}>
               <h2 style={{ color: colorScheme.bgColor }}>
                 What people are saying

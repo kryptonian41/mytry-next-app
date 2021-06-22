@@ -3,13 +3,13 @@ import reviewStyles from "./review.module.css";
 import FilledStar from "assets/svgs/icons/rating-star-filled.svg";
 import EmptyStar from "assets/svgs/icons/rating-star.svg";
 
-const CreateReview = () => {
+const CreateReview = ({ colorScheme }) => {
   const [ratingInput, setRatingInput] = useState(0);
   const [tempRatingInput, setTempRatingInput] = useState(0);
 
   return (
     <div className={reviewStyles.formContainer}>
-      <form>
+      <form style={{ color: colorScheme.bgColor }}>
         <label htmlFor="name">
           <p>Name</p>
           <input type="text" id="name" />
@@ -69,7 +69,11 @@ const CreateReview = () => {
           </div>
         </label>
         <textarea className={reviewStyles.reviewTextArea} id="review" />
-        <button className={reviewStyles.submitBtn} type="submit">
+        <button
+          style={{ backgroundColor: colorScheme.bgColor }}
+          className={reviewStyles.submitBtn}
+          type="submit"
+        >
           Submit
         </button>
       </form>

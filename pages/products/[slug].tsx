@@ -95,7 +95,7 @@ export const ProductPage: React.FC<
         {productData && (
           <div className={styles["hero-product-info"]}>
             <div
-              className="p-4"
+              className={`p-4 ${styles.infoOuterContainer}`}
               style={{
                 backgroundColor: colorScheme.panelColor,
               }}
