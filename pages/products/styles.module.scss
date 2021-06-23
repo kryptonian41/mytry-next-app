@@ -112,3 +112,26 @@
 .singleProductPage {
   height: 100%;
 }
+
+.productsContainer {
+  display: grid;
+  width: 70%;
+  margin: auto;
+  grid-template-columns: repeat(2, 1fr);
+  min-height: 100vh;
+
+  .product {
+    padding: 10%;
+  }
+
+  .productOffset {
+    padding: 10%;
+    padding-right: 12%;
+    position: relative;
+    top: 8rem;
+  }
+}
+
+.heroSection {
+  height: calc(100vh - 4rem);
+}

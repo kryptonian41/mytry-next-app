@@ -31,6 +31,12 @@ const Categories = ({ categories, skinTypeCategories, setCategory }) => {
           </button>
         ))}
       </div>
+      <h2 className={categoriesStyle.heading}>sort by</h2>
+      <div className={categoriesStyle.categoriesWrapper}>
+        <button className={categoriesStyle.category}>Price Low-High</button>
+        <button className={categoriesStyle.category}>Price High-Low</button>
+        <button className={categoriesStyle.category}>A to Z</button>
+      </div>
     </div>
   );
 };
