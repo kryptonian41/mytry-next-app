@@ -7,6 +7,10 @@ import CreateReview from "./CreateReview";
 const Review = ({ ratingCount, reviews, colorScheme }) => {
   const [isFormOpen, setFormOpen] = useState(false);
 
+  useEffect(() => {
+    if (window.innerWidth <= 640) setFormOpen(true);
+  }, []);
+
   return (
     <div className={reviewStyles.outerContainer}>
       <div
@@ -15,7 +19,7 @@ const Review = ({ ratingCount, reviews, colorScheme }) => {
       >
         <div className={reviewStyles.createReviewContent}>
           <div className={reviewStyles.heading}>
-            <h2>Write a Review</h2>
+            <h2 style={{ color: colorScheme.bgColor }}>Write a Review</h2>
             {!isFormOpen && (
               <button
                 type="button"

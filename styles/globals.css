@@ -58,3 +58,9 @@ body {
   height: auto;
   display: block;
 }
+
+@media screen and (max-width: 640px) {
+  .product-tile__add-item-btn {
+    display: none;
+  }
+}

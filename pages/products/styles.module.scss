@@ -7,6 +7,13 @@
   display: flex;
   flex-direction: column;
   padding-bottom: 2rem;
+
+  @media screen and (max-width: 640px) {
+    display: block;
+    min-height: 100vh;
+    height: max-content;
+  }
+
   &-product-info {
     display: flex;
     flex-direction: row;
@@ -14,24 +21,41 @@
     flex: 1;
     width: 90%;
     margin: auto;
-    &-content {
+
+    @media screen and (max-width: 640px) {
+      flex-direction: column-reverse;
     }
+
     &-image {
       width: 100%;
       height: 100%;
       object-fit: cover;
       border-top-right-radius: 18rem;
+      aspect-ratio: 7/8;
+
+      @media screen and (max-width: 640px) {
+        border-top-right-radius: 12rem;
+      }
     }
 
     .infoOuterContainer {
       margin-right: 1.5rem;
+
+      @media screen and (max-width: 640px) {
+        margin: 0;
+        margin-top: 1.5rem;
+      }
     }
   }
 }
 
 .productInfoContainer {
-  width: 78%;
+  width: 80%;
   margin: 2rem auto;
+
+  @media screen and (max-width: 640px) {
+    width: 100%;
+  }
 }
 
 .productName {
@@ -39,6 +63,10 @@
   text-transform: lowercase;
   line-height: 1;
   margin-bottom: 1rem;
+
+  @media screen and (max-width: 640px) {
+    font-size: 2.5rem;
+  }
 }
 
 .productInfo {
@@ -79,4 +107,8 @@
   &:focus {
     outline: none;
   }
+}
+
+.singleProductPage {
+  height: 100%;
 }
