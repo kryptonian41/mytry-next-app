@@ -12,12 +12,25 @@ $yellow: #f8ec00;
     grid-template-columns: repeat(20, 1fr);
     gap: 15px;
 
+    @media screen and (max-width: 640px) {
+      display: block;
+      width: 90%;
+      margin: auto;
+    }
+
     .summaryContainer {
       grid-column: 13/20;
       position: sticky;
       top: 9rem;
       height: calc(100vh - 14rem);
       margin-left: 2rem;
+
+      @media screen and (max-width: 640px) {
+        margin-top: 4rem;
+        margin-left: 0;
+        position: static;
+        height: unset;
+      }
 
       .amountSummary {
         background-color: $greenContrast;
@@ -26,9 +39,19 @@ $yellow: #f8ec00;
         color: $green;
         padding: 3rem 2rem 2rem 2rem;
 
+        @media screen and (max-width: 640px) {
+          padding: 3rem 1rem 2rem 1rem;
+          border-top-right-radius: 10rem;
+          height: unset;
+        }
+
         h2 {
           text-transform: uppercase;
           font-size: 2rem;
+
+          @media screen and (max-width: 640px) {
+            margin-bottom: 2rem;
+          }
         }
 
         hr {
@@ -42,6 +65,10 @@ $yellow: #f8ec00;
           flex-direction: column;
           justify-content: space-between;
 
+          @media screen and (max-width: 640px) {
+            height: unset;
+          }
+
           .amountRow {
             display: flex;
             justify-content: space-between;
@@ -50,6 +77,10 @@ $yellow: #f8ec00;
 
             p:first-of-type {
               font-size: 1.2rem;
+
+              @media screen and (max-width: 640px) {
+                font-size: 1rem;
+              }
             }
 
             p:nth-of-type(2) {
@@ -59,6 +90,10 @@ $yellow: #f8ec00;
             h3 {
               text-transform: uppercase;
               font-size: 1.6rem;
+
+              @media screen and (max-width: 640px) {
+                font-size: 1.2rem;
+              }
             }
           }
         }
@@ -71,6 +106,10 @@ $yellow: #f8ec00;
         margin-top: 2rem;
         height: 3rem;
         width: 100%;
+
+        @media screen and (max-width: 640px) {
+          margin-top: 1rem;
+        }
       }
     }
 
@@ -80,8 +119,18 @@ $yellow: #f8ec00;
       color: white;
       width: 100%;
 
+      @media screen and (max-width: 640px) {
+        margin: 0;
+      }
+
       h1 {
         font-size: 3rem;
+
+        @media screen and (max-width: 640px) {
+          font-size: 2rem;
+          text-transform: uppercase;
+          color: #f8ec00;
+        }
       }
 
       .itemContainer {
@@ -91,6 +140,10 @@ $yellow: #f8ec00;
         img {
           height: 180px;
           margin-right: 2rem;
+
+          @media screen and (max-width: 640px) {
+            margin-right: 1rem;
+          }
         }
 
         .productInfo {
@@ -98,16 +151,24 @@ $yellow: #f8ec00;
           position: relative;
 
           .heading {
-            display: flex;
-            justify-content: space-between;
             margin-bottom: 1rem;
+
+            @media screen and (max-width: 640px) {
+              margin: 0;
+            }
 
             h3 {
               text-transform: uppercase;
             }
 
-            button:focus {
-              outline: none;
+            button {
+              position: absolute;
+              top: 0;
+              right: 0;
+
+              &:focus {
+                outline: none;
+              }
             }
           }
 
@@ -115,17 +176,25 @@ $yellow: #f8ec00;
             display: flex;
             align-items: center;
 
+            @media screen and (max-width: 640px) {
+              display: block;
+            }
+
             .quantitySelector {
               margin-left: 1rem;
               border: 1px solid currentColor;
               border-radius: 1rem;
               width: max-content;
 
+              @media screen and (max-width: 640px) {
+                margin: 0.5rem 0;
+              }
+
               button {
                 margin: 0 1rem;
 
                 &:focus {
-                  outline: none
+                  outline: none;
                 }
               }
             }
@@ -135,6 +204,10 @@ $yellow: #f8ec00;
             position: absolute;
             bottom: 0;
             right: 0;
+
+            @media screen and (max-width: 640px) {
+              left: 0;
+            }
           }
         }
       }

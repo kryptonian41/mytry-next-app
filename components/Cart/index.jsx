@@ -9,7 +9,7 @@ const index = () => {
   const { cartTotal, items } = cart;
   return (
     <div className={cartStyles.container}>
-      <Navbar color="light" />
+      {/* <Navbar color="light" /> */}
       <div className={cartStyles.cartContainer}>
         <Items items={items} />
         <Summary cartTotal={cartTotal} />
