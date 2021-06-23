@@ -38,7 +38,7 @@ const ProductTile: React.FC<Props> = ({ product, addItem }) => {
               onClick={() => {
                 addItem(product);
               }}
-              className="absolute translate-x-1/2 right-0 bottom-28 transform py-1 px-4 bg-pink-800 text-white rounded-full"
+              className="absolute translate-x-1/2 right-0 bottom-28 transform py-1 px-4 bg-pink-800 text-white rounded-full product-tile__add-item-btn"
             >
               Shop
             </button>
@@ -63,7 +63,6 @@ const mapDispatchToProps = (dispatch) => ({
       qty: 1,
       totalPrice: parseFloat(product.price),
     };
-    console.log(item);
     dispatch({
       type: "ADD_ITEM",
       payload: item,
