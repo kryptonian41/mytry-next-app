@@ -10,6 +10,7 @@
   font-size: 1.5rem;
   text-transform: uppercase;
   color: #034a38;
+  margin-top: 1rem;
 }
 
 .categoriesWrapper {
@@ -27,4 +28,30 @@
 
 .category:focus {
   outline: none;
+}
+
+@media screen and (max-width: 640px) {
+  .container {
+    height: unset;
+    border: none;
+    display: flex;
+    justify-content: space-between;
+    background-color: #002ab2;
+    padding: 2rem 5%;
+    z-index: 2;
+  }
+
+  .heading {
+    font-size: 0.9rem;
+    color: white;
+    margin-top: 0;
+    text-align: center;
+  }
+
+  .category {
+    font-size: 0.8rem;
+    color: #f8eb01;
+    margin-left: 0;
+    align-self: center;
+  }
 }

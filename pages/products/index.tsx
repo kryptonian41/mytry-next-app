@@ -9,10 +9,11 @@ import { useQuery } from "react-query";
 import { Product } from "types/commons";
 import { getCategoriesServerSide } from "../api/categories";
 import { getProductsServerSide } from "../api/products";
+import styles from "./styles.module.scss";
 
-const renderProductTiles = (products: Product[]) => {
-  return <Products products={products} />;
-};
+const renderProductTiles = (products: Product[]) => (
+  <Products products={products} />
+);
 
 interface Props {
   products: Product[];
@@ -59,6 +60,10 @@ export const Home: React.FC<
     reactQueryClient.setQueryData("products", productsFromServer);
   }, [productsFromServer]);
 
+  const hero = <div className={styles.heroSection}>
+
+  </div>
+
   const pageBody = useMemo(() => {
     if (isLoading) return <div>Loading...</div>;
 
@@ -66,12 +71,12 @@ export const Home: React.FC<
 
     if (data)
       return (
-        <div style={{ display: "flex", borderTop: "1px solid black" }}>
+        <div className={styles.productsSectionContainer}>
           <Categories
             categories={categories}
             skinTypeCategories={skinTypeCategories}
           />
-          <div className="pt-6 grid grid-cols-3 w-2/3 m-auto gap-20">
+          <div className={styles.productsContainer}>
             {renderProductTiles(data)}
           </div>
         </div>
@@ -81,6 +86,7 @@ export const Home: React.FC<
   return (
     <React.Fragment>
       <Navbar />
+      {hero}
       {pageBody}
     </React.Fragment>
   );
