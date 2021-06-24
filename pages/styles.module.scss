@@ -13,3 +13,29 @@
     width: 150px;
   }
 }
+
+.homePageMarquee {
+  width: 100%;
+  padding: 1rem 0;
+  overflow: hidden;
+  white-space: nowrap;
+
+  & > div {
+    animation: marquee 15s linear infinite;
+  }
+
+  & span {
+    display: inline-block;
+    width: 20%;
+    text-align: center;
+  }
+}
+
+@keyframes marquee {
+  0% {
+    transform: translate(0, 0);
+  }
+  100% {
+    transform: translate(-100%, 0);
+  }
+}

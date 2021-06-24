@@ -56,7 +56,7 @@ const Navbar: React.FC<Props> = ({ color = "dark", itemsCount, className }) => {
             <HamburgerIcon />
           </button>
           {mobileView && showNavMenu && (
-            <ul className="absolute space-y-2 pt-4">
+            <ul className="absolute space-y-2 pt-4 z-10">
               <li className="whitespace-nowrap">
                 <Link href="/products">Products</Link>
               </li>
