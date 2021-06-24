@@ -1,0 +1,15 @@
+.insta-image {
+  aspect-ratio: 1/1;
+  @apply bg-gray-200;
+  @media (max-width: 640px) {
+    width: 48%;
+    margin-top: 1rem;
+  }
+}
+
+.plant-sticker {
+  width: 350px;
+  @media (max-width: 640px) {
+    width: 150px;
+  }
+}

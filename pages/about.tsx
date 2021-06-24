@@ -11,7 +11,7 @@ export const About = () => {
         style={{
           color: theme.orange,
         }}
-        className="w-3/6 py-28 m-auto text-center text-5xl"
+        className="w-4/5 sm:w-3/6 py-28 m-auto text-center text-3xl sm:text-5xl"
       >
         mytry is a celebration of finding joy in beauty, making conscious
         choices and creating a community of vegan skincare enthusiasts
@@ -20,7 +20,7 @@ export const About = () => {
       <div className="mt-10 relative wfull_hfull_block_svg-container">
         <MyTrySvg />
         <p
-          className="absolute bottom-0 text-3xl right-1/4"
+          className="absolute bottom-0 sm:text-3xl right-1/4"
           style={{
             color: theme.green,
           }}
@@ -29,10 +29,10 @@ export const About = () => {
         </p>
       </div>
 
-      <div className="border-b border-gray-800">
-        <div className="py-20 w-4/5 m-auto grid grid-cols-2">
+      <div className="sm:border-b sm:border-gray-800">
+        <div className="py-10 sm:py-20 w-4/5 m-auto flex flex-col sm:grid sm:grid-cols-2">
           <p
-            className="self-center text-xl"
+            className="self-center sm:text-xl order-2 sm:order-none mt-6 sm:mt-0"
             style={{
               color: theme.green,
             }}
@@ -61,15 +61,15 @@ export const About = () => {
         </div>
       </div>
 
-      <div className="py-20 text-center">
-        <p className="mb-10 uppercase text-2xl" style={{ color: theme.green }}>
+      <div className="py-10 sm:py-20 text-center px-6 sm:px-0">
+        <p className="sm:mb-10 uppercase sm:text-2xl" style={{ color: theme.green }}>
           Vegan skincare
         </p>
-        <p className="mb-10 text-6xl" style={{ color: theme.pink }}>
+        <p className="mb-10 text-3xl sm:text-6xl" style={{ color: theme.pink }}>
           Nicely with nature
         </p>
         <p
-          className="w-3/5 m-auto mb-20 text-xl"
+          className="sm:w-3/5 m-auto mb-10 sm:mb-20 sm:text-xl"
           style={{ color: theme.green }}
         >
           Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam
@@ -81,7 +81,7 @@ export const About = () => {
           vero eros et accumsan et iusto odio dignissim qui blandit praesent
           luptatum zzril
         </p>
-        <div className="mb-20">
+        <div className="mb-10 sm:mb-20">
           <img
             className="m-auto"
             src="/assets/images/about/Group 80.png"
@@ -92,7 +92,7 @@ export const About = () => {
           You, first{" "}
         </p>
 
-        <p className="w-3/5 m-auto text-xl" style={{ color: theme.green }}>
+        <p className="sm:w-3/5 m-auto sm:text-xl" style={{ color: theme.green }}>
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga quo
           asperiores vero expedita alias minus incidunt, nam debitis consequatur
           suscipit mollitia laborum aperiam, cumque eveniet facere placeat,

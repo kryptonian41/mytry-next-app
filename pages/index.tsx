@@ -3,12 +3,8 @@ import clsx from 'clsx'
 import { HomeProductTile } from 'components/HomeProductTile'
 import Navbar from 'components/Navbar'
 import React from 'react'
-import { Product } from 'types/commons'
-import styles from './styles.module.css'
+import styles from './styles.module.scss'
 import GreenOvalSticker from 'assets/svgs/stickers/green-oval-badge.svg'
-interface Props {
-  products: Product[]
-}
 
 
 export const Home: React.FC = () => {
@@ -20,20 +16,29 @@ export const Home: React.FC = () => {
         <Navbar />
         <div className="absolute w-full p-4 left-0 bottom-0" style={{
           background: theme.yellow
-        }}></div>
+        }}>
+          <marquee className="space-x-6"><span>SHOP</span>
+            <span>SHOP</span>
+            <span>SHOP</span>
+            <span>SHOP</span>
+            <span>SHOP</span>
+            <span>SHOP</span>
+          </marquee>
+
+        </div>
       </div>
       <div className="py-16">
-        <h1 className="text-center text-6xl mb-8" style={{
+        <h1 className="text-center text-4xl sm:text-6xl mb-8" style={{
           color: theme.orange
         }}>Sustainable, vegan beauty </h1>
-        <p className="text-center text-2xl w-2/5 m-auto mb-24" style={{
+        <p className="text-center text-lg sm:text-2xl sm:w-2/5 m-auto mb-12 sm:mb-24" style={{
           color: theme.green
         }}>
           100% Vegan | Responsibly Sourced Ingredients & Materials |
           Handcrafted + Highly Effective
         </p>
 
-        <div className="grid grid-cols-2 w-3/6 m-auto gap-24">
+        <div className="grid grid-cols-2 sm:w-3/6 m-auto gap-12 sm:gap-24 p-8">
           <div>
             <HomeProductTile
               subtitle="EXPLORE CLAY MASKS"
@@ -48,17 +53,17 @@ export const Home: React.FC = () => {
           </div>
         </div>
 
-        <div className="pt-10 pb-20 grid grid-cols-2 gap-x-40 border-t border-gray-800 w-5/6 m-auto mt-12">
+        <div className="pt-10 pb-20 grid grid-cols-1 sm:grid-cols-2 gap-x-40 border-t border-gray-800 w-5/6 m-auto mt-12">
           <p className="text-lg" style={{
             color: theme.green
           }}>
 
-            <span className="block text-6xl mb-24" style={{
+            <span className="block text-4xl sm:text-6xl mb-12 sm:mb-24" style={{
               color: theme.pink
             }}>
               Nicely with <br /> nature
             </span>
-            <span className="w-3/4 block text-xl" style={{
+            <span className="w-full sm:w-3/4 block text-lg sm:text-xl" style={{
               color: theme.greenLight
             }}>
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Itaque ad tempora dolorum hic ipsa corrupti consequuntur sequi ipsum, enim, eum ea earum molestias cupiditate culpa voluptas? Voluptatum blanditiis dolores ex modi pariatur tempore illum voluptate veniam ratione temporibus ad praesentium cum accusantium numquam, accusamus at aliquid eligendi! Eveniet accusamus provident tempore sapiente similique quam alias amet neque! Consequuntur, nam quia?
@@ -67,15 +72,13 @@ export const Home: React.FC = () => {
               Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nam rem voluptas cum consequuntur exercitationem quis rerum blanditiis perferendis, cumque tenetur.
             </span>
           </p>
-          <div className="ypl-12 relative">
+          <div className="relative mt-20 sm:mt-0">
 
-            <div className="absolute left-1/2 transform -translate-x-1/2 -translate-y-1/2 wfull_hfull_block_svg-container" style={{
-              width: 350
-            }}>
+            <div className={clsx("absolute right-0 sm:right-1/2 transform sm:-translate-x-1/2 -translate-y-1/2", styles['plant-sticker'])}>
               <GreenOvalSticker />
             </div>
 
-            <div className="absolute left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-2xl rotate-6" style={{
+            <div className="absolute right-0 sm:right-1/2 transform -translate-x-1/2 -translate-y-1/2 sm:text-2xl rotate-6" style={{
               color: theme.yellow
             }}>
               In Plants
@@ -90,7 +93,7 @@ export const Home: React.FC = () => {
         <div className="w-5/6 mb-12 m-auto relative" style={{
           height: 500
         }}>
-          <p className="text-6xl absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 filter drop-shadow-xl" style={{
+          <p className="text-4xl text-center sm:text-6xl absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 filter drop-shadow-xl" style={{
             color: theme.yellow
           }}>
             packaged with love
@@ -98,7 +101,7 @@ export const Home: React.FC = () => {
           <img src="/assets/images/Intersection 4@2x.png" alt="" className="w-full h-full object-cover" />
         </div>
 
-        <p className="text-center text-xl w-2/5 m-auto mt-12" style={{
+        <p className="text-center sm:text-xl sm:w-2/5 m-auto mt-12" style={{
           color: theme.green
         }}>
           100% Vegan | Responsibly Sourced Ingredients & Materials |
@@ -113,18 +116,18 @@ export const Home: React.FC = () => {
             }} className="text-lg">@MYTRYSHOP</span>
           </div>
 
-          <p className="text-5xl text-center uppercase mb-14" style={{
+          <p className="text-2xl sm:text-5xl text-center uppercase mb-8 sm:mb-14" style={{
             color: theme.pink
           }}>
             FOLLOW ALONG OUR JOURNEY
           </p>
 
-          <div className="flex space-x-8">
-            <div className={clsx('flex-1', styles.image)}></div>
-            <div className={clsx('flex-1', styles.image)}></div>
-            <div className={clsx('flex-1', styles.image)}></div>
-            <div className={clsx('flex-1', styles.image)}></div>
-            <div className={clsx('flex-1', styles.image)}></div>
+          <div className="flex flex-wrap justify-between sm:space-x-8">
+            <div className={clsx('sm:w-auto sm:flex-1', styles['insta-image'])}></div>
+            <div className={clsx('sm:w-auto sm:flex-1', styles['insta-image'])}></div>
+            <div className={clsx('sm:w-auto sm:flex-1', styles['insta-image'])}></div>
+            <div className={clsx('sm:w-auto sm:flex-1', styles['insta-image'])}></div>
+            <div className={clsx('sm:w-auto sm:flex-1', styles['insta-image'])}></div>
           </div>
         </div>
 

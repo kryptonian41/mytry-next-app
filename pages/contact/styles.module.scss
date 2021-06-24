@@ -15,6 +15,14 @@
       justify-content: flex-end;
     }
 
+    &-form {
+      border-top-right-radius: 20rem;
+      @media (max-width: 640px) {
+        height: 100vh;
+        border-top-right-radius: 15rem;
+      }
+    }
+
     &-wrapper {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -24,9 +32,12 @@
       flex: 1;
       width: 90%;
       margin: auto;
-    }
-    &-form {
-      border-top-right-radius: 20rem;
+
+      @media (max-width: 640px) {
+        padding-top: 2rem;
+        display: flex;
+        flex-direction: column;
+      }
     }
   }
 }
