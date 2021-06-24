@@ -7,4 +7,9 @@
 
 .navbar {
   text-transform: uppercase;
+  a {
+    @media (max-width: 640px) {
+      @apply text-sm;
+    }
+  }
 }

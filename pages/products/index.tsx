@@ -33,7 +33,8 @@ export const getServerSideProps: GetServerSideProps<Props> = async () => {
   const skinTypeCategory = await getCategoriesServerSide({
     slug: "skin-type",
   }).then((res) => res.data);
-  const skinTypeCategoryId = skinTypeCategory[0].id;
+
+  const skinTypeCategoryId = skinTypeCategory && skinTypeCategory[0].id;
   const skinTypeCategories = await getCategoriesServerSide({
     parent: skinTypeCategoryId,
   }).then((res) => res.data);
