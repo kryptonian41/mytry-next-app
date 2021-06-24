@@ -19,7 +19,7 @@ const Products = ({ products, categoryId }) => {
     return (
       <div
         key={product.id}
-        className={i % 2 !== 0 ? styles.productOffset : styles.product}
+        className={i % 2 === 0 ? styles.productOffset : styles.product}
       >
         <ProductTile product={product} />
       </div>

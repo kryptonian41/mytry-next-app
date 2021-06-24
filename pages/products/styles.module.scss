@@ -117,21 +117,65 @@
   display: grid;
   width: 70%;
   margin: auto;
+  padding-top: 6rem;
   grid-template-columns: repeat(2, 1fr);
   min-height: 100vh;
 
-  .product {
+  @media screen and (max-width: 640px) {
+    width: 90%;
+    padding: 4rem 0;
+    gap: 20px;
+  }
+
+  .product,
+  .productOffset {
     padding: 10%;
+
+    @media screen and (max-width: 640px) {
+      padding: 0;
+      height: fit-content;
+
+      & > a > div {
+        padding: 0;
+
+        & > div > div {
+          margin-bottom: 0.5rem;
+        }
+
+        & p,
+        & p:nth-of-type(2) {
+          font-size: 0.8rem;
+          margin: 0;
+          text-transform: uppercase;
+          line-height: 1;
+          margin-top: 0.2rem;
+        }
+      }
+    }
   }
 
   .productOffset {
-    padding: 10%;
     padding-right: 12%;
     position: relative;
-    top: 8rem;
+    top: -6rem;
+
+    @media screen and (max-width: 640px) {
+      padding: 0;
+      top: -2rem;
+    }
   }
 }
 
 .heroSection {
   height: calc(100vh - 4rem);
+}
+
+.productsSectionContainer {
+  display: flex;
+  border-top: 1px solid black;
+
+  @media screen and (max-width: 640px) {
+    display: block;
+    border: none;
+  }
 }

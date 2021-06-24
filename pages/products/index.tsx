@@ -71,7 +71,7 @@ export const Home: React.FC<
 
     if (data)
       return (
-        <div style={{ display: "flex", borderTop: "1px solid black" }}>
+        <div className={styles.productsSectionContainer}>
           <Categories
             categories={categories}
             skinTypeCategories={skinTypeCategories}
