@@ -117,7 +117,7 @@ export const Home: React.FC = () => {
           <div className="relative mt-20 sm:mt-0">
             <div
               className={clsx(
-                "absolute right-0 sm:right-1/2 transform sm:-translate-x-1/2 -translate-y-1/2",
+                "absolute right-0 sm:right-1/2 transform sm:translate-x-1/2 -translate-y-1/2",
                 styles["plant-sticker"]
               )}
             >
@@ -125,7 +125,7 @@ export const Home: React.FC = () => {
             </div>
 
             <div
-              className="absolute right-0 sm:right-1/2 transform -translate-x-1/2 -translate-y-1/2 sm:text-2xl rotate-6"
+              className="absolute right-0 sm:right-1/2 transform -translate-x-1/2 sm:translate-x-1/2 -translate-y-1/2 sm:text-2xl rotate-6"
               style={{
                 color: theme.yellow,
               }}
