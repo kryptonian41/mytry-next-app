@@ -4,7 +4,7 @@ import styles from "./style.module.scss";
 import clsx from "clsx";
 import Link from "next/link";
 import { connect } from "react-redux";
-import { useLayoutEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useState } from "react";
 import { useRef } from "react";
 import { useCallback } from "react";
 
@@ -27,7 +27,7 @@ const Navbar: React.FC<Props> = ({ color = "dark", itemsCount, className }) => {
     setShowNavMenu((prev) => !prev);
   }, []);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     window
       .matchMedia("(max-width: 640px)")
       .addEventListener("change", ({ matches }) => {

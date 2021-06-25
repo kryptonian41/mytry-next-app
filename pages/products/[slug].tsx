@@ -9,10 +9,11 @@ import Navbar from "components/Navbar";
 import { GetStaticProps, InferGetServerSidePropsType } from "next";
 import { useRouter } from "next/router";
 import { getProductsServerSide } from "pages/api/products";
-import { useMemo } from "react";
+import { useLayoutEffect, useMemo, useRef } from "react";
 import { useQuery } from "react-query";
 import { Product } from "types/commons";
 import styles from "./styles.module.scss";
+import clsx from "clsx";
 
 interface Props {
   product: Product;
@@ -79,9 +80,22 @@ export const ProductPage: React.FC<
     if (!productData || isLoading || isError) return colorMap.default;
     return getColorSchemeByCategory(productData.categories);
   }, [productData, isLoading, isError]);
+  const imageContainerRef = useRef(null)
+  const productQuantity = useMemo(() => productData.attributes.filter((attribute) => attribute.name.toLowerCase() === "quantity"), [productData])
+  const productIngredients = useMemo(() => productData.attributes.filter((attribute) => attribute.name.toLowerCase() === "ingredients"), [productData])
 
-  const productQuantity = productData.attributes.filter((attribute) => attribute.name.toLowerCase() === "quantity") 
-  const productIngredients = productData.attributes.filter((attribute) => attribute.name.toLowerCase() === "ingredients")
+  // For maintianing the image aspect ratio on all browsers as the aspect ratio property is not supported by safari yet and the padding bottom hack cannot be used because the height of the image is fixed
+  useLayoutEffect(() => {
+    const imageContainerWidth = 7 * imageContainerRef.current.offsetHeight / 8
+    imageContainerRef.current.style.width = imageContainerWidth + 'px'
+
+    const observer = new ResizeObserver((entries) => {
+      const elm = entries[0].target as any
+      const imageContainerWidth = 7 * elm.offsetHeight / 8
+      elm.style.width = imageContainerWidth + 'px'
+    })
+    observer.observe(imageContainerRef.current)
+  }, [])
 
   return (
     <div className={styles.singleProductPage}>
@@ -95,7 +109,7 @@ export const ProductPage: React.FC<
         {productData && (
           <div className={styles["hero-product-info"]}>
             <div
-              className={`p-4 ${styles.infoOuterContainer}`}
+              className={`p-4 ${styles.infoOuterContainer} flex-1`}
               style={{
                 backgroundColor: colorScheme.panelColor,
               }}
@@ -131,11 +145,11 @@ export const ProductPage: React.FC<
               </div>
             </div>
 
-            <div className={styles.imageContainer}>
+            <div className={clsx(styles.imageContainer, 'relative')} ref={imageContainerRef}>
               <img
                 src={productData.images[0].src}
                 alt="product-image"
-                className={styles["hero-product-info-image"]}
+                className={clsx(styles["hero-product-info-image"], 'absolute left-0 top-0')}
               />
               <button type="button" className={styles.shopNowBtn}>
                 Shop Now

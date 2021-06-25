@@ -1,16 +1,30 @@
-import { useState } from "react";
+import React, { useMemo } from "react";
 import { connect } from "react-redux";
 import categoriesStyle from "./categories.module.css";
 
-const Categories = ({ categories, skinTypeCategories, setCategory }) => {
-  const [test, setTest] = useState(false);
+interface Props {
+  categories: import("utils").Category[],
+  parentToChildCategoryMap: { [parentId: string]: import("utils").Category[] },
+  setCategory: (...any) => void
+}
+
+const SKIN_TYPE_CATEGORY_SLUG = 'skin-type'
+
+const Categories: React.FC<Props> = ({ categories, parentToChildCategoryMap, setCategory }) => {
+  const { parentCategories, skinTypeCategory } = useMemo(() => {
+    const skinTypeCategoryIndex = categories.findIndex(category => category.slug === SKIN_TYPE_CATEGORY_SLUG)
+    const parentCategories = [...categories]
+    const skinTypeCategory = skinTypeCategoryIndex !== -1 ? parentCategories.splice(skinTypeCategoryIndex, 1)[0] : null
+    return { parentCategories, skinTypeCategory }
+
+  }, [categories, parentToChildCategoryMap])
 
   return (
     <div className={categoriesStyle.container}>
-      <div>
+      {skinTypeCategory && <div>
         <h2 className={categoriesStyle.heading}>skin type</h2>
         <div className={categoriesStyle.categoriesWrapper}>
-          {skinTypeCategories.map((skinTypeCategory) => (
+          {parentToChildCategoryMap[skinTypeCategory.id].map((skinTypeCategory) => (
             <button
               onClick={() => setCategory(skinTypeCategory.id)}
               key={skinTypeCategory.id}
@@ -20,11 +34,11 @@ const Categories = ({ categories, skinTypeCategories, setCategory }) => {
             </button>
           ))}
         </div>
-      </div>
+      </div>}
       <div>
         <h2 className={categoriesStyle.heading}>categories</h2>
         <div className={categoriesStyle.categoriesWrapper}>
-          {categories.map((category) => (
+          {parentCategories.map((category) => (
             <button
               onClick={() => setCategory(category.id)}
               key={category.id}
