@@ -1,5 +1,6 @@
 import { getProductServerSide } from "pages/api/products";
 import { getReviewsServerSide } from "pages/api/reviews";
+import Footer from "components/Footer";
 import RelatedProducts from "../../components/Product/RelatedProducts/RelatedProducts";
 import Review from "../../components/Product/Reviews/Reviews";
 import { getProduct } from "api-utils";
@@ -141,7 +142,7 @@ export const ProductPage: React.FC<
               <div className={styles.productInfoContainer}>
                 <h1 className={styles.productName}>{productData.name}</h1>
                 <p className={styles.productInfo}>
-                  {productQuantity.length && productQuantity[0].options[0]}
+                  {productQuantity.length > 0 && productQuantity[0].options[0]}
                 </p>
                 <p className={styles.productInfo}>INR {productData.price}</p>
                 <p className={`${styles.productInfo} ${styles.productDesc}`}>
@@ -160,7 +161,7 @@ export const ProductPage: React.FC<
                   Ingredients
                 </h3>
                 <p className={styles.productsIngredients}>
-                  {productIngredients.length &&
+                  {productIngredients.length > 0 &&
                     productIngredients[0].options[0]}
                 </p>
                 <hr
@@ -197,11 +198,9 @@ export const ProductPage: React.FC<
         />
       )}
       {productData && (
-        <Review
-          productId={product.id}
-          colorScheme={colorScheme}
-        />
+        <Review productId={product.id} colorScheme={colorScheme} />
       )}
+      <Footer />
     </div>
   );
 };

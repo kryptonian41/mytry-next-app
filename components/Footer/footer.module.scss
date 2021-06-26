@@ -1,0 +1,63 @@
+.footerContainer {
+  background-color: #034a38;
+  margin-top: 3rem;
+  min-height: 23rem;
+  display: grid;
+  grid-template-columns: repeat(20, 1fr);
+  column-gap: 15px;
+
+  h3 {
+    color: #f8ec00;
+    font-size: 3rem;
+    grid-column: 2/6;
+    margin: auto;
+  }
+
+  form {
+    grid-column: 7/16;
+    height: fit-content;
+    margin: auto 0;
+    position: relative;
+    top: 3rem;
+   
+    input {
+      width: 100%;
+      background-color: transparent;
+      border: none;
+      border-bottom: 1px solid #f8ec00;
+      color: white;
+
+      &::placeholder {
+        color: white;
+        font-size: 0.8rem;
+      }
+
+      &:focus {
+        outline: none;
+        border: none;
+        box-shadow: none;
+        border-bottom: 1px solid #f8ec00;
+      }
+    }
+
+    button {
+      width: max-content;
+      color: white;
+      margin-top: 1rem;
+      float: right;
+      text-transform: uppercase;
+
+      &:focus {
+        outline: none;
+      }
+    }
+  }
+
+  .logoContainer {
+    grid-column: 17/20;
+    transform: scale(0.7);
+    height: max-content;
+    width: max-content;
+    margin: 3rem auto;
+  }
+}

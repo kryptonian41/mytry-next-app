@@ -3,6 +3,7 @@ import Navbar from "components/Navbar";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import { reactQueryClient } from "pages/_app";
 import React, { useEffect, useMemo } from "react";
+import Footer from "components/Footer";
 import Categories from "components/Categories";
 import Products from "components/Products";
 import { useQuery } from "react-query";
@@ -24,24 +25,27 @@ interface Props {
 
 export const getServerSideProps: GetServerSideProps<Props> = async () => {
   const { data } = await getProductsServerSide();
-  let categories = await getCategoriesServerSide().then(
-    (res) => res.data
-  );
+  let categories = await getCategoriesServerSide().then((res) => res.data);
 
-  const { parentCategories, parentToChildMapping } = processCategories(categories)
+  const { parentCategories, parentToChildMapping } =
+    processCategories(categories);
 
   return {
     props: {
       products: data,
       parentCategories,
-      parentToChildCategoryMap: parentToChildMapping
+      parentToChildCategoryMap: parentToChildMapping,
     },
   };
 };
 
 export const Home: React.FC<
   InferGetServerSidePropsType<typeof getServerSideProps>
-> = ({ products: productsFromServer, parentCategories, parentToChildCategoryMap }) => {
+> = ({
+  products: productsFromServer,
+  parentCategories,
+  parentToChildCategoryMap,
+}) => {
   const { data, isLoading, isError } = useQuery("products", getProducts, {
     initialData: productsFromServer,
     staleTime: 1000 * 60,
@@ -51,9 +55,7 @@ export const Home: React.FC<
     reactQueryClient.setQueryData("products", productsFromServer);
   }, [productsFromServer]);
 
-  const hero = <div className={styles.heroSection}>
-
-  </div>
+  const hero = <div className={styles.heroSection}></div>;
 
   const pageBody = useMemo(() => {
     if (isLoading) return <div>Loading...</div>;
@@ -79,6 +81,7 @@ export const Home: React.FC<
       <Navbar />
       {hero}
       {pageBody}
+      <Footer />
     </React.Fragment>
   );
 };
