@@ -19,6 +19,10 @@
         font-size: 2.5rem;
         text-transform: uppercase;
         color: #034a38;
+
+        @media screen and (max-width: 640px) {
+          font-size: 1.5rem;
+        }
       }
 
       .flexContainer {
@@ -30,6 +34,7 @@
         height: calc(100vh - 20rem);
 
         .formOptions {
+          margin-top: 1rem;
           display: flex;
           justify-content: space-between;
           flex-direction: row-reverse;
@@ -84,10 +89,11 @@
         color: #f26722;
         text-transform: uppercase;
         font-size: 1.2rem;
+
+        @media screen and (max-width: 640px) {
+          font-size: 1rem;
+        }
       }
     }
   }
 }
-
-// #F26722
-// #F8EC00
