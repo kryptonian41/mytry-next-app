@@ -9,6 +9,8 @@
   @media screen and (max-width: 640px) {
     display: block;
     padding: 3rem 5%;
+    position: relative;
+    padding-bottom: 5rem;
   }
 
   h3 {
@@ -19,6 +21,7 @@
 
     @media screen and (max-width: 640px) {
       font-size: 2rem;
+      margin-top: 8rem;
     }
   }
 
@@ -62,7 +65,7 @@
     }
 
     @media screen and (max-width: 640px) {
-      margin-top: 3rem;
+      margin: 3rem 0;
       top: 0;
     }
   }
@@ -77,6 +80,9 @@
     @media screen and (max-width: 640px) {
       transform: scale(0.5);
       margin-bottom: 0;
+      position: absolute;
+      top: 0;
+      left: -1.5rem;
     }
   }
 }
