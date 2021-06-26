@@ -6,11 +6,20 @@
   grid-template-columns: repeat(20, 1fr);
   column-gap: 15px;
 
+  @media screen and (max-width: 640px) {
+    display: block;
+    padding: 3rem 5%;
+  }
+
   h3 {
     color: #f8ec00;
     font-size: 3rem;
     grid-column: 2/6;
     margin: auto;
+
+    @media screen and (max-width: 640px) {
+      font-size: 2rem;
+    }
   }
 
   form {
@@ -19,7 +28,7 @@
     margin: auto 0;
     position: relative;
     top: 3rem;
-   
+
     input {
       width: 100%;
       background-color: transparent;
@@ -51,6 +60,11 @@
         outline: none;
       }
     }
+
+    @media screen and (max-width: 640px) {
+      margin-top: 3rem;
+      top: 0;
+    }
   }
 
   .logoContainer {
@@ -59,5 +73,10 @@
     height: max-content;
     width: max-content;
     margin: 3rem auto;
+
+    @media screen and (max-width: 640px) {
+      transform: scale(0.5);
+      margin-bottom: 0;
+    }
   }
 }
