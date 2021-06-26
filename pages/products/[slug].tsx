@@ -199,7 +199,6 @@ export const ProductPage: React.FC<
       {productData && (
         <Review
           productId={product.id}
-          reviews={reviews}
           colorScheme={colorScheme}
         />
       )}

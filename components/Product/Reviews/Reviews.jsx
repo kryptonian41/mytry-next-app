@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 import reviewStyles from "./review.module.css";
 import ExpandIcon from "assets/svgs/icons/expand.svg";
 import SingleReview from "./SingleReview";
 import CreateReview from "./CreateReview";
 
-const Review = ({ productId, reviews, colorScheme }) => {
+const Review = ({ productId, colorScheme }) => {
   const [isFormOpen, setFormOpen] = useState(false);
+
+  const { reviews } = useSelector((state) => state.product);
 
   useEffect(() => {
     if (window.innerWidth <= 640) setFormOpen(true);
