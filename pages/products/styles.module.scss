@@ -91,6 +91,11 @@
 
 .imageContainer {
   position: relative;
+
+  @media screen and (max-width: 640px) {
+    width: 100%;
+    height: calc(8 * (90vw / 7));
+  }
 }
 
 .shopNowBtn {

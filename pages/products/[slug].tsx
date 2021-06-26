@@ -197,10 +197,7 @@ export const ProductPage: React.FC<
         />
       )}
       {productData && (
-        <Review
-          productId={product.id}
-          colorScheme={colorScheme}
-        />
+        <Review productId={product.id} colorScheme={colorScheme} />
       )}
     </div>
   );
