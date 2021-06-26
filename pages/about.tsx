@@ -1,9 +1,10 @@
-import { useTheme } from "assets/color-map"
-import Navbar from "components/Navbar"
-import MyTrySvg from 'assets/svgs/icons/mytry.svg'
+import { useTheme } from "assets/color-map";
+import Navbar from "components/Navbar";
+import MyTrySvg from "assets/svgs/icons/mytry.svg";
+import Footer from "components/Footer";
 
 export const About = () => {
-  const theme = useTheme()
+  const theme = useTheme();
   return (
     <div>
       <Navbar />
@@ -62,7 +63,10 @@ export const About = () => {
       </div>
 
       <div className="py-10 sm:py-20 text-center px-6 sm:px-0">
-        <p className="sm:mb-10 uppercase sm:text-2xl" style={{ color: theme.green }}>
+        <p
+          className="sm:mb-10 uppercase sm:text-2xl"
+          style={{ color: theme.green }}
+        >
           Vegan skincare
         </p>
         <p className="mb-10 text-3xl sm:text-6xl" style={{ color: theme.pink }}>
@@ -92,7 +96,10 @@ export const About = () => {
           You, first{" "}
         </p>
 
-        <p className="sm:w-3/5 m-auto sm:text-xl" style={{ color: theme.green }}>
+        <p
+          className="sm:w-3/5 m-auto sm:text-xl"
+          style={{ color: theme.green }}
+        >
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga quo
           asperiores vero expedita alias minus incidunt, nam debitis consequatur
           suscipit mollitia laborum aperiam, cumque eveniet facere placeat,
@@ -114,14 +121,9 @@ export const About = () => {
         </p>
       </div>
 
-      <div
-        className="h-72"
-        style={{
-          backgroundColor: theme.orange,
-        }}
-      ></div>
+      <Footer />
     </div>
   );
-}
+};
 
-export default About
+export default About;

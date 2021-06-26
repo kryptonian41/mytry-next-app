@@ -1,0 +1,88 @@
+.footerContainer {
+  background-color: #034a38;
+  margin-top: 3rem;
+  min-height: 23rem;
+  display: grid;
+  grid-template-columns: repeat(20, 1fr);
+  column-gap: 15px;
+
+  @media screen and (max-width: 640px) {
+    display: block;
+    padding: 3rem 5%;
+    position: relative;
+    padding-bottom: 5rem;
+  }
+
+  h3 {
+    color: #f8ec00;
+    font-size: 3rem;
+    grid-column: 2/6;
+    margin: auto;
+
+    @media screen and (max-width: 640px) {
+      font-size: 2rem;
+      margin-top: 8rem;
+    }
+  }
+
+  form {
+    grid-column: 7/16;
+    height: fit-content;
+    margin: auto 0;
+    position: relative;
+    top: 3rem;
+
+    input {
+      width: 100%;
+      background-color: transparent;
+      border: none;
+      border-bottom: 1px solid #f8ec00;
+      color: white;
+
+      &::placeholder {
+        color: white;
+        font-size: 0.8rem;
+      }
+
+      &:focus {
+        outline: none;
+        border: none;
+        box-shadow: none;
+        border-bottom: 1px solid #f8ec00;
+      }
+    }
+
+    button {
+      width: max-content;
+      color: white;
+      margin-top: 1rem;
+      float: right;
+      text-transform: uppercase;
+
+      &:focus {
+        outline: none;
+      }
+    }
+
+    @media screen and (max-width: 640px) {
+      margin: 3rem 0;
+      top: 0;
+    }
+  }
+
+  .logoContainer {
+    grid-column: 17/20;
+    transform: scale(0.7);
+    height: max-content;
+    width: max-content;
+    margin: 3rem auto;
+
+    @media screen and (max-width: 640px) {
+      transform: scale(0.5);
+      margin-bottom: 0;
+      position: absolute;
+      top: 0;
+      left: -1.5rem;
+    }
+  }
+}

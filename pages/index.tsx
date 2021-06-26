@@ -3,6 +3,7 @@ import clsx from "clsx";
 import { HomeProductTile } from "components/HomeProductTile";
 import Navbar from "components/Navbar";
 import React from "react";
+import Footer from "components/Footer";
 import styles from "./styles.module.scss";
 import GreenOvalSticker from "assets/svgs/stickers/green-oval-badge.svg";
 
@@ -214,6 +215,7 @@ export const Home: React.FC = () => {
           </div>
         </div>
       </div>
+      <Footer />
     </React.Fragment>
   );
 };

@@ -6,7 +6,6 @@
 .container {
   grid-column: 3/19;
   margin: 3.2rem 0;
-  padding-bottom: 10rem;
 }
 
 .createReviewContainer {
