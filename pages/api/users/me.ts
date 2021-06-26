@@ -12,7 +12,6 @@ export const getUser = async (headers = {}) => {
     );
   } catch (error) {
     response = error.response;
-    console.log(error.response);
   }
 
   return response;

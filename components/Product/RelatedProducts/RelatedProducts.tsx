@@ -7,16 +7,19 @@ const RelatedProducts = ({ relatedProducts, colorScheme }) => {
   return (
     <>
       <div className={relatedStyles.container}>
-        <h2 style={{color: colorScheme.bgColor}}>you may also like</h2>
+        <h2 style={{ color: colorScheme.bgColor }}>you may also like</h2>
         <div className={relatedStyles.productsContainer}>
           {relatedProducts.map((relatedProduct) => (
-              <ProductTile key={relatedProduct.id} product={relatedProduct} />
+            <ProductTile key={relatedProduct.id} product={relatedProduct} />
           ))}
         </div>
       </div>
       <div className={relatedStyles.dividerContainer}>
         <hr className={relatedStyles.divider} />
-        <div className={relatedStyles.sticker}>
+        <div
+          style={{ color: colorScheme.bgColor }}
+          className={relatedStyles.sticker}
+        >
           <YouGlow />
         </div>
       </div>
