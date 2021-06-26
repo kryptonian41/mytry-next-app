@@ -4,7 +4,7 @@ import ExpandIcon from "assets/svgs/icons/expand.svg";
 import SingleReview from "./SingleReview";
 import CreateReview from "./CreateReview";
 
-const Review = ({ ratingCount, reviews, colorScheme }) => {
+const Review = ({ productId, reviews, colorScheme }) => {
   const [isFormOpen, setFormOpen] = useState(false);
 
   useEffect(() => {
@@ -31,11 +31,13 @@ const Review = ({ ratingCount, reviews, colorScheme }) => {
               </button>
             )}
           </div>
-          {isFormOpen && <CreateReview colorScheme={colorScheme} />}
+          {isFormOpen && (
+            <CreateReview productId={productId} colorScheme={colorScheme} />
+          )}
         </div>
       </div>
       <div className={reviewStyles.container}>
-        {ratingCount > 0 && reviews.length && (
+        {reviews?.length > 0 && (
           <>
             {/* <hr /> */}
             <div className={reviewStyles.reviewsContainer}>
@@ -59,5 +61,4 @@ const Review = ({ ratingCount, reviews, colorScheme }) => {
     </div>
   );
 };
-
 export default Review;

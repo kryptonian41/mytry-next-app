@@ -17,7 +17,6 @@ export default function userReducer(state = initialState, action) {
       };
 
     case LOAD_USER:
-      console.log(action.payload);
       return {
         ...state,
         user: action.payload,

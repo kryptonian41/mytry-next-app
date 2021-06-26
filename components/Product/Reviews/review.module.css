@@ -73,12 +73,13 @@
 }
 
 .starsContainer svg {
-  margin-right: 5px;
+  margin-right: 2px;
+  transform: scale(0.8);
 }
 
 .review {
   color: #f26722;
-  font-size: 2rem;
+  font-size: 1.6rem;
 }
 
 .reviewer {
@@ -90,7 +91,6 @@
 .formContainer {
   display: grid;
   grid-template-columns: repeat(16, 1fr);
-  margin-top: 2rem;
   margin-bottom: 4rem;
 }
 
@@ -100,13 +100,15 @@
 
 .formContainer label {
   display: flex;
-  margin-bottom: 1rem;
+  margin-top: 2rem;
+  position: relative;
 }
 
 .formContainer p {
   font-size: 1rem;
   align-self: center;
   margin-right: 1rem;
+  flex-shrink: 0;
 }
 
 .formContainer input {
@@ -140,7 +142,6 @@
   border: none;
   border-bottom: 1px solid currentColor;
   padding: 10px 20px;
-  margin-bottom: 1rem;
   font-size: 1rem;
   background: transparent;
   resize: none;
@@ -154,6 +155,22 @@
   height: 2.5rem;
   width: 8.125rem;
   float: right;
+  margin-top: 2rem;
+}
+
+.submitBtn:focus {
+    outline: none;
+  }
+
+.errorMessage {
+  color: red;
+  width: max-content;
+  font-size: 0.8rem;
+  margin: 0 0 0 auto;
+}
+
+.errorField {
+  border-bottom: 1px solid red !important;
 }
 
 @media screen and (max-width: 640px) {
@@ -214,10 +231,5 @@
 
   .reviewer {
     font-size: 1rem;
-  }
-
-  .starsContainer svg {
-    transform: scale(0.8);
-    margin-right: 2px;
   }
 }
