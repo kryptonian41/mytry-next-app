@@ -5,8 +5,8 @@ import Footer from "components/Footer";
 import RelatedProducts from "../../components/Product/RelatedProducts/RelatedProducts";
 import Review from "../../components/Product/Reviews/Reviews";
 import { getProduct } from "utils/api-utils";
-import { ProductFilters } from "utils/api-utils/api-utils/color-map
-import { colorMap, getColorSchemeByCategory } from "assets/color-map";
+import { ProductFilters } from "utils/api-utils/api-calls";
+import { colorMap, getColorSchemeByCategory } from "utils/color-map";
 import Navbar from "components/Navbar";
 import { GetStaticProps, InferGetServerSidePropsType } from "next";
 import { useRouter } from "next/router";
@@ -123,6 +123,10 @@ export const ProductPage: React.FC<
     });
   }, [reviews]);
 
+  function createDescMarkup(desc) {
+    return { __html: desc };
+  }
+
   return (
     <Layout>
       <div className={styles.singleProductPage}>
@@ -148,12 +152,12 @@ export const ProductPage: React.FC<
                       productQuantity[0].options[0]}
                   </p>
                   <p className={styles.productInfo}>INR {productData.price}</p>
-                  <p className={`${styles.productInfo} ${styles.productDesc}`}>
-                    {productData.description.substr(
-                      3,
-                      productData.description.length - 8
+                  <div
+                    className={`${styles.productInfo} ${styles.productDesc}`}
+                    dangerouslySetInnerHTML={createDescMarkup(
+                      productData.description
                     )}
-                  </p>
+                  />
                   <hr
                     style={{ borderColor: colorScheme.bgColor }}
                     className={styles.ingredientsDivider}

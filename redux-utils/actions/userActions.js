@@ -90,6 +90,7 @@ export const initializeApp = () => async (dispatch) => {
       } else throw new Error("Could not refresh token.");
       dispatch({ type: FINISH_INIT_APP });
     } catch (err) {
+      dispatch({ type: FINISH_INIT_APP });
       dispatch({ type: LOGIN_ERROR });
     }
   }
