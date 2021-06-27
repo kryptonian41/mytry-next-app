@@ -7,9 +7,12 @@ import React from "react";
 import Footer from "components/Footer";
 import styles from "./styles.module.scss";
 import GreenOvalSticker from "assets/svgs/stickers/green-oval-badge.svg";
+import { useRouter } from "next/router";
 
 export const Home: React.FC = () => {
   const theme = useTheme();
+
+  const router = useRouter();
 
   return (
     <Layout title="Home" description={null} keywords={null}>
@@ -17,9 +20,11 @@ export const Home: React.FC = () => {
         <div className="h-full relative">
           <Navbar />
           <div
+            onClick={() => router.push("/products")}
             className="absolute w-full left-0 bottom-0"
             style={{
               background: theme.yellow,
+              cursor: "pointer",
             }}
           >
             <div className={styles.homePageMarquee}>

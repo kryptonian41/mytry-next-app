@@ -127,6 +127,25 @@ export const ProductPage: React.FC<
     return { __html: desc };
   }
 
+  const addItem = () => {
+    const productQuantity = productData.attributes.filter(
+      (attribute) => attribute.name.toLowerCase() === "quantity"
+    );
+    const item = {
+      id: productData.id,
+      name: productData.name,
+      image: productData.images[0].src,
+      price: parseFloat(productData.price),
+      descQty: productQuantity.length ? productQuantity[0].options[0] : null,
+      qty: 1,
+      totalPrice: parseFloat(productData.price),
+    };
+    dispatch({
+      type: "ADD_ITEM",
+      payload: item,
+    });
+  };
+
   return (
     <Layout
       title={productData.name}
@@ -202,7 +221,11 @@ export const ProductPage: React.FC<
                     "absolute left-0 top-0"
                   )}
                 />
-                <button type="button" className={styles.shopNowBtn}>
+                <button
+                  onClick={() => addItem()}
+                  type="button"
+                  className={styles.shopNowBtn}
+                >
                   Shop Now
                 </button>
               </div>
