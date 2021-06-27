@@ -38,14 +38,17 @@ export const Home: React.FC = () => {
             </div>
           </div>
         </div>
-        <div className="py-16">
+        <div
+          style={{ backgroundColor: "#F7FAEE", marginBottom: "-3rem" }}
+          className="py-16"
+        >
           <h1
             className="text-center text-4xl sm:text-6xl mb-8"
             style={{
               color: theme.orange,
             }}
           >
-            Sustainable, vegan beauty{" "}
+            Real is beautiful
           </h1>
           <p
             className="text-center text-lg sm:text-2xl sm:w-2/5 m-auto mb-12 sm:mb-24"
@@ -53,30 +56,30 @@ export const Home: React.FC = () => {
               color: theme.green,
             }}
           >
-            100% Vegan | Responsibly Sourced Ingredients & Materials |
-            Handcrafted + Highly Effective
+            100% Vegan | Responsibly Sourced Ingredients & Materials | Clean
+            Beauty + Eco-friendly
           </p>
 
           <div className="grid grid-cols-2 sm:w-3/6 m-auto gap-12 sm:gap-24 p-8">
             <div>
               <HomeProductTile
-                subtitle="EXPLORE CLAY MASKS"
-                title="pore it in"
+                subtitle="Bag it before someone else."
+                title="Bestseller- Best in the Nest!"
                 imageSrc="/assets/images/about/Group 73.png"
               />
             </div>
             <div className="transform translate-y-6">
               <HomeProductTile
-                subtitle="EXPLORE CLAY MASKS"
-                title="pore it in"
+                subtitle="Freshly brewed for you."
+                title="Newcomer- View the New!"
                 imageSrc="/assets/images/about/Group 80.png"
                 textPosition="top"
               />
             </div>
             <div className="col-span-2">
               <HomeProductTile
-                subtitle="EXPLORE CLAY MASKS"
-                title="pore it in"
+                subtitle="A community of people as real as your view."
+                title="Community- A space to be you!"
                 imageSrc="/assets/images/about/Intersection 1@2x.png"
               />
             </div>
@@ -95,7 +98,7 @@ export const Home: React.FC = () => {
                   color: theme.pink,
                 }}
               >
-                Nicely with <br /> nature
+                MyTry- Real Skin, Real Care!
               </span>
               <span
                 className="w-full sm:w-3/4 block text-lg sm:text-xl"
@@ -103,19 +106,14 @@ export const Home: React.FC = () => {
                   color: theme.greenLight,
                 }}
               >
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Itaque
-                ad tempora dolorum hic ipsa corrupti consequuntur sequi ipsum,
-                enim, eum ea earum molestias cupiditate culpa voluptas?
-                Voluptatum blanditiis dolores ex modi pariatur tempore illum
-                voluptate veniam ratione temporibus ad praesentium cum
-                accusantium numquam, accusamus at aliquid eligendi! Eveniet
-                accusamus provident tempore sapiente similique quam alias amet
-                neque! Consequuntur, nam quia?
-                <br />
-                <br />
-                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nam
-                rem voluptas cum consequuntur exercitationem quis rerum
-                blanditiis perferendis, cumque tenetur.
+                MyTry is a vegan skincare brand homegrown by our founder,
+                Maitri. We source all our ingredients responsibly and ensure
+                that the environment or your skin is unharmed. With MyTry, our
+                mission is to help people embrace their beautiful selves and
+                make them a part of a community that encourages them to leave
+                judgment behind. Our products are 100% vegan and plant-based. We
+                refrain from testing our products on animals and are against
+                cruelty to any living being.
               </span>
             </p>
             <div className="relative mt-20 sm:mt-0">
@@ -174,11 +172,13 @@ export const Home: React.FC = () => {
               color: theme.green,
             }}
           >
-            100% Vegan | Responsibly Sourced Ingredients & Materials |
-            Handcrafted + Highly Effective
+            All our boxes are handmade by specially-abled people who add oodles
+            of love and care while making them.
           </p>
 
-          <div className="border-t border-gray-700 w-5/6 mt-12 m-auto">
+          {/* Instagram Feed is not for the current version v1.0.0 */}
+
+          {/* <div className="border-t border-gray-700 w-5/6 mt-12 m-auto">
             <div className="text-center mt-14 mb-8">
               <span
                 style={{
@@ -216,7 +216,7 @@ export const Home: React.FC = () => {
                 className={clsx("sm:w-auto sm:flex-1", styles["insta-image"])}
               ></div>
             </div>
-          </div>
+          </div> */}
         </div>
         <Footer />
       </React.Fragment>

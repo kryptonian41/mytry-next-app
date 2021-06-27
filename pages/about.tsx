@@ -8,7 +8,7 @@ export const About = () => {
   const theme = useTheme();
   return (
     <Layout title="About Us" description={null} keywords={null}>
-      <div>
+      <div style={{ backgroundColor: "#F7FAEE" }}>
         <Navbar />
         <p
           style={{
@@ -40,19 +40,24 @@ export const About = () => {
                 color: theme.green,
               }}
             >
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit. Tempora
-              pariatur laboriosam praesentium ipsum nesciunt beatae ratione
-              itaque corrupti ipsam. Animi, debitis inventore facere laborum,
-              impedit, explicabo quisquam quae beatae neque voluptates corrupti
-              reiciendis iure. Dolor nesciunt incidunt, porro tempore quas
-              necessitatibus quisquam quis aperiam quo impedit consequuntur
-              obcaecati perspiciatis repudiandae at repellendus nam ea totam
-              facere deleniti? Doloremque sunt quidem voluptates doloribus vitae
-              laborum voluptas sequi! Iure alias, provident modi fugiat rem
-              facere ipsam repellat quibusdam dolorem praesentium minus eius
-              tempora quidem et voluptate? Magni animi quasi, quam similique
-              nisi porro atque, dolorem nesciunt repellendus ipsa dolore
-              consectetur possimus excepturi.{" "}
+              The idea of MyTry was born during the lockdown of 2020. Maitri has
+              always been passionate about skincare, and when she got bored of
+              watching Netflix, she decided to venture out and learn more about
+              the process of making vegan products at home. YouTube was her
+              first source of information. <br />
+              <br />
+              Maitri researched a lot to understand more about how to make
+              natural and organic products from home ingredients. In the coming
+              months, she tried to understand how skincare works, what essential
+              or carrier oil works for what skin type and took up a course at
+              the School of Natural Skincare to dive deep. Finally, on September
+              29th of 2020, MyTry saw the daylight!
+              <br />
+              <br />
+              In her own words,
+              <br />
+              “MyTry is my baby. I have used chemical-free products, and now, I
+              want people to experience the magic of going organic.”
             </p>
             <div>
               <img
@@ -81,14 +86,15 @@ export const About = () => {
             className="sm:w-3/5 m-auto mb-10 sm:mb-20 sm:text-xl"
             style={{ color: theme.green }}
           >
-            Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam
-            nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat
-            volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation
-            ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo
-            consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate
-            velit esse molestie consequat, vel illum dolore eu feugiat nulla
-            facilisis at vero eros et accumsan et iusto odio dignissim qui
-            blandit praesent luptatum zzril
+            MyTry products are for real people. Our products come from
+            ingredients you can find at home and are free of harsh chemicals. We
+            care a lot about our environment and the animals. Hence we use plant
+            extracts for our products and are 100% vegan. <br />
+            <br />
+            Our vision is to make people comfortable enough to embrace their
+            authentic selves and flaunt their imperfections to the world.
+            Keeping this in mind, we have used real women like you to be the
+            face of our brand.
           </p>
           <div className="mb-10 sm:mb-20">
             <img
@@ -98,31 +104,18 @@ export const About = () => {
             />
           </div>
           <p className="mb-10 text-6xl" style={{ color: theme.pink }}>
-            You, first{" "}
+            People First!{" "}
           </p>
 
           <p
             className="sm:w-3/5 m-auto sm:text-xl"
             style={{ color: theme.green }}
           >
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga quo
-            asperiores vero expedita alias minus incidunt, nam debitis
-            consequatur suscipit mollitia laborum aperiam, cumque eveniet facere
-            placeat, sequi maxime recusandae molestias necessitatibus impedit.
-            Tempora illo quo voluptatem excepturi optio non delectus molestiae
-            quas harum hic, illum enim porro pariatur ullam praesentium.
-            Perspiciatis quia error odio assumenda sequi magnam deleniti,
-            commodi temporibus provident sit accusamus nihil culpa maxime, ut
-            incidunt placeat excepturi eum repellat eligendi officiis? Magni,
-            exercitationem dolores architecto minima vitae nisi beatae dicta!
-            Officiis nisi facilis rerum explicabo ut dolores vitae, iusto quasi
-            saepe assumenda magni recusandae quibusdam sint?
-            <br />
-            <br />
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. In
-            perspiciatis labore, eaque aliquid accusamus neque amet iure, quo
-            atque libero illum iusto ducimus eius accusantium veritatis pariatur
-            beatae non blanditiis.
+            MyTry is all about giving back to the community. We believe that our
+            community is our biggest strength, and we love to share our love
+            with the people who support us. All the people involved at various
+            stages are a part of the MyTry family, and we appreciate each of
+            you.
           </p>
         </div>
 
