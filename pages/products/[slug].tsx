@@ -5,8 +5,8 @@ import Footer from "components/Footer";
 import RelatedProducts from "../../components/Product/RelatedProducts/RelatedProducts";
 import Review from "../../components/Product/Reviews/Reviews";
 import { getProduct } from "utils/api-utils";
-import { ProductFilters } from "utils/api-utils/api-utils/color-map
-import { colorMap, getColorSchemeByCategory } from "assets/color-map";
+import { ProductFilters } from "utils/api-utils/api-calls";
+import { colorMap, getColorSchemeByCategory } from "utils/color-map";
 import Navbar from "components/Navbar";
 import { GetStaticProps, InferGetServerSidePropsType } from "next";
 import { useRouter } from "next/router";
@@ -123,8 +123,43 @@ export const ProductPage: React.FC<
     });
   }, [reviews]);
 
+  function createDescMarkup(desc) {
+    return { __html: desc };
+  }
+
+  const addItem = () => {
+    const productQuantity = productData.attributes.filter(
+      (attribute) => attribute.name.toLowerCase() === "quantity"
+    );
+    const item = {
+      id: productData.id,
+      name: productData.name,
+      image: productData.images[0].src,
+      price: parseFloat(productData.price),
+      descQty: productQuantity.length ? productQuantity[0].options[0] : null,
+      qty: 1,
+      totalPrice: parseFloat(productData.price),
+    };
+    dispatch({
+      type: "ADD_ITEM",
+      payload: item,
+    });
+  };
+
   return (
-    <Layout>
+    <Layout
+      title={productData.name}
+      description={productData.description
+        .replace(/(<([^>]+)>)/gi, "")
+        .substr(
+          0,
+          Math.min(
+            productData.description.replace(/(<([^>]+)>)/gi, "").length,
+            150
+          )
+        )}
+      keywords={null}
+    >
       <div className={styles.singleProductPage}>
         <div
           className={styles.hero}
@@ -148,12 +183,12 @@ export const ProductPage: React.FC<
                       productQuantity[0].options[0]}
                   </p>
                   <p className={styles.productInfo}>INR {productData.price}</p>
-                  <p className={`${styles.productInfo} ${styles.productDesc}`}>
-                    {productData.description.substr(
-                      3,
-                      productData.description.length - 8
+                  <div
+                    className={`${styles.productInfo} ${styles.productDesc}`}
+                    dangerouslySetInnerHTML={createDescMarkup(
+                      productData.description
                     )}
-                  </p>
+                  />
                   <hr
                     style={{ borderColor: colorScheme.bgColor }}
                     className={styles.ingredientsDivider}
@@ -186,7 +221,11 @@ export const ProductPage: React.FC<
                     "absolute left-0 top-0"
                   )}
                 />
-                <button type="button" className={styles.shopNowBtn}>
+                <button
+                  onClick={() => addItem()}
+                  type="button"
+                  className={styles.shopNowBtn}
+                >
                   Shop Now
                 </button>
               </div>

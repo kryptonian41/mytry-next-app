@@ -73,7 +73,7 @@
 }
 
 .productDesc {
-  margin: 2.5rem 0;
+  margin: 1rem 0 2.5rem 0;
 }
 
 .ingredientsHeader {
@@ -126,8 +126,8 @@
 
   @media screen and (max-width: 640px) {
     width: 90%;
-    padding: 4rem 0;
     gap: 20px;
+    row-gap: 40px;
   }
 
   .product,

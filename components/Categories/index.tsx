@@ -1,61 +1,111 @@
-import React, { useMemo } from "react";
+import React, {
+  useState,
+  useEffect,
+  useRef,
+  useMemo,
+  useCallback,
+} from "react";
 import { connect } from "react-redux";
 import categoriesStyle from "./categories.module.css";
 
 interface Props {
-  categories: import("utils").Category[],
-  parentToChildCategoryMap: { [parentId: string]: import("utils").Category[] },
-  setCategory: (...any) => void
+  categories: import("types/commons").Category[];
+  parentToChildCategoryMap: {
+    [parentId: string]: import("types/commons").Category[];
+  };
+  setCategory: (...any) => void;
 }
 
-const SKIN_TYPE_CATEGORY_SLUG = 'skin-type'
+const SKIN_TYPE_CATEGORY_SLUG = "skin-type";
 
-const Categories: React.FC<Props> = ({ categories, parentToChildCategoryMap, setCategory }) => {
+const Categories: React.FC<Props> = ({
+  categories,
+  parentToChildCategoryMap,
+  setCategory,
+}) => {
   const { parentCategories, skinTypeCategory } = useMemo(() => {
-    const skinTypeCategoryIndex = categories.findIndex(category => category.slug === SKIN_TYPE_CATEGORY_SLUG)
-    const parentCategories = [...categories]
-    const skinTypeCategory = skinTypeCategoryIndex !== -1 ? parentCategories.splice(skinTypeCategoryIndex, 1)[0] : null
-    return { parentCategories, skinTypeCategory }
+    const skinTypeCategoryIndex = categories.findIndex(
+      (category) => category.slug === SKIN_TYPE_CATEGORY_SLUG
+    );
+    const parentCategories = [...categories];
+    const skinTypeCategory =
+      skinTypeCategoryIndex !== -1
+        ? parentCategories.splice(skinTypeCategoryIndex, 1)[0]
+        : null;
+    return { parentCategories, skinTypeCategory };
+  }, [categories, parentToChildCategoryMap]);
 
-  }, [categories, parentToChildCategoryMap])
+  const [mobileView, setMobileView] = useState(() => {
+    if (typeof window !== "undefined")
+      return window.matchMedia("(max-width: 640px)").matches;
+    return null;
+  });
+
+  const mobileViewRef = useRef(mobileView);
+
+  const [showCategories, setShowCategories] = useState(false);
+
+  const handleClick = useCallback(() => {
+    setShowCategories((prev) => !prev);
+  }, []);
+
+  useEffect(() => {
+    window
+      .matchMedia("(max-width: 640px)")
+      .addEventListener("change", ({ matches }) => {
+        if (matches === mobileViewRef.current) return;
+        mobileViewRef.current = matches;
+        setMobileView(matches);
+      });
+  }, []);
 
   return (
-    <div className={categoriesStyle.container}>
-      {skinTypeCategory && <div>
-        <h2 className={categoriesStyle.heading}>skin type</h2>
-        <div className={categoriesStyle.categoriesWrapper}>
-          {parentToChildCategoryMap[skinTypeCategory.id].map((skinTypeCategory) => (
-            <button
-              onClick={() => setCategory(skinTypeCategory.id)}
-              key={skinTypeCategory.id}
-              className={categoriesStyle.category}
-            >
-              {skinTypeCategory.name}
-            </button>
-          ))}
+    <div className={categoriesStyle.container} onClick={() => handleClick()}>
+      {skinTypeCategory && (
+        <div>
+          <h2 className={categoriesStyle.heading}>skin type</h2>
+          {mobileView && showCategories && (
+            <div className={categoriesStyle.categoriesWrapper}>
+              {parentToChildCategoryMap[skinTypeCategory.id].map(
+                (skinTypeCategory) => (
+                  <button
+                    onClick={() => setCategory(skinTypeCategory.id)}
+                    key={skinTypeCategory.id}
+                    className={categoriesStyle.category}
+                  >
+                    {skinTypeCategory.name}
+                  </button>
+                )
+              )}
+            </div>
+          )}
         </div>
-      </div>}
+      )}
       <div>
         <h2 className={categoriesStyle.heading}>categories</h2>
-        <div className={categoriesStyle.categoriesWrapper}>
-          {parentCategories.map((category) => (
-            <button
-              onClick={() => setCategory(category.id)}
-              key={category.id}
-              className={categoriesStyle.category}
-            >
-              {category.name}
-            </button>
-          ))}
-        </div>
+        {mobileView && showCategories && (
+          <div className={categoriesStyle.categoriesWrapper}>
+            {parentCategories.map((category) => (
+              <button
+                onClick={() => setCategory(category.id)}
+                key={category.id}
+                className={categoriesStyle.category}
+              >
+                {category.name}
+              </button>
+            ))}
+          </div>
+        )}
       </div>
       <div>
         <h2 className={categoriesStyle.heading}>sort by</h2>
-        <div className={categoriesStyle.categoriesWrapper}>
-          <button className={categoriesStyle.category}>Price Low-High</button>
-          <button className={categoriesStyle.category}>Price High-Low</button>
-          <button className={categoriesStyle.category}>A to Z</button>
-        </div>
+        {mobileView && showCategories && (
+          <div className={categoriesStyle.categoriesWrapper}>
+            <button className={categoriesStyle.category}>Price Low-High</button>
+            <button className={categoriesStyle.category}>Price High-Low</button>
+            <button className={categoriesStyle.category}>A to Z</button>
+          </div>
+        )}
       </div>
     </div>
   );

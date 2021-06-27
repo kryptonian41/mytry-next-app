@@ -22,7 +22,8 @@ export const loadUser = (jwt) => async (dispatch) => {
   } catch (err) {
     window.alert("Error logging in. Please try again.");
     dispatch({ type: LOGIN_ERROR });
-    window.location.replace(`${window.location.href}login`);
+    if (!window.location.pathname.includes("/login"))
+      window.location.replace(`${window.location.host}/login`);
   }
 };
 
@@ -43,7 +44,7 @@ export const logIn = (email, password) => async (dispatch) => {
     window.alert(message);
     dispatch({ type: LOGIN_ERROR });
     if (!window.location.pathname.includes("/login"))
-      window.location.replace(`${window.location.href}login`);
+      window.location.replace(`${window.location.host}/login`);
   }
 };
 
@@ -63,7 +64,7 @@ export const registerUser =
     } catch (err) {
       if (err.response.data.code === "registration-error-email-exists") {
         window.alert("Account already exists. Please try logging in.");
-        window.location.replace(`${window.location.href}login`);
+        window.location.replace(`${window.location.host}/login`);
       } else window.alert("Error creating user. Please try again.");
     }
   };
@@ -90,6 +91,7 @@ export const initializeApp = () => async (dispatch) => {
       } else throw new Error("Could not refresh token.");
       dispatch({ type: FINISH_INIT_APP });
     } catch (err) {
+      dispatch({ type: FINISH_INIT_APP });
       dispatch({ type: LOGIN_ERROR });
     }
   }

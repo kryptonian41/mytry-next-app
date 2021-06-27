@@ -1,5 +1,5 @@
 import { useDispatch } from "react-redux";
-import { registerUser } from "actions/userActions";
+import { registerUser } from "redux-utils/actions/userActions";
 import { Formik, Form, ErrorMessage, Field } from "formik";
 import * as Yup from "yup";
 import loginStyles from "../Login/login.module.scss";
