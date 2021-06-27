@@ -1,5 +1,6 @@
 import { getProductServerSide } from "pages/api/products";
 import { getReviewsServerSide } from "pages/api/reviews";
+import Footer from "components/Footer";
 import RelatedProducts from "../../components/Product/RelatedProducts/RelatedProducts";
 import Review from "../../components/Product/Reviews/Reviews";
 import { getProduct } from "api-utils";
@@ -9,7 +10,9 @@ import Navbar from "components/Navbar";
 import { GetStaticProps, InferGetServerSidePropsType } from "next";
 import { useRouter } from "next/router";
 import { getProductsServerSide } from "pages/api/products";
-import { useLayoutEffect, useMemo, useRef } from "react";
+import { useLayoutEffect, useMemo, useRef, useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { SET_REVIEWS } from "actions/types";
 import { useQuery } from "react-query";
 import { Product } from "types/commons";
 import styles from "./styles.module.scss";
@@ -80,22 +83,44 @@ export const ProductPage: React.FC<
     if (!productData || isLoading || isError) return colorMap.default;
     return getColorSchemeByCategory(productData.categories);
   }, [productData, isLoading, isError]);
-  const imageContainerRef = useRef(null)
-  const productQuantity = useMemo(() => productData.attributes.filter((attribute) => attribute.name.toLowerCase() === "quantity"), [productData])
-  const productIngredients = useMemo(() => productData.attributes.filter((attribute) => attribute.name.toLowerCase() === "ingredients"), [productData])
+  const imageContainerRef = useRef(null);
+  const productQuantity = useMemo(
+    () =>
+      productData.attributes.filter(
+        (attribute) => attribute.name.toLowerCase() === "quantity"
+      ),
+    [productData]
+  );
+  const productIngredients = useMemo(
+    () =>
+      productData.attributes.filter(
+        (attribute) => attribute.name.toLowerCase() === "ingredients"
+      ),
+    [productData]
+  );
 
   // For maintianing the image aspect ratio on all browsers as the aspect ratio property is not supported by safari yet and the padding bottom hack cannot be used because the height of the image is fixed
   useLayoutEffect(() => {
-    const imageContainerWidth = 7 * imageContainerRef.current.offsetHeight / 8
-    imageContainerRef.current.style.width = imageContainerWidth + 'px'
+    const imageContainerWidth =
+      (7 * imageContainerRef.current.offsetHeight) / 8;
+    imageContainerRef.current.style.width = imageContainerWidth + "px";
 
     const observer = new ResizeObserver((entries) => {
-      const elm = entries[0].target as any
-      const imageContainerWidth = 7 * elm.offsetHeight / 8
-      elm.style.width = imageContainerWidth + 'px'
-    })
-    observer.observe(imageContainerRef.current)
-  }, [])
+      const elm = entries[0].target as any;
+      const imageContainerWidth = (7 * elm.offsetHeight) / 8;
+      elm.style.width = imageContainerWidth + "px";
+    });
+    observer.observe(imageContainerRef.current);
+  }, []);
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch({
+      type: SET_REVIEWS,
+      payload: reviews,
+    });
+  }, [reviews]);
 
   return (
     <div className={styles.singleProductPage}>
@@ -117,7 +142,7 @@ export const ProductPage: React.FC<
               <div className={styles.productInfoContainer}>
                 <h1 className={styles.productName}>{productData.name}</h1>
                 <p className={styles.productInfo}>
-                  {productQuantity.length && productQuantity[0].options[0]}
+                  {productQuantity.length > 0 && productQuantity[0].options[0]}
                 </p>
                 <p className={styles.productInfo}>INR {productData.price}</p>
                 <p className={`${styles.productInfo} ${styles.productDesc}`}>
@@ -136,7 +161,8 @@ export const ProductPage: React.FC<
                   Ingredients
                 </h3>
                 <p className={styles.productsIngredients}>
-                  {productIngredients.length && productIngredients[0].options[0]}
+                  {productIngredients.length > 0 &&
+                    productIngredients[0].options[0]}
                 </p>
                 <hr
                   style={{ borderColor: colorScheme.bgColor }}
@@ -145,11 +171,17 @@ export const ProductPage: React.FC<
               </div>
             </div>
 
-            <div className={clsx(styles.imageContainer, 'relative')} ref={imageContainerRef}>
+            <div
+              className={clsx(styles.imageContainer, "relative")}
+              ref={imageContainerRef}
+            >
               <img
                 src={productData.images[0].src}
                 alt="product-image"
-                className={clsx(styles["hero-product-info-image"], 'absolute left-0 top-0')}
+                className={clsx(
+                  styles["hero-product-info-image"],
+                  "absolute left-0 top-0"
+                )}
               />
               <button type="button" className={styles.shopNowBtn}>
                 Shop Now
@@ -166,12 +198,9 @@ export const ProductPage: React.FC<
         />
       )}
       {productData && (
-        <Review
-          ratingCount={productData.rating_count}
-          reviews={reviews}
-          colorScheme={colorScheme}
-        />
+        <Review productId={product.id} colorScheme={colorScheme} />
       )}
+      <Footer />
     </div>
   );
 };

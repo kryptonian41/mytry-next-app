@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 import reviewStyles from "./review.module.css";
 import ExpandIcon from "assets/svgs/icons/expand.svg";
 import SingleReview from "./SingleReview";
 import CreateReview from "./CreateReview";
 
-const Review = ({ ratingCount, reviews, colorScheme }) => {
+const Review = ({ productId, colorScheme }) => {
   const [isFormOpen, setFormOpen] = useState(false);
+
+  const { reviews } = useSelector((state) => state.product);
 
   useEffect(() => {
     if (window.innerWidth <= 640) setFormOpen(true);
@@ -31,11 +34,13 @@ const Review = ({ ratingCount, reviews, colorScheme }) => {
               </button>
             )}
           </div>
-          {isFormOpen && <CreateReview colorScheme={colorScheme} />}
+          {isFormOpen && (
+            <CreateReview productId={productId} colorScheme={colorScheme} />
+          )}
         </div>
       </div>
       <div className={reviewStyles.container}>
-        {ratingCount > 0 && reviews.length && (
+        {reviews?.length > 0 && (
           <>
             {/* <hr /> */}
             <div className={reviewStyles.reviewsContainer}>
@@ -59,5 +64,4 @@ const Review = ({ ratingCount, reviews, colorScheme }) => {
     </div>
   );
 };
-
 export default Review;
