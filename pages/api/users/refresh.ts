@@ -1,13 +1,21 @@
-import { wooClient } from "api-utils";
 import type { NextApiRequest, NextApiResponse } from "next";
+import axios from "axios";
 
-export const registerUser = async (body = {}) => {
+export const refreshToken = async (body = {}) => {
+  const { JWT } = body as any;
   let response;
   try {
-    response = await wooClient.post("customers", body);
+    response = await axios.post(process.env.WCOMM_DOMAIN, null, {
+      params: {
+        rest_route: `${process.env.JWT_NAMESPACE}/auth/refresh`,
+        JWT,
+      },
+    });
+    response.status = 201;
   } catch (error) {
     response = error.response;
   }
+
   return response;
 };
 
@@ -15,7 +23,7 @@ export const registerUser = async (body = {}) => {
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === "POST") {
-    const response = await registerUser(req.body);
+    const response = await refreshToken(req.body);
     res.status(response.status).json(response.data);
   } else res.status(405).json("");
 };

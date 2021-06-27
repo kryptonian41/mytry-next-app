@@ -1,5 +1,6 @@
 import { getProductServerSide } from "pages/api/products";
 import { getReviewsServerSide } from "pages/api/reviews";
+import Layout from "components/Layout";
 import Footer from "components/Footer";
 import RelatedProducts from "../../components/Product/RelatedProducts/RelatedProducts";
 import Review from "../../components/Product/Reviews/Reviews";
@@ -123,85 +124,88 @@ export const ProductPage: React.FC<
   }, [reviews]);
 
   return (
-    <div className={styles.singleProductPage}>
-      <div
-        className={styles.hero}
-        style={{
-          backgroundColor: colorScheme.bgColor,
-        }}
-      >
-        <Navbar color="light" />
-        {productData && (
-          <div className={styles["hero-product-info"]}>
-            <div
-              className={`p-4 ${styles.infoOuterContainer} flex-1`}
-              style={{
-                backgroundColor: colorScheme.panelColor,
-              }}
-            >
-              <div className={styles.productInfoContainer}>
-                <h1 className={styles.productName}>{productData.name}</h1>
-                <p className={styles.productInfo}>
-                  {productQuantity.length > 0 && productQuantity[0].options[0]}
-                </p>
-                <p className={styles.productInfo}>INR {productData.price}</p>
-                <p className={`${styles.productInfo} ${styles.productDesc}`}>
-                  {productData.description.substr(
-                    3,
-                    productData.description.length - 8
+    <Layout>
+      <div className={styles.singleProductPage}>
+        <div
+          className={styles.hero}
+          style={{
+            backgroundColor: colorScheme.bgColor,
+          }}
+        >
+          <Navbar color="light" />
+          {productData && (
+            <div className={styles["hero-product-info"]}>
+              <div
+                className={`p-4 ${styles.infoOuterContainer} flex-1`}
+                style={{
+                  backgroundColor: colorScheme.panelColor,
+                }}
+              >
+                <div className={styles.productInfoContainer}>
+                  <h1 className={styles.productName}>{productData.name}</h1>
+                  <p className={styles.productInfo}>
+                    {productQuantity.length > 0 &&
+                      productQuantity[0].options[0]}
+                  </p>
+                  <p className={styles.productInfo}>INR {productData.price}</p>
+                  <p className={`${styles.productInfo} ${styles.productDesc}`}>
+                    {productData.description.substr(
+                      3,
+                      productData.description.length - 8
+                    )}
+                  </p>
+                  <hr
+                    style={{ borderColor: colorScheme.bgColor }}
+                    className={styles.ingredientsDivider}
+                  />
+                  <h3
+                    className={`${styles.productInfo} ${styles.ingredientsHeader}`}
+                  >
+                    Ingredients
+                  </h3>
+                  <p className={styles.productsIngredients}>
+                    {productIngredients.length > 0 &&
+                      productIngredients[0].options[0]}
+                  </p>
+                  <hr
+                    style={{ borderColor: colorScheme.bgColor }}
+                    className={styles.ingredientsDivider}
+                  />
+                </div>
+              </div>
+
+              <div
+                className={clsx(styles.imageContainer, "relative")}
+                ref={imageContainerRef}
+              >
+                <img
+                  src={productData.images[0].src}
+                  alt="product-image"
+                  className={clsx(
+                    styles["hero-product-info-image"],
+                    "absolute left-0 top-0"
                   )}
-                </p>
-                <hr
-                  style={{ borderColor: colorScheme.bgColor }}
-                  className={styles.ingredientsDivider}
                 />
-                <h3
-                  className={`${styles.productInfo} ${styles.ingredientsHeader}`}
-                >
-                  Ingredients
-                </h3>
-                <p className={styles.productsIngredients}>
-                  {productIngredients.length > 0 &&
-                    productIngredients[0].options[0]}
-                </p>
-                <hr
-                  style={{ borderColor: colorScheme.bgColor }}
-                  className={styles.ingredientsDivider}
-                />
+                <button type="button" className={styles.shopNowBtn}>
+                  Shop Now
+                </button>
               </div>
             </div>
+          )}
+        </div>
 
-            <div
-              className={clsx(styles.imageContainer, "relative")}
-              ref={imageContainerRef}
-            >
-              <img
-                src={productData.images[0].src}
-                alt="product-image"
-                className={clsx(
-                  styles["hero-product-info-image"],
-                  "absolute left-0 top-0"
-                )}
-              />
-              <button type="button" className={styles.shopNowBtn}>
-                Shop Now
-              </button>
-            </div>
-          </div>
+        {productData && relatedProducts && (
+          <RelatedProducts
+            relatedProducts={relatedProducts}
+            colorScheme={colorScheme}
+          />
         )}
+        {productData && (
+          <Review productId={product.id} colorScheme={colorScheme} />
+        )}
+        <Footer />
       </div>
-
-      {productData && relatedProducts && (
-        <RelatedProducts
-          relatedProducts={relatedProducts}
-          colorScheme={colorScheme}
-        />
-      )}
-      {productData && (
-        <Review productId={product.id} colorScheme={colorScheme} />
-      )}
-      <Footer />
-    </div>
+    </Layout>
   );
 };
 

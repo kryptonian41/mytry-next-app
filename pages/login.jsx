@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import Login from "components/Login";
+import Layout from "../components/Layout";
 import { useSelector } from "react-redux";
 import { useRouter } from "next/router";
 
@@ -11,7 +12,11 @@ const login = () => {
     if (user) router.push("/");
   }, [user]);
 
-  return <Login />;
+  return (
+    <Layout>
+      <Login />
+    </Layout>
+  );
 };
 
 export default login;

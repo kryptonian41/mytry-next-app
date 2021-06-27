@@ -1,4 +1,5 @@
 import { getProducts } from "api-utils";
+import Layout from "components/Layout";
 import Navbar from "components/Navbar";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import { reactQueryClient } from "pages/_app";
@@ -73,12 +74,14 @@ export const Home: React.FC<
   }, [isLoading, isError, data]);
 
   return (
-    <React.Fragment>
-      <Navbar />
-      {hero}
-      {pageBody}
-      <Footer />
-    </React.Fragment>
+    <Layout>
+      <React.Fragment>
+        <Navbar />
+        {hero}
+        {pageBody}
+        <Footer />
+      </React.Fragment>
+    </Layout>
   );
 };
 

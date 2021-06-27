@@ -3,7 +3,8 @@ import MyTryLogo from "assets/svgs/logos/main.svg";
 import styles from "./style.module.scss";
 import clsx from "clsx";
 import Link from "next/link";
-import { connect } from "react-redux";
+import { connect, useDispatch } from "react-redux";
+import { LOGOUT_USER } from "actions/types";
 import { useEffect, useLayoutEffect, useState } from "react";
 import { useRef } from "react";
 import { useCallback } from "react";
@@ -12,9 +13,15 @@ interface Props {
   color?: string;
   itemsCount: number;
   className?: string;
+  isAuthenticated: boolean;
 }
 
-const Navbar: React.FC<Props> = ({ color = "dark", itemsCount, className }) => {
+const Navbar: React.FC<Props> = ({
+  color = "dark",
+  itemsCount,
+  className,
+  isAuthenticated,
+}) => {
   const [mobileView, setMobileView] = useState(() => {
     if (typeof window !== "undefined")
       return window.matchMedia("(max-width: 640px)").matches;
@@ -37,6 +44,8 @@ const Navbar: React.FC<Props> = ({ color = "dark", itemsCount, className }) => {
       });
   }, []);
 
+  const dispatach = useDispatch();
+
   return (
     <div
       style={{ height: "4rem" }}
@@ -56,7 +65,10 @@ const Navbar: React.FC<Props> = ({ color = "dark", itemsCount, className }) => {
             <HamburgerIcon />
           </button>
           {mobileView && showNavMenu && (
-            <ul className="absolute space-y-2 pt-4 z-10">
+            <ul
+              className="absolute space-y-2 pt-4 z-10"
+              style={{ backgroundColor: "rgba(0,0,0,0.4)", padding: "1rem" }}
+            >
               <li className="whitespace-nowrap">
                 <Link href="/products">Products</Link>
               </li>
@@ -67,10 +79,13 @@ const Navbar: React.FC<Props> = ({ color = "dark", itemsCount, className }) => {
                 <Link href="/contact">Contact Us</Link>
               </li>
               <li className="whitespace-nowrap">
-                <Link href="/login">Log In</Link>
-              </li>
-              <li className="whitespace-nowrap">
-                <Link href="/register">Register</Link>
+                {isAuthenticated ? (
+                  <span onClick={() => dispatach({ type: LOGOUT_USER })}>
+                    Logout
+                  </span>
+                ) : (
+                  <Link href="/login">Log In</Link>
+                )}
               </li>
             </ul>
           )}
@@ -86,8 +101,16 @@ const Navbar: React.FC<Props> = ({ color = "dark", itemsCount, className }) => {
             <Link href="/products">Products</Link>
             <Link href="/about">About Us</Link>
             <Link href="/contact">Contact Us</Link>
-            <Link href="/login">Log In</Link>
-            <Link href="/register">Register</Link>
+            {isAuthenticated ? (
+              <span
+                style={{ cursor: "pointer" }}
+                onClick={() => dispatach({ type: LOGOUT_USER })}
+              >
+                Logout
+              </span>
+            ) : (
+              <Link href="/login">Log In</Link>
+            )}
           </>
         )}
       </div>
@@ -103,6 +126,7 @@ const Navbar: React.FC<Props> = ({ color = "dark", itemsCount, className }) => {
 
 const mapStateToProps = (state) => ({
   itemsCount: state.cart.itemsCount,
+  isAuthenticated: state.user.isAuthenticated,
 });
 
 export default connect(mapStateToProps)(Navbar);

@@ -26,6 +26,8 @@ const RegisterForm = () => {
     <div className={loginStyles.loginFormContainer}>
       <Formik
         initialValues={{
+          firstName: "",
+          lastName: "",
           email: "",
           password: "",
         }}

@@ -1,4 +1,9 @@
-import { LOGIN_SUCCESS, LOAD_USER } from "../actions/types";
+import {
+  LOGIN_SUCCESS,
+  LOGIN_ERROR,
+  LOAD_USER,
+  LOGOUT_USER,
+} from "../actions/types";
 
 const initialState = {
   token: null,
@@ -14,6 +19,16 @@ export default function userReducer(state = initialState, action) {
         ...state,
         token: action.payload,
         isAuthenticated: true,
+      };
+
+    case LOGIN_ERROR:
+    case LOGOUT_USER:
+      localStorage.removeItem("user-jwt");
+      return {
+        ...state,
+        token: null,
+        isAuthenticated: false,
+        user: null,
       };
 
     case LOAD_USER:
