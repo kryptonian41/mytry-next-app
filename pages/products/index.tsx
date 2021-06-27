@@ -14,10 +14,6 @@ import { getProductsServerSide } from "../api/products";
 import styles from "./styles.module.scss";
 import { Category, processCategories } from "utils";
 
-const renderProductTiles = (products: Product[]) => (
-  <Products products={products} />
-);
-
 interface Props {
   products: Product[];
   parentCategories: Category[];
@@ -71,7 +67,7 @@ export const Home: React.FC<
             parentToChildCategoryMap={parentToChildCategoryMap}
           />
           <div className={styles.productsContainer}>
-            {renderProductTiles(data)}
+            <Products products={data} />
           </div>
         </div>
       );

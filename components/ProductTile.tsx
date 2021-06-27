@@ -28,12 +28,14 @@ const ProductTile: React.FC<Props> = ({ product, addItem }) => {
               </div>
             )}
             <p className="text-xl font-medium mt-4">{product.name}</p>
-            <p>
+            {product.sale_price ? <p>
               {RUPEES_SYMBOL} {product.sale_price}
               <span className="line-through pl-2 text-red-500">
                 {RUPEES_SYMBOL} {product.regular_price}
               </span>
-            </p>
+            </p> : <p>
+              {RUPEES_SYMBOL} {product.regular_price}
+            </p>}
             <button
               onClick={() => {
                 addItem(product);
