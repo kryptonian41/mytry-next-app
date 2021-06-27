@@ -7,7 +7,7 @@ import Footer from "components/Footer";
 export const About = () => {
   const theme = useTheme();
   return (
-    <Layout>
+    <Layout title="About Us" description={null} keywords={null}>
       <div>
         <Navbar />
         <p

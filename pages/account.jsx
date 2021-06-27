@@ -13,7 +13,7 @@ const account = () => {
   }, [user]);
 
   return (
-    <Layout>
+    <Layout title="Account" description={null} keywords={null}>
       <div>
         <Navbar /> {user && <p>Hello, {user.email}</p>}
       </div>

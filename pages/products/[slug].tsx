@@ -128,7 +128,19 @@ export const ProductPage: React.FC<
   }
 
   return (
-    <Layout>
+    <Layout
+      title={productData.name}
+      description={productData.description
+        .replace(/(<([^>]+)>)/gi, "")
+        .substr(
+          0,
+          Math.min(
+            productData.description.replace(/(<([^>]+)>)/gi, "").length,
+            150
+          )
+        )}
+      keywords={null}
+    >
       <div className={styles.singleProductPage}>
         <div
           className={styles.hero}

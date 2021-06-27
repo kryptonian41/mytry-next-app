@@ -12,7 +12,7 @@ export const Home: React.FC = () => {
   const theme = useTheme();
 
   return (
-    <Layout>
+    <Layout title="Home" description={null} keywords={null}>
       <React.Fragment>
         <div className="h-full relative">
           <Navbar />

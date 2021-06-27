@@ -7,7 +7,7 @@ import clsx from "clsx";
 export const ProductPage = () => {
   const theme = useTheme();
   return (
-    <Layout>
+    <Layout title="Contact Us" description={null} keywords={null}>
       <div
         className={styles.root}
         style={{
