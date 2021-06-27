@@ -1,9 +1,20 @@
+import { useEffect } from "react";
 import Loading from "./Loading";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { initializeApp } from "actions/userActions";
 
 const Layout = ({ children }) => {
-  const { isAuthenticated } = useSelector((state) => state.user);
-  return <>{isAuthenticated ? <Loading /> : children}</>;
+  const dispatch = useDispatch();
+
+  const { isInitializing, appInitialized } = useSelector(
+    (state) => state.initApp
+  );
+
+  useEffect(() => {
+    if (!appInitialized) dispatch(initializeApp());
+  }, []);
+
+  return <>{isInitializing ? <Loading /> : children}</>;
 };
 
 export default Layout;

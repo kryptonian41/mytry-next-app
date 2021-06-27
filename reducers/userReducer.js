@@ -23,7 +23,7 @@ export default function userReducer(state = initialState, action) {
 
     case LOGIN_ERROR:
     case LOGOUT_USER:
-      localStorage.setItem("user-jwt", "");
+      localStorage.removeItem("user-jwt");
       return {
         ...state,
         token: null,
