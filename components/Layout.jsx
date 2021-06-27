@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import Loading from "./Loading";
 import { useSelector, useDispatch } from "react-redux";
-import { initializeApp } from "actions/userActions";
+import { initializeApp } from "redux-utils/actions/userActions";
 
 const Layout = ({ children }) => {
   const dispatch = useDispatch();

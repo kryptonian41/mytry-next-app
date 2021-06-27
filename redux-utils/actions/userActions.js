@@ -1,5 +1,5 @@
 import axios from "axios";
-import { user } from "api-utils/request-body/register-user";
+import { user } from "utils/api-utils/request-body/register-user";
 import {
   LOGIN_SUCCESS,
   LOGIN_ERROR,

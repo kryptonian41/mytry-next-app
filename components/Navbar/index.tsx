@@ -4,7 +4,7 @@ import styles from "./style.module.scss";
 import clsx from "clsx";
 import Link from "next/link";
 import { connect, useDispatch } from "react-redux";
-import { LOGOUT_USER } from "actions/types";
+import { LOGOUT_USER } from "redux-utils/actions/types";
 import { useEffect, useLayoutEffect, useState } from "react";
 import { useRef } from "react";
 import { useCallback } from "react";
