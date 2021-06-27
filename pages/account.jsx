@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import Layout from "../components/Layout";
 import Navbar from "components/Navbar";
 import { useSelector } from "react-redux";
 import { useRouter } from "next/router";
@@ -12,9 +13,11 @@ const account = () => {
   }, [user]);
 
   return (
-    <div>
-      <Navbar /> {user && <p>Hello, {user.name}</p>}
-    </div>
+    <Layout>
+      <div>
+        <Navbar /> {user && <p>Hello, {user.email}</p>}
+      </div>
+    </Layout>
   );
 };
 

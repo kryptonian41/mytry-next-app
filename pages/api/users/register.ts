@@ -1,25 +1,13 @@
+import { wooClient } from "api-utils";
 import type { NextApiRequest, NextApiResponse } from "next";
-import axios from "axios";
 
 export const registerUser = async (body = {}) => {
-  const { firstName, lastName, email, password } = body as any;
   let response;
   try {
-    response = await axios.post(process.env.WCOMM_DOMAIN, null, {
-      params: {
-        rest_route: `${process.env.JWT_NAMESPACE}/users`,
-        email,
-        password,
-        first_name: firstName,
-        last_name: lastName,
-        AUTH_KEY: process.env.AUTH,
-      },
-    });
-    response.status = 201;
+    response = await wooClient.post("customers", body);
   } catch (error) {
     response = error.response;
   }
-
   return response;
 };
 

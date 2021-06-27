@@ -9,6 +9,7 @@ export const UNSET_CATEGORY = "UNSET_CATEGORY";
 
 export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
 export const LOGIN_ERROR = "LOGIN_ERROR";
+export const LOGOUT_USER = "LOGOUT_USER";
 export const LOAD_USER = "LOAD_USER";
 
 export const SET_REVIEWS = "SET_REVIEWS";
