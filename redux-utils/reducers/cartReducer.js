@@ -1,3 +1,4 @@
+import { isServer } from "utils";
 import {
   FETCH_CART,
   ADD_ITEM,
@@ -6,11 +7,46 @@ import {
   DECREASE_ITEM_QTY,
 } from "../actions/types";
 
-const initialState = {
-  itemsCount: 0,
-  cartTotal: 0.0,
-  items: [],
-};
+export const CART_LOCALSTORAGE_KEY = "maitri_cart_cache"
+
+const getInitialState = () => {
+  if (typeof window === 'undefined') return {}
+  return window.localStorage.getItem(CART_LOCALSTORAGE_KEY)
+}
+
+const saveCartState = (newCartState) => {
+  if (isServer()) return
+  window.localStorage.setItem(CART_LOCALSTORAGE_KEY, JSON.stringify(newCartState))
+}
+
+const initialState = getInitialState()
+
+export default function cartReducer(state = initialState, action) {
+  const newState = getNewState(state, action)
+  saveCartState(newState)
+  return newState
+}
+
+
+const getNewState = (state, action) => {
+  switch (action.type) {
+    case FETCH_CART:
+      return {
+        ...state,
+        items: action.payload,
+      };
+    case ADD_ITEM:
+      return addItem(state, action.payload);
+    case REMOVE_ITEM:
+      return removeItem(state, action.payload);
+    case INCREASE_ITEM_QTY:
+      return increaseItemQty(state, action.payload);
+    case DECREASE_ITEM_QTY:
+      return decreaseItemQty(state, action.payload);
+    default:
+      return state;
+  }
+}
 
 const addNewProduct = (state, product) => {
   const items = state.items;
@@ -93,22 +129,3 @@ const decreaseItemQty = (state, product) => {
   } else return state;
 };
 
-export default function cartReducer(state = initialState, action) {
-  switch (action.type) {
-    case FETCH_CART:
-      return {
-        ...state,
-        items: action.payload,
-      };
-    case ADD_ITEM:
-      return addItem(state, action.payload);
-    case REMOVE_ITEM:
-      return removeItem(state, action.payload);
-    case INCREASE_ITEM_QTY:
-      return increaseItemQty(state, action.payload);
-    case DECREASE_ITEM_QTY:
-      return decreaseItemQty(state, action.payload);
-    default:
-      return state;
-  }
-}

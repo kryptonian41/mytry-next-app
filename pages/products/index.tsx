@@ -1,5 +1,4 @@
-import { getProducts } from "api-utils";
-import Layout from "components/Layout";
+import { getProducts } from "utils/api-utils";
 import Navbar from "components/Navbar";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import { reactQueryClient } from "pages/_app";
@@ -8,11 +7,11 @@ import Footer from "components/Footer";
 import Categories from "components/Categories";
 import Products from "components/Products";
 import { useQuery } from "react-query";
-import { Product } from "types/commons";
+import { Category, Product } from "types/commons";
 import { getCategoriesServerSide } from "../api/categories";
 import { getProductsServerSide } from "../api/products";
 import styles from "./styles.module.scss";
-import { Category, processCategories } from "utils";
+import { processCategories } from "utils";
 
 interface Props {
   products: Product[];
@@ -43,46 +42,44 @@ export const Home: React.FC<
   parentCategories,
   parentToChildCategoryMap,
 }) => {
-  const { data, isLoading, isError } = useQuery("products", getProducts, {
-    initialData: productsFromServer,
-    staleTime: 1000 * 60,
-  });
+    const { data, isLoading, isError } = useQuery("products", getProducts, {
+      initialData: productsFromServer,
+      staleTime: 1000 * 60,
+    });
 
-  useEffect(() => {
-    reactQueryClient.setQueryData("products", productsFromServer);
-  }, [productsFromServer]);
+    useEffect(() => {
+      reactQueryClient.setQueryData("products", productsFromServer);
+    }, [productsFromServer]);
 
-  const hero = <div className={styles.heroSection}></div>;
+    const hero = <div className={styles.heroSection}></div>;
 
-  const pageBody = useMemo(() => {
-    if (isLoading) return <div>Loading...</div>;
+    const pageBody = useMemo(() => {
+      if (isLoading) return <div>Loading...</div>;
 
-    if (isError) return <div>There was some error fetching products list</div>;
+      if (isError) return <div>There was some error fetching products list</div>;
 
-    if (data)
-      return (
-        <div className={styles.productsSectionContainer}>
-          <Categories
-            categories={parentCategories}
-            parentToChildCategoryMap={parentToChildCategoryMap}
-          />
-          <div className={styles.productsContainer}>
-            <Products products={data} />
+      if (data)
+        return (
+          <div className={styles.productsSectionContainer}>
+            <Categories
+              categories={parentCategories}
+              parentToChildCategoryMap={parentToChildCategoryMap}
+            />
+            <div className={styles.productsContainer}>
+              <Products products={data} />
+            </div>
           </div>
-        </div>
-      );
-  }, [isLoading, isError, data]);
+        );
+    }, [isLoading, isError, data]);
 
-  return (
-    <Layout>
+    return (
       <React.Fragment>
         <Navbar />
         {hero}
         {pageBody}
         <Footer />
       </React.Fragment>
-    </Layout>
-  );
-};
+    );
+  };
 
 export default Home;

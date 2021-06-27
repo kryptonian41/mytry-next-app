@@ -1,4 +1,4 @@
-import { useTheme } from 'assets/color-map'
+import { useTheme } from 'utils/color-map'
 import React from 'react'
 
 interface Props {

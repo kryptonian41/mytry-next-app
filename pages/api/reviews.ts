@@ -1,4 +1,4 @@
-import { wooClient } from "../../api-utils";
+import { wooClient } from "../../utils/api-utils";
 import type { NextApiRequest, NextApiResponse } from "next";
 
 export const getReviewsServerSide = async (queryParams = {}) =>

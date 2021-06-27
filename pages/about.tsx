@@ -1,4 +1,4 @@
-import { useTheme } from "assets/color-map";
+import { useTheme } from "utils/color-map";
 import Navbar from "components/Navbar";
 import Layout from "components/Layout";
 import MyTrySvg from "assets/svgs/icons/mytry.svg";

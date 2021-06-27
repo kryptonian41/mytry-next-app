@@ -284,3 +284,27 @@ export interface CartTotals {
   currency_prefix: string;
   currency_suffix: string;
 }
+
+
+
+export interface Category {
+  id: number;
+  name: string;
+  slug: string;
+  parent: number;
+  description: string;
+  display: string;
+  image: null;
+  menu_order: number;
+  count: number;
+  _links: Links;
+}
+
+export interface Links {
+  self: Collection[];
+  collection: Collection[];
+}
+
+export interface Collection {
+  href: string;
+}

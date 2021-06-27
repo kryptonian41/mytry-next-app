@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Formik, Form, ErrorMessage, Field } from "formik";
 import * as Yup from "yup";
 import { useDispatch } from "react-redux";
-import { createReview } from "actions/productActions";
+import { createReview } from "redux-utils/actions/productActions";
 import reviewStyles from "./review.module.css";
 import FilledStar from "assets/svgs/icons/rating-star-filled-form.svg";
 import EmptyStar from "assets/svgs/icons/rating-star-form.svg";
@@ -168,11 +168,10 @@ const CreateReview = ({ productId, colorScheme }) => {
             />
             <Field
               as="textarea"
-              className={`${reviewStyles.reviewTextArea} ${
-                formik.touched.review && formik.errors.review
+              className={`${reviewStyles.reviewTextArea} ${formik.touched.review && formik.errors.review
                   ? reviewStyles.errorField
                   : ""
-              } `}
+                } `}
               id="review"
               name="review"
               value={formik.values.review}

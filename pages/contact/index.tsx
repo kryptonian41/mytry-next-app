@@ -1,4 +1,4 @@
-import { useTheme } from "assets/color-map";
+import { useTheme } from "utils/color-map";
 import Layout from "components/Layout";
 import Navbar from "components/Navbar";
 import styles from "./styles.module.scss";

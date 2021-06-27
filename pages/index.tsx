@@ -1,4 +1,4 @@
-import { useTheme } from "assets/color-map";
+import { useTheme } from "utils/color-map";
 import Layout from "components/Layout";
 import clsx from "clsx";
 import { HomeProductTile } from "components/HomeProductTile";

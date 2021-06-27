@@ -1,4 +1,4 @@
-import { SET_REVIEWS, CREATE_REVIEW } from "actions/types";
+import { SET_REVIEWS, CREATE_REVIEW } from "redux-utils/actions/types";
 
 const initialState = {
   reviews: [],
