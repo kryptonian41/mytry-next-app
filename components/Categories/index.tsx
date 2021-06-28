@@ -14,6 +14,7 @@ interface Props {
     [parentId: string]: import("types/commons").Category[];
   };
   setCategory: (...any) => void;
+  setSorting: (...any) => void;
 }
 
 const SKIN_TYPE_CATEGORY_SLUG = "skin-type";
@@ -22,6 +23,7 @@ const Categories: React.FC<Props> = ({
   categories,
   parentToChildCategoryMap,
   setCategory,
+  setSorting,
 }) => {
   const { parentCategories, skinTypeCategory } = useMemo(() => {
     const skinTypeCategoryIndex = categories.findIndex(
@@ -64,7 +66,7 @@ const Categories: React.FC<Props> = ({
       {skinTypeCategory && (
         <div>
           <h2 className={categoriesStyle.heading}>skin type</h2>
-          {mobileView && showCategories && (
+          {((mobileView && showCategories) || !mobileView) && (
             <div className={categoriesStyle.categoriesWrapper}>
               {parentToChildCategoryMap[skinTypeCategory.id].map(
                 (skinTypeCategory) => (
@@ -83,7 +85,7 @@ const Categories: React.FC<Props> = ({
       )}
       <div>
         <h2 className={categoriesStyle.heading}>categories</h2>
-        {mobileView && showCategories && (
+        {((mobileView && showCategories) || !mobileView) && (
           <div className={categoriesStyle.categoriesWrapper}>
             {parentCategories.map((category) => (
               <button
@@ -99,11 +101,26 @@ const Categories: React.FC<Props> = ({
       </div>
       <div>
         <h2 className={categoriesStyle.heading}>sort by</h2>
-        {mobileView && showCategories && (
+        {((mobileView && showCategories) || !mobileView) && (
           <div className={categoriesStyle.categoriesWrapper}>
-            <button className={categoriesStyle.category}>Price Low-High</button>
-            <button className={categoriesStyle.category}>Price High-Low</button>
-            <button className={categoriesStyle.category}>A to Z</button>
+            <button
+              onClick={() => setSorting("priceAscending")}
+              className={categoriesStyle.category}
+            >
+              Price Low-High
+            </button>
+            <button
+              onClick={() => setSorting("priceDescending")}
+              className={categoriesStyle.category}
+            >
+              Price High-Low
+            </button>
+            <button
+              onClick={() => setSorting("atoz")}
+              className={categoriesStyle.category}
+            >
+              A to Z
+            </button>
           </div>
         )}
       </div>
@@ -114,6 +131,9 @@ const Categories: React.FC<Props> = ({
 const mapDispatchToProps = (dispatch) => ({
   setCategory: (categoryId) => {
     dispatch({ type: "SET_CATEGORY", payload: categoryId });
+  },
+  setSorting: (sorting) => {
+    dispatch({ type: "SET_SORT", payload: sorting });
   },
 });
 
