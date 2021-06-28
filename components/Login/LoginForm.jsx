@@ -25,7 +25,7 @@ const LoginForm = () => {
           password: "",
         }}
         validationSchema={validate}
-        onSu65Tbmit={({ email, password }, { setSubmitting, resetForm }) => {
+        onSubmit={({ email, password }, { setSubmitting, resetForm }) => {
           dispatch(logIn(email, password));
           setSubmitting(false);
           resetForm();

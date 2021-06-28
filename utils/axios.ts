@@ -1,7 +1,11 @@
-import Axios, { AxiosRequestConfig } from 'axios'
+import Axios, { AxiosInstance, AxiosRequestConfig } from 'axios'
 
-export let axios
+export let axios: AxiosInstance
 
 export const createAxiosInstance = (options: AxiosRequestConfig) => {
-	axios = Axios.create(options)
+  axios = Axios.create(options)
+}
+
+export const setDefaultAxios = () => {
+  axios = Axios.create({})
 }
