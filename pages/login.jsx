@@ -13,7 +13,7 @@ const login = () => {
   }, [user]);
 
   return (
-    <Layout>
+    <Layout title="Login" description={null} keywords={null}>
       <Login />
     </Layout>
   );

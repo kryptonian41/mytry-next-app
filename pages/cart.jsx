@@ -2,7 +2,7 @@ import Layout from "components/Layout";
 import Cart from "components/Cart";
 
 const cart = () => (
-  <Layout>
+  <Layout title="Cart" description={null} keywords={null}>
     <Cart />
   </Layout>
 );

@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { validateToken } from "./validate";
-import { wooClient } from "api-utils";
+import { wooClient } from "utils/api-utils";
 
 export const getUser = async (id) => await wooClient.get(`customers/${id}`);
 

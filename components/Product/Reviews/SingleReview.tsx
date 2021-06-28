@@ -4,6 +4,10 @@ import EmptyStar from "assets/svgs/icons/rating-star.svg";
 import reviewStyles from "./review.module.css";
 
 const SingleReview = ({ rating, reviewText, reviewer }) => {
+  function createReviewMarkup(reviewText) {
+    return { __html: reviewText };
+  }
+
   return (
     <div className={reviewStyles.singleReviewContainer}>
       <div className={reviewStyles.starsContainer}>
@@ -18,9 +22,10 @@ const SingleReview = ({ rating, reviewText, reviewer }) => {
               .map((_, i) => <EmptyStar key={rating + i} />)
           : ""}
       </div>
-      <p className={reviewStyles.review}>
-        {reviewText.substr(3, reviewText.length - 8)}
-      </p>
+      <div
+        className={reviewStyles.review}
+        dangerouslySetInnerHTML={createReviewMarkup(reviewText)}
+      />
       <p className={reviewStyles.reviewer}>{reviewer}</p>
     </div>
   );

@@ -13,7 +13,7 @@ const register = () => {
   }, [user]);
 
   return (
-    <Layout>
+    <Layout title="Register" description={null} keywords={null}>
       <Register />
     </Layout>
   );

@@ -1,5 +1,5 @@
 import { useDispatch } from "react-redux";
-import { logIn } from "actions/userActions";
+import { logIn } from "redux-utils/actions/userActions";
 import { Formik, Form, ErrorMessage, Field } from "formik";
 import * as Yup from "yup";
 import Link from "next/link";

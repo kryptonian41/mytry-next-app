@@ -3,6 +3,7 @@ import Navbar from "components/Navbar";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import { reactQueryClient } from "pages/_app";
 import React, { useEffect, useMemo } from "react";
+import Layout from "components/Layout";
 import Footer from "components/Footer";
 import Categories from "components/Categories";
 import Products from "components/Products";
@@ -42,44 +43,46 @@ export const Home: React.FC<
   parentCategories,
   parentToChildCategoryMap,
 }) => {
-    const { data, isLoading, isError } = useQuery("products", getProducts, {
-      initialData: productsFromServer,
-      staleTime: 1000 * 60,
-    });
+  const { data, isLoading, isError } = useQuery("products", getProducts, {
+    initialData: productsFromServer,
+    staleTime: 1000 * 60,
+  });
 
-    useEffect(() => {
-      reactQueryClient.setQueryData("products", productsFromServer);
-    }, [productsFromServer]);
+  useEffect(() => {
+    reactQueryClient.setQueryData("products", productsFromServer);
+  }, [productsFromServer]);
 
-    const hero = <div className={styles.heroSection}></div>;
+  const hero = <div className={styles.heroSection}></div>;
 
-    const pageBody = useMemo(() => {
-      if (isLoading) return <div>Loading...</div>;
+  const pageBody = useMemo(() => {
+    if (isLoading) return <div>Loading...</div>;
 
-      if (isError) return <div>There was some error fetching products list</div>;
+    if (isError) return <div>There was some error fetching products list</div>;
 
-      if (data)
-        return (
-          <div className={styles.productsSectionContainer}>
-            <Categories
-              categories={parentCategories}
-              parentToChildCategoryMap={parentToChildCategoryMap}
-            />
-            <div className={styles.productsContainer}>
-              <Products products={data} />
-            </div>
+    if (data)
+      return (
+        <div className={styles.productsSectionContainer}>
+          <Categories
+            categories={parentCategories}
+            parentToChildCategoryMap={parentToChildCategoryMap}
+          />
+          <div className={styles.productsContainer}>
+            <Products products={data} />
           </div>
-        );
-    }, [isLoading, isError, data]);
+        </div>
+      );
+  }, [isLoading, isError, data]);
 
-    return (
+  return (
+    <Layout title="Products" description={null} keywords={null}>
       <React.Fragment>
         <Navbar />
         {hero}
         {pageBody}
         <Footer />
       </React.Fragment>
-    );
-  };
+    </Layout>
+  );
+};
 
 export default Home;
