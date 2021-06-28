@@ -22,7 +22,7 @@ interface Props {
 }
 
 export const getServerSideProps: GetServerSideProps<Props> = async () => {
-  const { data } = await getProductsServerSide();
+  const { data } = await getProductsServerSide({ per_page: 50 });
   let categories = await getCategoriesServerSide().then((res) => res.data);
 
   const { parentCategories, parentToChildMapping } =

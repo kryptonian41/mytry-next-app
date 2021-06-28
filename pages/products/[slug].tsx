@@ -5,8 +5,8 @@ import Footer from "components/Footer";
 import RelatedProducts from "../../components/Product/RelatedProducts/RelatedProducts";
 import Review from "../../components/Product/Reviews/Reviews";
 import { getProduct } from "utils/api-utils";
-import { ProductFilters } from "utils/api-utils"
-import { colorMap, getColorSchemeByCategory } from "utils/color-map";
+import { ProductFilters } from "utils/api-utils";
+import { colorMap, getColorScheme } from "utils/color-map";
 import Navbar from "components/Navbar";
 import { GetStaticProps, InferGetServerSidePropsType } from "next";
 import { useRouter } from "next/router";
@@ -80,10 +80,6 @@ export const ProductPage: React.FC<
   } = useQuery(slug, () => getProduct(slug as string), {
     initialData: product,
   });
-  const colorScheme = useMemo(() => {
-    if (!productData || isLoading || isError) return colorMap.default;
-    return getColorSchemeByCategory(productData.categories);
-  }, [productData, isLoading, isError]);
   const imageContainerRef = useRef(null);
   const productQuantity = useMemo(
     () =>
@@ -100,7 +96,10 @@ export const ProductPage: React.FC<
     [productData]
   );
 
+  let colorScheme = colorMap.default;
+
   // For maintianing the image aspect ratio on all browsers as the aspect ratio property is not supported by safari yet and the padding bottom hack cannot be used because the height of the image is fixed
+  // Get a color scheme randomly for three options
   useLayoutEffect(() => {
     const imageContainerWidth =
       (7 * imageContainerRef.current.offsetHeight) / 8;
@@ -112,6 +111,8 @@ export const ProductPage: React.FC<
       elm.style.width = imageContainerWidth + "px";
     });
     observer.observe(imageContainerRef.current);
+
+    colorScheme = getColorScheme();
   }, []);
 
   const dispatch = useDispatch();

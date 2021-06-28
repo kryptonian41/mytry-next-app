@@ -29,8 +29,8 @@ export const colorMap: ColorMap = {
     panelColor: theme.orange,
   },
   default: {
-    bgColor: theme.green,
-    panelColor: theme.orange,
+    bgColor: "#034A38",
+    panelColor: "#F7FAEE",
   },
 };
 
@@ -49,7 +49,7 @@ export const newColorMaps = [
   },
 ];
 
-export const getColorSchemeByCategory = (categories: Category[]) => {
+export const getColorScheme = () => {
   // for (let category of categories) {
   //   if (colorMap[category.name]) return colorMap[category.name];
   // }
