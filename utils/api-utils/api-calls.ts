@@ -1,5 +1,6 @@
-import axios, { AxiosResponse } from 'axios'
+import { AxiosResponse } from 'axios'
 import { Order, Product } from 'types/commons'
+import { axios } from 'utils/axios'
 
 export const getProducts = async () => {
   const { data } = await axios.get<any, AxiosResponse<Product[]>>('/api/products')

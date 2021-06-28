@@ -46,30 +46,28 @@ export const ShippingForm = (props: Props) => {
 
           }}
         >
-          {(formik) => (
-            <>
-              <InputField fieldProps={{ type: 'text', name: 'firstName', placeHolder: 'First Name' }} errorProps={{ component: 'div', name: 'firstName' }} />
-              <InputField
-                fieldProps={{ type: 'text', name: 'lastName', placeHolder: 'Last Name' }}
-                errorProps={{ component: 'div', name: 'lastName' }} /
-              >
-              <InputField fieldProps={{ type: 'text', name: 'flatAddress', placeHolder: 'Flat/Apt/Locality' }} errorProps={{ component: 'div', name: 'flatAddress' }} containerProps={{
-                className: 'col-span-2'
-              }} />
-              <InputField fieldProps={{ type: 'text', name: 'streetAddress', placeHolder: 'Street Address' }} errorProps={{ component: 'div', name: 'streetAddress' }} containerProps={{
-                className: 'col-span-2'
-              }} />
-              <InputField fieldProps={{ type: 'text', name: 'city', placeHolder: 'City' }} errorProps={{ component: 'div', name: 'city' }} />
-              <InputField
-                fieldProps={{ type: 'text', name: 'state', placeHolder: 'State' }}
-                errorProps={{ component: 'div', name: 'state' }} /
-              >
-              <InputField
-                fieldProps={{ type: 'number', name: 'pincode', placeHolder: 'Pincode' }}
-                errorProps={{ component: 'div', name: 'pincode' }} /
-              >
-            </>
-          )}
+          <>
+            <InputField fieldProps={{ type: 'text', name: 'firstName', placeHolder: 'First Name' }} errorProps={{ component: 'div', name: 'firstName' }} />
+            <InputField
+              fieldProps={{ type: 'text', name: 'lastName', placeHolder: 'Last Name' }}
+              errorProps={{ component: 'div', name: 'lastName' }} /
+            >
+            <InputField fieldProps={{ type: 'text', name: 'flatAddress', placeHolder: 'Flat/Apt/Locality' }} errorProps={{ component: 'div', name: 'flatAddress' }} containerProps={{
+              className: 'col-span-2'
+            }} />
+            <InputField fieldProps={{ type: 'text', name: 'streetAddress', placeHolder: 'Street Address' }} errorProps={{ component: 'div', name: 'streetAddress' }} containerProps={{
+              className: 'col-span-2'
+            }} />
+            <InputField fieldProps={{ type: 'text', name: 'city', placeHolder: 'City' }} errorProps={{ component: 'div', name: 'city' }} />
+            <InputField
+              fieldProps={{ type: 'text', name: 'state', placeHolder: 'State' }}
+              errorProps={{ component: 'div', name: 'state' }} /
+            >
+            <InputField
+              fieldProps={{ type: 'number', name: 'pincode', placeHolder: 'Pincode' }}
+              errorProps={{ component: 'div', name: 'pincode' }} /
+            >
+          </>
         </Formik>
       </div>
     </div>

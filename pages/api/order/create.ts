@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import { Order } from "types/commons";
 import { wooClient } from "utils/api-utils";
+import { authMiddleware, runMiddleware } from "utils/api-utils/middlewares";
 import { razorpayClient } from "utils/api-utils/razorpay-client";
 
 
@@ -44,6 +44,7 @@ export const createOrderServerSide = async (order: any) => {
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === 'POST') {
+    await runMiddleware(req, res, authMiddleware)
     const { id, total, currency } = await createOrderServerSide(DUMMY_ORDER);
     const orderPaymentDetails = await razorpayClient.orders.create({
       amount: parseInt(total) * 100,

@@ -1,3 +1,4 @@
+import { createAxiosInstance, setDefaultAxios } from "utils/axios";
 import {
   LOGIN_SUCCESS,
   LOGIN_ERROR,
@@ -13,17 +14,24 @@ const initialState = {
 
 export default function userReducer(state = initialState, action) {
   switch (action.type) {
-    case LOGIN_SUCCESS:
+    case LOGIN_SUCCESS: {
       localStorage.setItem("user-jwt", action.payload);
+      createAxiosInstance({
+        headers: {
+          Authorization: `Bearer ${action.payload}`
+        }
+      })
       return {
         ...state,
         token: action.payload,
         isAuthenticated: true,
       };
+    }
 
     case LOGIN_ERROR:
     case LOGOUT_USER:
       localStorage.removeItem("user-jwt");
+      setDefaultAxios()
       return {
         ...state,
         token: null,
