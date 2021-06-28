@@ -7,6 +7,7 @@ import Layout from "components/Layout";
 import Footer from "components/Footer";
 import Categories from "components/Categories";
 import Products from "components/Products";
+import Video from "components/Video";
 import { useQuery } from "react-query";
 import { Category, Product } from "types/commons";
 import { getCategoriesServerSide } from "../api/categories";
@@ -52,7 +53,13 @@ export const Home: React.FC<
     reactQueryClient.setQueryData("products", productsFromServer);
   }, [productsFromServer]);
 
-  const hero = <div className={styles.heroSection}></div>;
+  const hero = (
+    <div className={styles.heroSection}>
+      <Navbar />
+      <Video page="product" />
+      <div className="homePage__bgVideo--overlay" />
+    </div>
+  );
 
   const pageBody = useMemo(() => {
     if (isLoading) return <div>Loading...</div>;
@@ -76,7 +83,6 @@ export const Home: React.FC<
   return (
     <Layout title="Products" description={null} keywords={null}>
       <React.Fragment>
-        <Navbar />
         {hero}
         {pageBody}
         <Footer />

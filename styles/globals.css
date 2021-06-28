@@ -59,6 +59,26 @@ body {
   display: block;
 }
 
+.homePage__bgVideo {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -10;
+}
+
+.homePage__bgVideo--overlay {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -5;
+}
+
 @media screen and (max-width: 640px) {
   .product-tile__add-item-btn {
     display: none;

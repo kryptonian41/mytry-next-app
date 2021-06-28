@@ -6,6 +6,7 @@ import Navbar from "components/Navbar";
 import React from "react";
 import Footer from "components/Footer";
 import styles from "./styles.module.scss";
+import Video from "components/Video";
 import GreenOvalSticker from "assets/svgs/stickers/green-oval-badge.svg";
 import { useRouter } from "next/router";
 
@@ -19,6 +20,8 @@ export const Home: React.FC = () => {
       <React.Fragment>
         <div className="h-full relative">
           <Navbar />
+          <Video page="homepage" />
+          <div className="homePage__bgVideo--overlay" />
           <div
             onClick={() => router.push("/products")}
             className="absolute w-full left-0 bottom-0"
@@ -168,7 +171,8 @@ export const Home: React.FC = () => {
                 className="text-center text-xl sm:text-xl m-auto mt-12"
                 style={{
                   color: "white",
-                  display: "inline-block"
+                  display: "inline-block",
+                  textShadow: "1px 1px black",
                 }}
               >
                 All our boxes are handmade by specially-abled people who add
@@ -176,7 +180,7 @@ export const Home: React.FC = () => {
               </span>
             </p>
             <img
-              src="/assets/images/Intersection 4@2x.png"
+              src="/assets/images/homepage/packaged with love.jpg"
               alt=""
               className="w-full h-full object-cover"
             />

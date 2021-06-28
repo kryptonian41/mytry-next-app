@@ -4,6 +4,7 @@ import React, {
   useRef,
   useMemo,
   useCallback,
+  useLayoutEffect,
 } from "react";
 import { connect } from "react-redux";
 import categoriesStyle from "./categories.module.css";
@@ -37,11 +38,7 @@ const Categories: React.FC<Props> = ({
     return { parentCategories, skinTypeCategory };
   }, [categories, parentToChildCategoryMap]);
 
-  const [mobileView, setMobileView] = useState(() => {
-    if (typeof window !== "undefined")
-      return window.matchMedia("(max-width: 640px)").matches;
-    return null;
-  });
+  const [mobileView, setMobileView] = useState(null);
 
   const mobileViewRef = useRef(mobileView);
 
@@ -51,14 +48,26 @@ const Categories: React.FC<Props> = ({
     setShowCategories((prev) => !prev);
   }, []);
 
+  useLayoutEffect(() => {
+    setMobileView(window.matchMedia("(max-width: 640px)").matches);
+  }, []);
+
+  const matchHandler = ({ matches }) => {
+    if (matches === mobileViewRef.current) return;
+    mobileViewRef.current = matches;
+    setMobileView(matches);
+  };
+
   useEffect(() => {
     window
       .matchMedia("(max-width: 640px)")
-      .addEventListener("change", ({ matches }) => {
-        if (matches === mobileViewRef.current) return;
-        mobileViewRef.current = matches;
-        setMobileView(matches);
-      });
+      .addEventListener("change", matchHandler);
+
+    return () => {
+      window
+        .matchMedia("(max-width: 640px)")
+        .removeEventListener("change", matchHandler);
+    };
   }, []);
 
   return (
