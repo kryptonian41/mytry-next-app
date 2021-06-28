@@ -7,6 +7,7 @@ import cartStyles from 'components/Cart/cart.module.scss'
 import { useTheme } from 'utils/color-map';
 import * as Yup from "yup";
 import { ShippingForm } from 'components/Cart/checkout/ShippingForm';
+import { CheckoutButton } from 'components/Cart/checkout/CheckoutButton';
 
 
 interface Props {
@@ -49,12 +50,14 @@ export const Checkout = (props: Props) => {
               <ShippingForm />
             </div>
           </div>
-          <Summary cartTotal={cartTotal} dark />
+          <Summary cartTotal={cartTotal} dark buttonComponent={<CheckoutButton />} />
         </div>
       </div>
     </Layout>
   )
 }
+
+
 
 
 export default Checkout
