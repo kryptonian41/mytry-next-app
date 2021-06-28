@@ -7,6 +7,7 @@ export const SET_ADDRESSES = "SET_ADDRESSES";
 
 export const SET_CATEGORY = "SET_CATEGORY";
 export const UNSET_CATEGORY = "UNSET_CATEGORY";
+export const SET_SORT = "SET_SORT"
 
 export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
 export const LOGIN_ERROR = "LOGIN_ERROR";
