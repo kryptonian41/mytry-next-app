@@ -1,5 +1,5 @@
 import axios, { AxiosResponse } from 'axios'
-import { Product } from 'types/commons'
+import { Order, Product } from 'types/commons'
 
 export const getProducts = async () => {
   const { data } = await axios.get<any, AxiosResponse<Product[]>>('/api/products')
@@ -26,16 +26,7 @@ export const getReviews = async () => {
   return data
 }
 
-// interface ReviewFilters {
-//   id: number
-// }
-
-// export const getReview = async (id) => {
-//   const { data } = await axios.get('/api/products', {
-//     params: {
-//       id
-//     } as ReviewFilters
-//   })
-//   if(!data.length) throw Error('Review not found')
-//   return data
-// } 
+export const createOrder = async (order: Order) => {
+  const { data } = await axios.post("/api/order/create", order)
+  return data
+}

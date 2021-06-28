@@ -1,13 +1,11 @@
 import HamburgerIcon from "assets/svgs/icons/hamburger.svg";
 import MyTryLogo from "assets/svgs/logos/main.svg";
-import styles from "./style.module.scss";
 import clsx from "clsx";
 import Link from "next/link";
+import { useCallback, useState } from "react";
 import { connect, useDispatch } from "react-redux";
 import { LOGOUT_USER } from "redux-utils/actions/types";
-import { useEffect, useLayoutEffect, useState } from "react";
-import { useRef } from "react";
-import { useCallback } from "react";
+import styles from "./style.module.scss";
 
 interface Props {
   color?: string;
@@ -70,15 +68,15 @@ const Navbar: React.FC<Props> = ({
               style={
                 color === "dark"
                   ? {
-                      backgroundColor: "#fff",
-                      padding: "1rem",
-                      color: "#034a38",
-                    }
+                    backgroundColor: "#fff",
+                    padding: "1rem",
+                    color: "#034a38",
+                  }
                   : {
-                      backgroundColor: "#034a38",
-                      padding: "1rem",
-                      color: "#fff",
-                    }
+                    backgroundColor: "#034a38",
+                    padding: "1rem",
+                    color: "#fff",
+                  }
               }
             >
               <li className="whitespace-nowrap">

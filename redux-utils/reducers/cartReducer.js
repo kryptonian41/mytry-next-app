@@ -5,6 +5,7 @@ import {
   REMOVE_ITEM,
   INCREASE_ITEM_QTY,
   DECREASE_ITEM_QTY,
+  SET_ADDRESSES,
 } from "../actions/types";
 
 export const CART_LOCALSTORAGE_KEY = "maitri_cart_cache"
@@ -49,9 +50,15 @@ const getNewState = (state, action) => {
       return increaseItemQty(state, action.payload);
     case DECREASE_ITEM_QTY:
       return decreaseItemQty(state, action.payload);
+    case SET_ADDRESSES:
+      return setAddress(state, action.payload)
     default:
       return state;
   }
+}
+
+const setAddress = (state, payload) => {
+  return state
 }
 
 const addNewProduct = (state, product) => {
