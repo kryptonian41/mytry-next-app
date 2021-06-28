@@ -44,7 +44,7 @@ export const InputField = ({ fieldProps, errorProps, containerProps = null }) =>
         borderColor: theme.green,
         ...fieldProps.style
       }}
-      className={clsx("w-full bg-transparent pl-0 border-t-0 border-l-0 border-r-0 border border-b-2", fieldProps.className)}
+      className={clsx("w-full bg-transparent pl-0 border-t-0 border-l-0 border-r-0 border border-b-2 focus:outline-none focus:ring-0", fieldProps.className)}
     />
     <div className="absolute bottom-0 left-0 text-red-900">
       <ErrorMessage
@@ -62,7 +62,7 @@ export const ContactShippingForm: React.FC<Props> = ({ submitBtnRef = null, onSu
         initialValues={initialValue || {
           city: '',
           email: '',
-          contactNo: null,
+          contactNo: '',
           firstName: '',
           lastName: '',
           flatAddress: '',

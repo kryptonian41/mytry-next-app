@@ -353,7 +353,7 @@ export interface Ing {
 
 export interface ContactShippingData {
   email: string,
-  contactNo: number,
+  contactNo: string,
   firstName: string,
   lastName: string,
   flatAddress: string,

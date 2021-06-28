@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 import cartStyles from "./cart.module.scss";
 import Link from "next/link";
 import { useRouter } from 'next/router'
+import clsx from "clsx";
 
 const index = () => {
   const cart = useSelector((state) => (state as any).cart);
@@ -25,7 +26,7 @@ const index = () => {
       <div className={cartStyles.cartContainer}>
         <Items items={items} />
         <Summary cartTotal={cartTotal} buttonComponent={
-          <button onClick={handlePlaceOrderClick} className={cartStyles.checkoutBtn}>Place Order</button>
+          <button onClick={handlePlaceOrderClick} className={clsx(cartStyles.checkoutBtn, "no-outline")}>Place Order</button>
         } />
       </div>
     </div>
