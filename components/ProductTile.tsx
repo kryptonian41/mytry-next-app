@@ -40,7 +40,7 @@ const ProductTile: React.FC<Props> = ({ product }) => {
             )}
             <button
               style={{ backgroundColor: "#ED2385", color: "#F8EC00" }}
-              className="absolute translate-x-1/2 right-0 bottom-28 transform py-1 px-4 bg-pink-800 text-white rounded-full product-tile__add-item-btn"
+              className="absolute translate-x-1/2 right-0 bottom-28 transform py-1 px-4 bg-pink-800 text-white rounded-full product-tile__add-item-btn no-outline"
             >
               SHOP
             </button>

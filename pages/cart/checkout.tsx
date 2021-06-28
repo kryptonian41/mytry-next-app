@@ -2,7 +2,7 @@ import React, { useRef } from 'react'
 import Layout from "components/Layout";
 import Navbar from 'components/Navbar';
 import Summary from 'components/Cart/Summary';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import cartStyles from 'components/Cart/cart.module.scss'
 import { useTheme } from 'utils/color-map';
 import * as Yup from "yup";
@@ -13,6 +13,7 @@ import { createOrder } from 'utils/api-utils';
 import { useRouter } from 'next/router';
 import { ContactShippingData, LineItem, Order } from 'types/commons';
 import { FormikHelpers } from 'formik';
+import { CLEAR_CART } from 'redux-utils/actions/types';
 // import { getOrderDetails } from 'pages/api/order/create';
 
 interface Props {
@@ -58,15 +59,21 @@ export const Checkout = (props: Props) => {
   const theme = useTheme()
   const router = useRouter()
   const shippingFormSubmitRef = useRef(null)
+  const dispatch = useDispatch()
   const checkout: ((values: ContactShippingData, formikHelpers: FormikHelpers<ContactShippingData>) => void | Promise<any>) = async (values) => {
     const order = getOrderDetails(items, values)
     const paymentDetails = await createOrder(order)
-    const rzp = createRazorpayInstance(paymentDetails, (rzpResponse) => router.push({
-      pathname: '/order/success',
-      query: {
-        orderId: rzpResponse.razorpay_order_id
-      }
-    }))
+    const rzp = createRazorpayInstance(paymentDetails, (rzpResponse) => {
+      dispatch({
+        type: CLEAR_CART
+      })
+      router.push({
+        pathname: '/order/success',
+        query: {
+          orderId: rzpResponse.razorpay_order_id
+        }
+      })
+    })
     rzp.open()
   }
   return (

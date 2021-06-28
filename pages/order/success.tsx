@@ -8,7 +8,6 @@ interface Props {
 
 const OrderSuccess = (props: Props) => {
   const { query } = useRouter()
-  console.log("🚀 ~ file: success.tsx ~ line 11 ~ OrderSuccess ~ query", query)
   const theme = useTheme()
   return (
     <div className="h-full flex flex-col" style={{

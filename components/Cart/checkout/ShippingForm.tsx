@@ -80,7 +80,7 @@ export const ContactShippingForm: React.FC<Props> = ({ submitBtnRef = null, onSu
           }}>Contact Information</h1>
           <div className="grid grid-cols-2 gap-x-8 mt-8">
             <InputField fieldProps={{ type: 'email', name: 'email', placeholder: 'e-mail' }} errorProps={{ component: 'div', name: 'email' }} />
-            <InputField fieldProps={{ type: 'number', name: 'contactNo', placeholder: 'Contact No.' }} errorProps={{ component: 'div', name: 'contactNo' }} />
+            <InputField fieldProps={{ type: 'tel', name: 'contactNo', placeholder: 'Contact No.' }} errorProps={{ component: 'div', name: 'contactNo' }} />
           </div>
 
           <h1 className="text-4xl mt-8" style={{
