@@ -106,11 +106,11 @@ export interface Dimensions {
 export interface Order {
   payment_method: string;
   payment_method_title: string;
-  set_paid: boolean;
+  set_paid?: boolean;
   billing: Address;
   shipping: Address;
   line_items: LineItem[];
-  shipping_lines: ShippingLine[];
+  shipping_lines?: ShippingLine[];
 }
 
 export interface Address {
@@ -348,4 +348,18 @@ export interface Ing {
   state: string;
   email?: string;
   phone?: string;
+}
+
+
+export interface ContactShippingData {
+  email: string,
+  contactNo: number,
+  firstName: string,
+  lastName: string,
+  flatAddress: string,
+  streetAddress: string,
+  city: string,
+  state: string,
+  pincode: number,
+  saveAddressAs: string
 }

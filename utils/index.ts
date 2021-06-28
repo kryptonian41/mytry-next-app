@@ -21,6 +21,10 @@ export const isServer = () => typeof window === 'undefined'
 
 export const createRazorpayInstance = ({
   currency, id, amount
+}, successCb = function (response) {
+  alert(response.razorpay_payment_id);
+  alert(response.razorpay_order_id);
+  alert(response.razorpay_signature)
 }) => {
   const options = {
     "key": process.env.NEXT_PUBLIC_RAZORPAY_API_KEY_ID,
@@ -30,11 +34,7 @@ export const createRazorpayInstance = ({
     "description": "Test Transaction",
     "image": "https://example.com/your_logo",
     "order_id": id,
-    "handler": function (response) {
-      alert(response.razorpay_payment_id);
-      alert(response.razorpay_order_id);
-      alert(response.razorpay_signature)
-    },
+    "handler": successCb,
     "prefill": {
       "name": "Gaurav Kumar",
       "email": "gaurav.kumar@example.com",

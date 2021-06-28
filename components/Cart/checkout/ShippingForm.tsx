@@ -1,21 +1,27 @@
 import React from 'react'
 import { useTheme } from 'utils/color-map';
 import * as Yup from "yup";
-import { Formik, Form, ErrorMessage, Field } from "formik";
+import { Formik, Form, ErrorMessage, Field, FormikHelpers } from "formik";
 import clsx from 'clsx';
 import checkoutStyles from './checkout.module.scss'
+import { ContactShippingData } from 'types/commons';
 
 interface Props {
-
+  submitBtnRef: React.MutableRefObject<HTMLButtonElement>,
+  onSubmit: ((values: ContactShippingData, formikHelpers: FormikHelpers<ContactShippingData>) => void | Promise<any>),
+  initialValue?: ContactShippingData
 }
 
 const shippingAddressSchema = Yup.object({
+  email: Yup.string().email().required('Email is required'),
+  contactNo: Yup.number().required('Contact Number is required'),
   firstName: Yup.string()
     .required("Field is required"),
   lastName: Yup.string()
     .required("Field is required"),
   flatAddress: Yup.string()
-    .required("Field is required").max(50, 'Max length can be 200 characteres'),
+    .max(50, 'Max length can be 200 characteres')
+    .required("Field is required"),
   streetAddress: Yup.string()
     .required("Field is required").max(200, 'Max length can be 200 characteres'),
   city: Yup.string()
@@ -27,55 +33,8 @@ const shippingAddressSchema = Yup.object({
   saveAddressAs: Yup.string()
 });
 
-export const ShippingForm = (props: Props) => {
-  const theme = useTheme()
-  return (
-    <div>
-      <h1 className="text-4xl" style={{
-        color: theme.green
-      }}>Shipping Address</h1>
 
-      <div className="grid grid-cols-2 gap-x-8 gap-y-8 mt-8">
-        <Formik
-          initialValues={{
-            email: "",
-            password: "",
-          }}
-          validationSchema={shippingAddressSchema}
-          onSubmit={({ email, password }, { setSubmitting, resetForm }) => {
-
-          }}
-        >
-          <>
-            <InputField fieldProps={{ type: 'text', name: 'firstName', placeHolder: 'First Name' }} errorProps={{ component: 'div', name: 'firstName' }} />
-            <InputField
-              fieldProps={{ type: 'text', name: 'lastName', placeHolder: 'Last Name' }}
-              errorProps={{ component: 'div', name: 'lastName' }} /
-            >
-            <InputField fieldProps={{ type: 'text', name: 'flatAddress', placeHolder: 'Flat/Apt/Locality' }} errorProps={{ component: 'div', name: 'flatAddress' }} containerProps={{
-              className: 'col-span-2'
-            }} />
-            <InputField fieldProps={{ type: 'text', name: 'streetAddress', placeHolder: 'Street Address' }} errorProps={{ component: 'div', name: 'streetAddress' }} containerProps={{
-              className: 'col-span-2'
-            }} />
-            <InputField fieldProps={{ type: 'text', name: 'city', placeHolder: 'City' }} errorProps={{ component: 'div', name: 'city' }} />
-            <InputField
-              fieldProps={{ type: 'text', name: 'state', placeHolder: 'State' }}
-              errorProps={{ component: 'div', name: 'state' }} /
-            >
-            <InputField
-              fieldProps={{ type: 'number', name: 'pincode', placeHolder: 'Pincode' }}
-              errorProps={{ component: 'div', name: 'pincode' }} /
-            >
-          </>
-        </Formik>
-      </div>
-    </div>
-  )
-}
-
-
-const InputField = ({ fieldProps, errorProps, containerProps = null }) => {
+export const InputField = ({ fieldProps, errorProps, containerProps = null }) => {
   const theme = useTheme()
 
   return <div {...containerProps} className={clsx(checkoutStyles.inputFieldWrapper, containerProps?.className)}>
@@ -94,3 +53,67 @@ const InputField = ({ fieldProps, errorProps, containerProps = null }) => {
     </div>
   </div>
 }
+
+export const ContactShippingForm: React.FC<Props> = ({ submitBtnRef = null, onSubmit, initialValue }) => {
+  const theme = useTheme()
+  return (
+    <div>
+      <Formik
+        initialValues={initialValue || {
+          city: '',
+          email: '',
+          contactNo: null,
+          firstName: '',
+          lastName: '',
+          flatAddress: '',
+          pincode: null,
+          saveAddressAs: '',
+          state: '',
+          streetAddress: ''
+        } as ContactShippingData}
+        validationSchema={shippingAddressSchema}
+        onSubmit={onSubmit}
+      >
+        <Form>
+          <h1 className="text-4xl" style={{
+            color: theme.green
+          }}>Contact Information</h1>
+          <div className="grid grid-cols-2 gap-x-8 mt-8">
+            <InputField fieldProps={{ type: 'email', name: 'email', placeholder: 'e-mail' }} errorProps={{ component: 'div', name: 'email' }} />
+            <InputField fieldProps={{ type: 'number', name: 'contactNo', placeholder: 'Contact No.' }} errorProps={{ component: 'div', name: 'contactNo' }} />
+          </div>
+
+          <h1 className="text-4xl mt-8" style={{
+            color: theme.green
+          }}>Shipping Address</h1>
+
+          <div className="grid grid-cols-2 gap-x-8 gap-y-6 mt-8">
+            <InputField fieldProps={{ type: 'text', name: 'firstName', placeholder: 'First Name' }} errorProps={{ component: 'div', name: 'firstName' }} />
+            <InputField
+              fieldProps={{ type: 'text', name: 'lastName', placeholder: 'Last Name' }}
+              errorProps={{ component: 'div', name: 'lastName' }} /
+            >
+            <InputField fieldProps={{ type: 'text', name: 'flatAddress', placeholder: 'Flat/Apt/Locality' }} errorProps={{ component: 'div', name: 'flatAddress' }} containerProps={{
+              className: 'col-span-2'
+            }} />
+            <InputField fieldProps={{ type: 'text', name: 'streetAddress', placeholder: 'Street Address' }} errorProps={{ component: 'div', name: 'streetAddress' }} containerProps={{
+              className: 'col-span-2'
+            }} />
+            <InputField fieldProps={{ type: 'text', name: 'city', placeholder: 'City' }} errorProps={{ component: 'div', name: 'city' }} />
+            <InputField
+              fieldProps={{ type: 'text', name: 'state', placeholder: 'State' }}
+              errorProps={{ component: 'div', name: 'state' }} /
+            >
+            <InputField
+              fieldProps={{ type: 'number', name: 'pincode', placeholder: 'Pincode' }}
+              errorProps={{ component: 'div', name: 'pincode' }} /
+            >
+            <button type="submit" className="hidden" ref={submitBtnRef}>submit</button>
+          </div>
+        </Form>
+      </Formik>
+    </div>
+  )
+}
+
+

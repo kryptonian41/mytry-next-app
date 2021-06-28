@@ -9,10 +9,8 @@ const createHmacDigest = (body: any, secret: string) => {
   return hmac.digest('hex')
 }
 
-const updateOrderStatus = async (orderId: string, orderStatus: string) => {
-  const { data } = await wooClient.put(`orders/${orderId}`, {
-    status: orderStatus
-  })
+const updateOrder = async (orderId: string, updateData: any) => {
+  const { data } = await wooClient.put(`orders/${orderId}`, updateData)
   return data
 }
 
@@ -24,7 +22,10 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         const { entity: { order_id } } = req.body.payload.payment
         const rzpOrderDetails = await razorpayClient.orders.fetch(order_id)
         const orderID = rzpOrderDetails.receipt
-        await updateOrderStatus(orderID, 'processing')
+        await updateOrder(orderID, {
+          status: 'processing',
+          transaction_id: order_id
+        })
       }
     } catch (error) {
       console.log("🚀 ~ file: verification.ts ~ line 28 ~ error", error)

@@ -7,8 +7,10 @@ import {
   INIT_APP,
   FINISH_INIT_APP,
 } from "./types";
+import Router from 'next/router'
 
-export const loadUser = (jwt) => async (dispatch) => {
+
+export const loadUser = (jwt, onSuccess) => async (dispatch) => {
   const config = {
     headers: {
       authorization: `Bearer ${jwt}`,
@@ -16,14 +18,15 @@ export const loadUser = (jwt) => async (dispatch) => {
   };
 
   try {
-    const res = await axios.get("api/users/me", config);
+    const res = await axios.get("/api/users/me", config);
     dispatch({ type: LOGIN_SUCCESS, payload: jwt });
     dispatch({ type: LOAD_USER, payload: res.data });
+    if (onSuccess) onSuccess()
   } catch (err) {
     window.alert("Error logging in. Please try again.");
     dispatch({ type: LOGIN_ERROR });
     if (!window.location.pathname.includes("/login"))
-      window.location.replace(`${window.location.host}/login`);
+      Router.push('/login')
   }
 };
 
@@ -73,8 +76,7 @@ export const initializeApp = () => async (dispatch) => {
   dispatch({ type: INIT_APP });
   const JWT = localStorage.getItem("user-jwt");
   if (!JWT) {
-    dispatch({ type: FINISH_INIT_APP });
-    return;
+    return dispatch({ type: FINISH_INIT_APP });
   } else {
     try {
       const config = {
@@ -87,9 +89,10 @@ export const initializeApp = () => async (dispatch) => {
 
       const response = await axios.post("/api/users/refresh", body, config);
       if (response.status === 201) {
-        dispatch(loadUser(response.data.data.jwt));
-      } else throw new Error("Could not refresh token.");
-      dispatch({ type: FINISH_INIT_APP });
+        dispatch(loadUser(response.data.data.jwt, () => dispatch({ type: FINISH_INIT_APP })));
+      } else {
+        throw new Error("Could not refresh token.");
+      }
     } catch (err) {
       dispatch({ type: FINISH_INIT_APP });
       dispatch({ type: LOGIN_ERROR });

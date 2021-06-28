@@ -23,27 +23,13 @@ const Navbar: React.FC<Props> = ({
   isAuthenticated,
   bgColor = null,
 }) => {
-  // const [mobileView, setMobileView] = useState(() => {
-  //   if (typeof window !== "undefined")
-  //     return window.matchMedia("(max-width: 640px)").matches;
-  //   return null;
-  // });
-  // const mobileViewRef = useRef(mobileView);
+
   const [showNavMenu, setShowNavMenu] = useState(false);
 
   const handleHamburgerClick = useCallback(() => {
     setShowNavMenu((prev) => !prev);
   }, []);
 
-  // useEffect(() => {
-  //   window
-  //     .matchMedia("(max-width: 640px)")
-  //     .addEventListener("change", ({ matches }) => {
-  //       if (matches === mobileViewRef.current) return;
-  //       mobileViewRef.current = matches;
-  //       setMobileView(matches);
-  //     });
-  // }, []);
 
   const dispatach = useDispatch();
 
@@ -62,7 +48,7 @@ const Navbar: React.FC<Props> = ({
     >
       <div className="space-x-6 flex items-center flex-wrap">
         <div className="cursor-pointer relative">
-          <button className={styles.hamburger} onClick={handleHamburgerClick}>
+          <button className={clsx(styles.hamburger, 'no-outline')} onClick={handleHamburgerClick}>
             {showNavMenu ? <HamburgerCross /> : <HamburgerIcon />}
           </button>
           {showNavMenu && (
@@ -71,15 +57,15 @@ const Navbar: React.FC<Props> = ({
               style={
                 color === "dark"
                   ? {
-                      backgroundColor: "transparent",
-                      padding: "1rem",
-                      color: "#034a38",
-                    }
+                    backgroundColor: "transparent",
+                    padding: "1rem",
+                    color: "#034a38",
+                  }
                   : {
-                      backgroundColor: bgColor || "#034a38",
-                      padding: "1rem",
-                      color: "#fff",
-                    }
+                    backgroundColor: bgColor || "#034a38",
+                    padding: "1rem",
+                    color: "#fff",
+                  }
               }
             >
               <li className="whitespace-nowrap">
@@ -103,7 +89,7 @@ const Navbar: React.FC<Props> = ({
         </div>
         <Link href="/cart">
           <a>
-            <span>Cart ({itemsCount})</span>
+            <span suppressHydrationWarning={true}>Cart ({itemsCount})</span>
           </a>
         </Link>
         {!isAuthenticated && <Link href="/login">Log In</Link>}

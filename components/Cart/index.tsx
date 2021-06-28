@@ -14,7 +14,7 @@ const index = () => {
   const handlePlaceOrderClick = () => {
     if (!isAuthenticated) {
       alert('Only authenticated users can place holder.Please Sign-up.')
-      return router.push('/register')
+      return router.push('/login')
     }
     return router.push('/cart/checkout')
   }

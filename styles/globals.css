@@ -19,8 +19,7 @@
   font-family: "Briet";
   font-style: normal;
   font-weight: normal;
-  src: local("Myriad Pro Regular"),
-    url("/assets/fonts/briet/test-soehne-breit-kraftig.woff") format("woff");
+  src: local("Myriad Pro Regular"), url("/assets/fonts/briet/test-soehne-breit-kraftig.woff") format("woff");
   font-display: swap;
 }
 
@@ -28,8 +27,7 @@
   font-family: "Myriad Pro";
   font-style: normal;
   font-weight: normal;
-  src: local("Myriad Pro Regular"),
-    url("/assets/fonts/myriad-pro/MYRIADPRO-REGULAR.woff") format("woff");
+  src: local("Myriad Pro Regular"), url("/assets/fonts/myriad-pro/MYRIADPRO-REGULAR.woff") format("woff");
   font-display: swap;
 }
 
@@ -77,6 +75,10 @@ body {
   height: 100%;
   object-fit: cover;
   z-index: -5;
+}
+
+.no-outline {
+  outline: none;
 }
 
 @media screen and (max-width: 640px) {

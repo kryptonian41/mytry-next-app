@@ -18,10 +18,7 @@ const Summary = ({ cartTotal, dark = false, buttonComponent = null }) => {
               <p>Shipping</p>
               <p>INR 0</p>
             </div>
-            <div className={cartStyles.amountRow}>
-              <p>Taxes</p>
-              <p>INR 0</p>
-            </div>
+
             <hr />
             <div className={cartStyles.amountRow}>
               <h3>Total</h3>
