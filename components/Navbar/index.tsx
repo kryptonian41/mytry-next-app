@@ -68,15 +68,15 @@ const Navbar: React.FC<Props> = ({
               style={
                 color === "dark"
                   ? {
-                    backgroundColor: "#fff",
-                    padding: "1rem",
-                    color: "#034a38",
-                  }
+                      backgroundColor: "#fff",
+                      padding: "1rem",
+                      color: "#034a38",
+                    }
                   : {
-                    backgroundColor: "#034a38",
-                    padding: "1rem",
-                    color: "#fff",
-                  }
+                      backgroundColor: "transparent",
+                      padding: "1rem",
+                      color: "#fff",
+                    }
               }
             >
               <li className="whitespace-nowrap">

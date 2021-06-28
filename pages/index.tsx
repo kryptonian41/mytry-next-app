@@ -69,23 +69,23 @@ export const Home: React.FC = () => {
             <div>
               <HomeProductTile
                 subtitle="Bag it before someone else."
-                title="Bestseller- Best in the Nest!"
-                imageSrc="/assets/images/about/Group 73.png"
+                title="Best in the Nest!"
+                imageSrc="/assets/images/homepage/1.jpg"
               />
             </div>
             <div className="transform translate-y-6">
               <HomeProductTile
                 subtitle="Freshly brewed for you."
-                title="Newcomer- View the New!"
-                imageSrc="/assets/images/about/Group 80.png"
+                title="View the New!"
+                imageSrc="/assets/images/homepage/2.jpg"
                 textPosition="top"
               />
             </div>
             <div className="col-span-2">
               <HomeProductTile
                 subtitle="A community of people as real as your view."
-                title="Community- A space to be you!"
-                imageSrc="/assets/images/about/Intersection 1@2x.png"
+                title="A space to be you!"
+                imageSrc="/assets/images/homepage/3.jpg"
               />
             </div>
           </div>
@@ -98,12 +98,12 @@ export const Home: React.FC = () => {
               }}
             >
               <span
-                className="block text-4xl sm:text-6xl mb-12 sm:mb-24"
+                className="block text-4xl sm:text-6xl mb-8 sm:mb-12"
                 style={{
                   color: theme.pink,
                 }}
               >
-                MyTry- Real Skin, Real Care!
+                Real Skin, Real Care!
               </span>
               <span
                 className="w-full sm:w-3/4 block text-lg sm:text-xl"
@@ -111,9 +111,9 @@ export const Home: React.FC = () => {
                   color: theme.greenLight,
                 }}
               >
-                MyTry is a vegan skincare brand homegrown by our founder,
+                Mytry is a vegan skincare brand homegrown by our founder,
                 Maitri. We source all our ingredients responsibly and ensure
-                that the environment or your skin is unharmed. With MyTry, our
+                that the environment or your skin is unharmed. With Mytry, our
                 mission is to help people embrace their beautiful selves and
                 make them a part of a community that encourages them to leave
                 judgment behind. Our products are 100% vegan and plant-based. We
@@ -144,7 +144,7 @@ export const Home: React.FC = () => {
 
               <img
                 className="w-full h-full object-cover"
-                src="/assets/images/Screenshot 2021-06-04 at 4.57.11 PM@2x.png"
+                src="/assets/images/homepage/nicely_with_nature.png"
                 alt=""
               />
             </div>
@@ -163,6 +163,17 @@ export const Home: React.FC = () => {
               }}
             >
               packaged with love
+              <br />
+              <span
+                className="text-center text-xl sm:text-xl m-auto mt-12"
+                style={{
+                  color: "white",
+                  display: "inline-block"
+                }}
+              >
+                All our boxes are handmade by specially-abled people who add
+                oodles of love and care while making them.
+              </span>
             </p>
             <img
               src="/assets/images/Intersection 4@2x.png"
@@ -170,16 +181,6 @@ export const Home: React.FC = () => {
               className="w-full h-full object-cover"
             />
           </div>
-
-          <p
-            className="text-center sm:text-xl sm:w-2/5 m-auto mt-12"
-            style={{
-              color: theme.green,
-            }}
-          >
-            All our boxes are handmade by specially-abled people who add oodles
-            of love and care while making them.
-          </p>
 
           {/* Instagram Feed is not for the current version v1.0.0 */}
 

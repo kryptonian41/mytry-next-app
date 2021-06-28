@@ -19,7 +19,7 @@ const Header = ({ title, keywords, description }) => {
       />
       <meta charSet="utf-8" />
       <link rel="icon" href="/favicon.ico" />
-      <title>{title ? `${title} | MyTry` : "MyTry"}</title>
+      <title>{title ? `${title} | Mytry` : "Mytry"}</title>
     </Head>
   );
 };
