@@ -63,4 +63,8 @@ body {
   .product-tile__add-item-btn {
     display: none;
   }
+
+  .aboutUs__by_maitri {
+    right: 12%;
+  }
 }

@@ -16,14 +16,14 @@ export const About = () => {
           }}
           className="w-4/5 sm:w-3/6 py-28 m-auto text-center text-3xl sm:text-5xl"
         >
-          mytry is a celebration of finding joy in beauty, making conscious
-          choices and creating a community of vegan skincare enthusiasts
+          mytry is a homegrown skincare brand that works with real people and
+          believes in embracing the beauty of flaws
         </p>
 
         <div className="mt-10 relative wfull_hfull_block_svg-container">
           <MyTrySvg />
           <p
-            className="absolute bottom-0 sm:text-3xl right-1/4"
+            className="absolute bottom-0 sm:text-3xl right-1/4 aboutUs__by_maitri"
             style={{
               color: theme.green,
             }}
@@ -40,7 +40,7 @@ export const About = () => {
                 color: theme.green,
               }}
             >
-              The idea of MyTry was born during the lockdown of 2020. Maitri has
+              The idea of Mytry was born during the lockdown of 2020. Maitri has
               always been passionate about skincare, and when she got bored of
               watching Netflix, she decided to venture out and learn more about
               the process of making vegan products at home. YouTube was her
@@ -51,18 +51,19 @@ export const About = () => {
               months, she tried to understand how skincare works, what essential
               or carrier oil works for what skin type and took up a course at
               the School of Natural Skincare to dive deep. Finally, on September
-              29th of 2020, MyTry saw the daylight!
+              29th of 2020, Mytry saw the daylight!
               <br />
               <br />
               In her own words,
               <br />
-              “MyTry is my baby. I have used chemical-free products, and now, I
+              “Mytry is my baby. I have used chemical-free products, and now, I
               want people to experience the magic of going organic.”
             </p>
             <div>
               <img
+                style={{ width: "100%", maxWidth: "450px" }}
                 className="m-auto"
-                src="/assets/images/about/Group 74.png"
+                src="/assets/images/about/founder.jpg"
                 alt=""
               />
             </div>
@@ -86,7 +87,7 @@ export const About = () => {
             className="sm:w-3/5 m-auto mb-10 sm:mb-20 sm:text-xl"
             style={{ color: theme.green }}
           >
-            MyTry products are for real people. Our products come from
+            Mytry products are for real people. Our products come from
             ingredients you can find at home and are free of harsh chemicals. We
             care a lot about our environment and the animals. Hence we use plant
             extracts for our products and are 100% vegan. <br />
@@ -98,23 +99,27 @@ export const About = () => {
           </p>
           <div className="mb-10 sm:mb-20">
             <img
+              style={{ width: "100%", maxWidth: "450px" }}
               className="m-auto"
-              src="/assets/images/about/Group 80.png"
+              src="/assets/images/about/2.jpg"
               alt=""
             />
           </div>
-          <p className="mb-10 text-6xl" style={{ color: theme.pink }}>
-            People First!{" "}
+          <p
+            className="mb-10 text-3xl sm:text-6xl"
+            style={{ color: theme.pink }}
+          >
+            People First!
           </p>
 
           <p
             className="sm:w-3/5 m-auto sm:text-xl"
             style={{ color: theme.green }}
           >
-            MyTry is all about giving back to the community. We believe that our
+            Mytry is all about giving back to the community. We believe that our
             community is our biggest strength, and we love to share our love
             with the people who support us. All the people involved at various
-            stages are a part of the MyTry family, and we appreciate each of
+            stages are a part of the Mytry family, and we appreciate each of
             you.
           </p>
         </div>

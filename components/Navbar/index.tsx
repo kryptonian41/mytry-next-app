@@ -1,4 +1,5 @@
 import HamburgerIcon from "assets/svgs/icons/hamburger.svg";
+import HamburgerCross from "assets/svgs/icons/hamburger-cross.svg";
 import MyTryLogo from "assets/svgs/logos/main.svg";
 import clsx from "clsx";
 import Link from "next/link";
@@ -12,6 +13,7 @@ interface Props {
   itemsCount: number;
   className?: string;
   isAuthenticated: boolean;
+  bgColor?: string;
 }
 
 const Navbar: React.FC<Props> = ({
@@ -19,6 +21,7 @@ const Navbar: React.FC<Props> = ({
   itemsCount,
   className,
   isAuthenticated,
+  bgColor = null,
 }) => {
   // const [mobileView, setMobileView] = useState(() => {
   //   if (typeof window !== "undefined")
@@ -59,8 +62,8 @@ const Navbar: React.FC<Props> = ({
     >
       <div className="space-x-6 flex items-center flex-wrap">
         <div className="cursor-pointer relative">
-          <button onClick={handleHamburgerClick} className="outline-none">
-            <HamburgerIcon className="outline-none" />
+          <button className={styles.hamburger} onClick={handleHamburgerClick}>
+            {showNavMenu ? <HamburgerCross /> : <HamburgerIcon />}
           </button>
           {showNavMenu && (
             <ul
@@ -68,15 +71,15 @@ const Navbar: React.FC<Props> = ({
               style={
                 color === "dark"
                   ? {
-                    backgroundColor: "#fff",
-                    padding: "1rem",
-                    color: "#034a38",
-                  }
+                      backgroundColor: "transparent",
+                      padding: "1rem",
+                      color: "#034a38",
+                    }
                   : {
-                    backgroundColor: "#034a38",
-                    padding: "1rem",
-                    color: "#fff",
-                  }
+                      backgroundColor: bgColor || "#034a38",
+                      padding: "1rem",
+                      color: "#fff",
+                    }
               }
             >
               <li className="whitespace-nowrap">

@@ -17,6 +17,15 @@
     padding: 1.5rem 5%;
   }
 
+  .hamburger {
+    width: 30px;
+    height: 30px;
+
+    &:focus {
+      outline: none;
+    }
+  }
+
   a {
     @media (max-width: 640px) {
       @apply text-sm;

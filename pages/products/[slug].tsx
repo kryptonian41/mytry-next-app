@@ -167,7 +167,7 @@ export const ProductPage: React.FC<
             backgroundColor: colorScheme.bgColor,
           }}
         >
-          <Navbar color="light" />
+          <Navbar color="light" bgColor={colorScheme.bgColor} />
           {productData && (
             <div className={styles["hero-product-info"]}>
               <div
