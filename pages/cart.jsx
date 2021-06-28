@@ -1,4 +1,4 @@
-import Layout from "../components/Layout";
+import Layout from "components/Layout";
 import Cart from "components/Cart";
 
 const cart = () => (

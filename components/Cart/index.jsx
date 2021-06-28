@@ -8,7 +8,7 @@ const index = () => {
   const cart = useSelector((state) => state.cart);
   const { cartTotal, items } = cart;
   return (
-    <div className={cartStyles.container}>
+    <div className={cartStyles.container} suppressHydrationWarning >
       <Navbar color="light" />
       <div className={cartStyles.cartContainer}>
         <Items items={items} />

@@ -5,8 +5,8 @@ import Footer from "components/Footer";
 import RelatedProducts from "../../components/Product/RelatedProducts/RelatedProducts";
 import Review from "../../components/Product/Reviews/Reviews";
 import { getProduct } from "utils/api-utils";
-import { ProductFilters } from "utils/api-utils/api-utils/color-map
-import { colorMap, getColorSchemeByCategory } from "assets/color-map";
+import { ProductFilters } from "utils/api-utils"
+import { colorMap, getColorSchemeByCategory } from "utils/color-map";
 import Navbar from "components/Navbar";
 import { GetStaticProps, InferGetServerSidePropsType } from "next";
 import { useRouter } from "next/router";
@@ -53,7 +53,7 @@ export const getStaticProps: GetStaticProps<Props> = async ({ params }) => {
 
     relatedProducts = await Promise.all(
       relatedProductIds.map(async (productId) => {
-        const { data } = await getProductServerSide(productId);
+        const { data } = await getProductServerSide(productId.toString());
         return data;
       })
     );

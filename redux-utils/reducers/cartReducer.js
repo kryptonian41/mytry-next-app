@@ -9,9 +9,15 @@ import {
 
 export const CART_LOCALSTORAGE_KEY = "maitri_cart_cache"
 
-const getInitialState = () => {
-  if (typeof window === 'undefined') return {}
-  return window.localStorage.getItem(CART_LOCALSTORAGE_KEY)
+const DEFAULT_STATE = {
+  itemsCount: 0,
+  items: [],
+  cartTotal: 0
+}
+
+const getCartState = () => {
+  if (typeof window === 'undefined') return DEFAULT_STATE
+  return JSON.parse(window.localStorage.getItem(CART_LOCALSTORAGE_KEY)) || DEFAULT_STATE
 }
 
 const saveCartState = (newCartState) => {
@@ -19,7 +25,7 @@ const saveCartState = (newCartState) => {
   window.localStorage.setItem(CART_LOCALSTORAGE_KEY, JSON.stringify(newCartState))
 }
 
-const initialState = getInitialState()
+const initialState = getCartState()
 
 export default function cartReducer(state = initialState, action) {
   const newState = getNewState(state, action)
@@ -81,7 +87,7 @@ const addItem = (state, product) => {
     const index = getProductIndex(state.items, product);
     if (index >= 0) {
       return updateProduct(state, product, index);
-    } else return addNewProduct(state, product);
+    }
   } else return addNewProduct(state, product);
 };
 
