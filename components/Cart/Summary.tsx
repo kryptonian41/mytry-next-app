@@ -1,7 +1,11 @@
 import cartStyles from "./cart.module.scss";
 import { createOrder } from '../../utils/api-utils'
-export const getOrderDetails = (cartState) => {
+import { Order } from "types/commons";
+import Link from "next/link";
+import clsx from "clsx";
 
+export const getOrderDetails = (cartState) => {
+  return {} as Order
 }
 
 const createRazorpayInstance = ({
@@ -33,13 +37,14 @@ const createRazorpayInstance = ({
     }
   };
   debugger
-  return new window.Razorpay(options)
+  const _window = window as any
+  return new _window.Razorpay(options)
 }
 
-const Summary = ({ cartTotal }) => {
+const Summary = ({ cartTotal, dark = false }) => {
 
   const handleCheckoutClick = async () => {
-    const order = getOrderDetails()
+    const order = getOrderDetails({})
     const paymentDetails = await createOrder(order)
     debugger
     const rzp = createRazorpayInstance(paymentDetails)
@@ -47,7 +52,7 @@ const Summary = ({ cartTotal }) => {
   }
 
   return (
-    <div className={cartStyles.summaryContainer}>
+    <div className={clsx(cartStyles.summaryContainer, { [cartStyles.dark]: dark })}>
       <div className={cartStyles.amountSummary}>
         <h2>Summary</h2>
         <div className={cartStyles.amountRowsContainer}>
@@ -74,7 +79,9 @@ const Summary = ({ cartTotal }) => {
           </div>
         </div>
       </div>
-      <button className={cartStyles.checkoutBtn} onClick={handleCheckoutClick}>Checkout</button>
+      <Link href="/cart/checkout">
+        <button className={cartStyles.checkoutBtn}>Place Order</button>
+      </Link>
     </div>
   );
 };

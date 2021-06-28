@@ -8,7 +8,7 @@ const Layout = ({ children, title, description, keywords }) => {
   const dispatch = useDispatch();
 
   const { isInitializing, appInitialized } = useSelector(
-    (state) => state.initApp
+    (state) => (state as any).initApp
   );
 
   useEffect(() => {
