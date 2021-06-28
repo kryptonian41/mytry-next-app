@@ -21,9 +21,14 @@ $yellow: #f8ec00;
     .summaryContainer {
       grid-column: 13/20;
       position: sticky;
-      top: 9rem;
-      height: calc(100vh - 14rem);
       margin-left: 2rem;
+
+      &.dark {
+        .amountSummary {
+          background-color: $green;
+          color: white;
+        }
+      }
 
       @media screen and (max-width: 640px) {
         margin-top: 4rem;

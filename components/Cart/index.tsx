@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 import cartStyles from "./cart.module.scss";
 
 const index = () => {
-  const cart = useSelector((state) => state.cart);
+  const cart = useSelector((state) => (state as any).cart);
   const { cartTotal, items } = cart;
   return (
     <div className={cartStyles.container} suppressHydrationWarning >

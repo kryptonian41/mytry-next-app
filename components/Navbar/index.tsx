@@ -59,8 +59,8 @@ const Navbar: React.FC<Props> = ({
     >
       <div className="space-x-6 flex items-center flex-wrap">
         <div className="cursor-pointer relative">
-          <button onClick={handleHamburgerClick}>
-            <HamburgerIcon />
+          <button onClick={handleHamburgerClick} className="outline-none">
+            <HamburgerIcon className="outline-none" />
           </button>
           {showNavMenu && (
             <ul
