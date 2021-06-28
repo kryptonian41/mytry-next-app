@@ -2,7 +2,7 @@ import { wooClient } from "../../utils/api-utils";
 import type { NextApiRequest, NextApiResponse } from "next";
 import { Product } from "types/commons";
 
-export const getProductServerSide = async (id: number) =>
+export const getProductServerSide = async (id: string) =>
   await wooClient.get(`products/${id}`);
 
 export const getProductsServerSide = async (
