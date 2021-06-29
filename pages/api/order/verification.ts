@@ -3,6 +3,8 @@ import { wooClient } from "utils/api-utils";
 import { runMiddleware } from "utils/api-utils/middlewares";
 import { razorpayClient } from "utils/api-utils/razorpay-client";
 import morgan from 'morgan'
+import Razorpay from 'razorpay'
+
 const logger = morgan('tiny')
 
 export const updateOrder = async (orderId: string, updateData: any) => {
@@ -18,7 +20,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         signature = req.headers['x-razorpay-signature'],
         secret = process.env.RAZORPAY_WEBHOOK_SECRET
 
-      const validSignature = razorpayClient.validateWebhookSignature(body, signature, secret)
+      const validSignature = Razorpay.validateWebhookSignature(body, signature, secret)
 
       if (validSignature) {
         const { entity: { order_id } } = req.body.payload.payment
