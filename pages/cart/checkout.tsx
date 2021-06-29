@@ -1,56 +1,21 @@
-import React, { useRef } from 'react'
+import cartStyles from 'components/Cart/cart.module.scss';
+import { CheckoutButton } from 'components/Cart/checkout/CheckoutButton';
+import { ContactShippingForm } from 'components/Cart/checkout/ShippingForm';
+import Summary from 'components/Cart/Summary';
 import Layout from "components/Layout";
 import Navbar from 'components/Navbar';
-import Summary from 'components/Cart/Summary';
-import { useDispatch, useSelector } from 'react-redux';
-import cartStyles from 'components/Cart/cart.module.scss'
-import { useTheme } from 'utils/color-map';
-import * as Yup from "yup";
-import { ContactShippingForm } from 'components/Cart/checkout/ShippingForm';
-import { CheckoutButton } from 'components/Cart/checkout/CheckoutButton';
-import { createRazorpayInstance } from 'utils';
-import { createOrder } from 'utils/api-utils';
-import { useRouter } from 'next/router';
-import { ContactShippingData, LineItem, Order, User } from 'types/commons';
 import { FormikHelpers } from 'formik';
+import { useRouter } from 'next/router';
+import React, { useRef } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { CLEAR_CART } from 'redux-utils/actions/types';
-// import { getOrderDetails } from 'pages/api/order/create';
-
+import { ContactShippingData, User } from 'types/commons';
+import { createRazorpayInstance, getOrderDetails } from 'utils';
+import { createOrder } from 'utils/api-utils';
+import { useTheme } from 'utils/color-map';
+import Head from 'next/head'
 interface Props {
 
-}
-
-
-export const getOrderDetails = (cartItems: any[], values: ContactShippingData) => {
-  const products: LineItem[] = cartItems.map(item => ({ product_id: item.id, quantity: item.qty }))
-  debugger
-  return {
-    payment_method: 'Razorpay',
-    payment_method_title: 'Razorpay',
-    billing: {
-      address_1: values.flatAddress,
-      address_2: values.streetAddress,
-      city: values.city,
-      state: values.state,
-      country: 'India',
-      first_name: values.firstName,
-      last_name: values.lastName,
-      postcode: values.pincode.toString(),
-      email: values.email,
-      phone: values.contactNo.toString()
-    },
-    shipping: {
-      address_1: values.flatAddress,
-      address_2: values.streetAddress,
-      city: values.city,
-      state: values.state,
-      country: 'India',
-      first_name: values.firstName,
-      last_name: values.lastName,
-      postcode: values.pincode.toString(),
-    },
-    line_items: products
-  } as Order
 }
 
 export const Checkout = (props: Props) => {
@@ -87,6 +52,11 @@ export const Checkout = (props: Props) => {
   }
   return (
     <Layout title="Place Order" description={null} keywords={null}>
+
+      <Head>
+        <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+      </Head>
+
       <div className={cartStyles.container} style={{
         background: '#F7FAEE'
       }}>

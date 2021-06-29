@@ -1,4 +1,4 @@
-import { Category, User } from "types/commons";
+import { Category, ContactShippingData, LineItem, Order, User } from "types/commons";
 
 export const processCategories = (categories: Category[]) => {
   const parentCategories = categories.filter(
@@ -63,4 +63,37 @@ export const createRazorpayInstance = ({
   };
   const _window = window as any
   return new _window.Razorpay(options)
+}
+
+
+export const getOrderDetails = (cartItems: any[], values: ContactShippingData) => {
+  const products: LineItem[] = cartItems.map(item => ({ product_id: item.id, quantity: item.qty }))
+  debugger
+  return {
+    payment_method: 'Razorpay',
+    payment_method_title: 'Razorpay',
+    billing: {
+      address_1: values.flatAddress,
+      address_2: values.streetAddress,
+      city: values.city,
+      state: values.state,
+      country: 'India',
+      first_name: values.firstName,
+      last_name: values.lastName,
+      postcode: values.pincode.toString(),
+      email: values.email,
+      phone: values.contactNo.toString()
+    },
+    shipping: {
+      address_1: values.flatAddress,
+      address_2: values.streetAddress,
+      city: values.city,
+      state: values.state,
+      country: 'India',
+      first_name: values.firstName,
+      last_name: values.lastName,
+      postcode: values.pincode.toString(),
+    },
+    line_items: products
+  } as Order
 }
