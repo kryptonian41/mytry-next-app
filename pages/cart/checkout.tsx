@@ -11,7 +11,7 @@ import { CheckoutButton } from 'components/Cart/checkout/CheckoutButton';
 import { createRazorpayInstance } from 'utils';
 import { createOrder } from 'utils/api-utils';
 import { useRouter } from 'next/router';
-import { ContactShippingData, LineItem, Order } from 'types/commons';
+import { ContactShippingData, LineItem, Order, User } from 'types/commons';
 import { FormikHelpers } from 'formik';
 import { CLEAR_CART } from 'redux-utils/actions/types';
 // import { getOrderDetails } from 'pages/api/order/create';
@@ -55,24 +55,33 @@ export const getOrderDetails = (cartItems: any[], values: ContactShippingData) =
 
 export const Checkout = (props: Props) => {
   const cart = useSelector((state) => (state as any).cart);
+  const user = useSelector((state) => (state as any).user.user as User);
   const { cartTotal, items } = cart;
   const theme = useTheme()
   const router = useRouter()
   const shippingFormSubmitRef = useRef(null)
   const dispatch = useDispatch()
-  const checkout: ((values: ContactShippingData, formikHelpers: FormikHelpers<ContactShippingData>) => void | Promise<any>) = async (values) => {
+  const checkout: ((values: ContactShippingData, formikHelpers: FormikHelpers<ContactShippingData>) => void | Promise<any>) = async (values: ContactShippingData) => {
     const order = getOrderDetails(items, values)
     const paymentDetails = await createOrder(order)
-    const rzp = createRazorpayInstance(paymentDetails, (rzpResponse) => {
-      dispatch({
-        type: CLEAR_CART
-      })
-      router.push({
-        pathname: '/order/success',
-        query: {
-          orderId: rzpResponse.razorpay_order_id
-        }
-      })
+    const rzp = createRazorpayInstance({
+      ...paymentDetails,
+      userInfo: {
+        name: `${user.first_name} ${user.last_name}`,
+        email: values.email,
+        contactNo: values.contactNo
+      },
+      onSuccess: (rzpResponse) => {
+        dispatch({
+          type: CLEAR_CART
+        })
+        router.push({
+          pathname: '/order/success',
+          query: {
+            orderId: rzpResponse.razorpay_order_id
+          }
+        })
+      }
     })
     rzp.open()
   }

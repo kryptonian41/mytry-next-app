@@ -1,4 +1,4 @@
-import { Category } from "types/commons";
+import { Category, User } from "types/commons";
 
 export const processCategories = (categories: Category[]) => {
   const parentCategories = categories.filter(
@@ -19,32 +19,46 @@ export const processCategories = (categories: Category[]) => {
 
 export const isServer = () => typeof window === 'undefined'
 
-export const createRazorpayInstance = ({
-  currency, id, amount
-}, successCb = function (response) {
+interface RazorpayInstanceOptions {
+  currency: string,
+  id: string,
+  amount: string,
+  userInfo: {
+    name: string,
+    email: string,
+    contactNo: string
+  },
+  onSuccess: (...any) => any
+}
+const defaultSuccessCallback = function (response) {
   alert(response.razorpay_payment_id);
   alert(response.razorpay_order_id);
   alert(response.razorpay_signature)
-}) => {
+}
+
+
+export const createRazorpayInstance = ({
+  currency, id, amount, userInfo, onSuccess = defaultSuccessCallback
+}: RazorpayInstanceOptions) => {
+
+  const { name, email, contactNo } = userInfo
+
   const options = {
     "key": process.env.NEXT_PUBLIC_RAZORPAY_API_KEY_ID,
     amount,
     currency,
     "name": "MyTry",
-    "description": "Test Transaction",
-    "image": "https://example.com/your_logo",
+    "description": "Place Order",
+    "image": "/main-logo.png",
     "order_id": id,
-    "handler": successCb,
+    "handler": onSuccess,
     "prefill": {
-      "name": "Gaurav Kumar",
-      "email": "gaurav.kumar@example.com",
-      "contact": "9999999999"
-    },
-    "notes": {
-      "address": "Razorpay Corporate Office"
+      "name": name,
+      "email": email,
+      "contact": contactNo
     },
     "theme": {
-      "color": "#3399cc"
+      "color": "#034a38"
     }
   };
   const _window = window as any
