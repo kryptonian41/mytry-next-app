@@ -1,23 +1,22 @@
-import { getProductServerSide } from "pages/api/products";
-import { getReviewsServerSide } from "pages/api/reviews";
-import Layout from "components/Layout";
+import clsx from "clsx";
 import Footer from "components/Footer";
-import RelatedProducts from "../../components/Product/RelatedProducts/RelatedProducts";
-import Review from "../../components/Product/Reviews/Reviews";
-import { getProduct } from "utils/api-utils";
-import { ProductFilters } from "utils/api-utils";
-import { colorMap, getColorScheme } from "utils/color-map";
+import Layout from "components/Layout";
 import Navbar from "components/Navbar";
 import { GetStaticProps, InferGetServerSidePropsType } from "next";
 import { useRouter } from "next/router";
-import { getProductsServerSide } from "pages/api/products";
-import { useLayoutEffect, useMemo, useRef, useEffect } from "react";
+import { getProductServerSide, getProductsServerSide } from "pages/api/products";
+import { getReviewsServerSide } from "pages/api/reviews";
+import { useCallback, useEffect, useMemo, useRef } from "react";
+import { useQuery } from "react-query";
 import { useDispatch } from "react-redux";
 import { SET_REVIEWS } from "redux-utils/actions/types";
-import { useQuery } from "react-query";
 import { Product } from "types/commons";
+import { getRandomColorScheme } from "utils";
+import { getProduct, ProductFilters } from "utils/api-utils";
+import { getColorScheme } from "utils/color-map";
+import RelatedProducts from "../../components/Product/RelatedProducts/RelatedProducts";
+import Review from "../../components/Product/Reviews/Reviews";
 import styles from "./styles.module.scss";
-import clsx from "clsx";
 
 interface Props {
   product: Product;
@@ -96,11 +95,12 @@ export const ProductPage: React.FC<
     [productData]
   );
 
-  let colorScheme = colorMap.default;
+  let colorScheme = useMemo(getRandomColorScheme, []);
 
   // For maintianing the image aspect ratio on all browsers as the aspect ratio property is not supported by safari yet and the padding bottom hack cannot be used because the height of the image is fixed
-  // Get a color scheme randomly for three options
-  useLayoutEffect(() => {
+  useEffect(() => {
+    if (!imageContainerRef.current) return
+
     const imageContainerWidth =
       (7 * imageContainerRef.current.offsetHeight) / 8;
     imageContainerRef.current.style.width = imageContainerWidth + "px";
@@ -128,24 +128,28 @@ export const ProductPage: React.FC<
     return { __html: desc };
   }
 
-  const addItem = () => {
-    const productQuantity = productData.attributes.filter(
-      (attribute) => attribute.name.toLowerCase() === "quantity"
-    );
-    const item = {
-      id: productData.id,
-      name: productData.name,
-      image: productData.images[0].src,
-      price: parseFloat(productData.price),
-      descQty: productQuantity.length ? productQuantity[0].options[0] : null,
-      qty: 1,
-      totalPrice: parseFloat(productData.price),
-    };
-    dispatch({
-      type: "ADD_ITEM",
-      payload: item,
-    });
-  };
+  const addItem = useCallback(
+    () => {
+      const productQuantity = productData.attributes.filter(
+        (attribute) => attribute.name.toLowerCase() === "quantity"
+      );
+      const item = {
+        id: productData.id,
+        name: productData.name,
+        image: productData.images[0].src,
+        price: parseFloat(productData.price),
+        descQty: productQuantity.length ? productQuantity[0].options[0] : null,
+        qty: 1,
+        totalPrice: parseFloat(productData.price),
+      };
+      dispatch({
+        type: "ADD_ITEM",
+        payload: item,
+      })
+    },
+    [productData],
+  )
+
 
   return (
     <Layout
@@ -223,7 +227,7 @@ export const ProductPage: React.FC<
                   )}
                 />
                 <button
-                  onClick={() => addItem()}
+                  onClick={addItem}
                   type="button"
                   className={styles.shopNowBtn}
                 >

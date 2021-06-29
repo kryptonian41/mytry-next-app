@@ -1,7 +1,7 @@
 import { FINISH_INIT_APP, INIT_APP } from "../actions/types";
 
 const initialState = {
-  isInitializing: false,
+  isInitializing: true,
   appInitialized: false,
 };
 

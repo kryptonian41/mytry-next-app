@@ -9,20 +9,19 @@ const Layout = ({ children, title, description, keywords }) => {
   const { isInitializing, appInitialized } = useSelector(
     (state) => (state as any).initApp
   );
-  useLayoutEffect(() => {
+  console.log("🚀 ~ file: Layout.tsx ~ line 10 ~ Layout ~ isInitializing", isInitializing)
+  useEffect(() => {
     if (!appInitialized) dispatch(initializeApp());
-  }, []);
+  }, [appInitialized, dispatch]);
+
 
   return (
     <>
-      {isInitializing ? (
+      {isInitializing &&
         <Loading />
-      ) : (
-        <>
-          <Header title={title} description={description} keywords={keywords} />
-          {children}
-        </>
-      )}
+      }
+      <Header title={title} description={description} keywords={keywords} />
+      {children}
     </>
   );
 };

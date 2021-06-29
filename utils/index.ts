@@ -1,4 +1,5 @@
 import { Category, ContactShippingData, LineItem, Order, User } from "types/commons";
+import { colorMap } from "./color-map";
 
 export const processCategories = (categories: Category[]) => {
   const parentCategories = categories.filter(
@@ -68,7 +69,6 @@ export const createRazorpayInstance = ({
 
 export const getOrderDetails = (cartItems: any[], values: ContactShippingData) => {
   const products: LineItem[] = cartItems.map(item => ({ product_id: item.id, quantity: item.qty }))
-  debugger
   return {
     payment_method: 'Razorpay',
     payment_method_title: 'Razorpay',
@@ -96,4 +96,14 @@ export const getOrderDetails = (cartItems: any[], values: ContactShippingData) =
     },
     line_items: products
   } as Order
+}
+
+export function randomNumber(min, max) {
+  return Math.random() * (max - min) + min;
+}
+
+export const getRandomColorScheme = () => {
+  const availableSchemes = Object.keys(colorMap)
+  const schemeIndex = Math.round(randomNumber(0, availableSchemes.length - 1))
+  return colorMap[availableSchemes[schemeIndex]]
 }
