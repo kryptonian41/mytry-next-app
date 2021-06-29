@@ -13,7 +13,6 @@ import { SET_REVIEWS } from "redux-utils/actions/types";
 import { Product } from "types/commons";
 import { getRandomColorScheme } from "utils";
 import { getProduct, ProductFilters } from "utils/api-utils";
-import { getColorScheme } from "utils/color-map";
 import RelatedProducts from "../../components/Product/RelatedProducts/RelatedProducts";
 import Review from "../../components/Product/Reviews/Reviews";
 import styles from "./styles.module.scss";
@@ -110,9 +109,7 @@ export const ProductPage: React.FC<
       const imageContainerWidth = (7 * elm.offsetHeight) / 8;
       elm.style.width = imageContainerWidth + "px";
     });
-    observer.observe(imageContainerRef.current);
-
-    colorScheme = getColorScheme();
+    observer.observe(imageContainerRef.current)
   }, []);
 
   const dispatch = useDispatch();

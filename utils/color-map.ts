@@ -21,43 +21,19 @@ const theme = {
 
 export const colorMap: ColorMap = {
   cosmetics: {
-    bgColor: theme.blue,
-    panelColor: theme.pink,
-  },
-  facewash: {
-    bgColor: theme.green,
-    panelColor: theme.orange,
-  },
-  default: {
-    bgColor: "#034A38",
-    panelColor: "#F7FAEE",
-  },
-};
-
-export const newColorMaps = [
-  {
     bgColor: "#F26722",
     panelColor: "#FAE6D7",
   },
-  {
+  facewash: {
     bgColor: "#034A38",
     panelColor: "#F7FAEE",
   },
-  {
+  default: {
     bgColor: "#002AB2",
     panelColor: "#EDDEEF",
   },
-];
-
-export const getColorScheme = () => {
-  // for (let category of categories) {
-  //   if (colorMap[category.name]) return colorMap[category.name];
-  // }
-  // return colorMap.default;
-  const max = newColorMaps.length;
-  const index = Math.floor(Math.random() * max)
-  return newColorMaps[index];
 };
+
 
 export const useTheme = () => {
   return theme;

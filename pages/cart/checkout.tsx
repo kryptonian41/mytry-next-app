@@ -6,7 +6,7 @@ import Layout from "components/Layout";
 import Navbar from 'components/Navbar';
 import { FormikHelpers } from 'formik';
 import { useRouter } from 'next/router';
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { CLEAR_CART } from 'redux-utils/actions/types';
 import { ContactShippingData, User } from 'types/commons';
@@ -25,8 +25,12 @@ export const Checkout = (props: Props) => {
   const router = useRouter()
   const shippingFormSubmitRef = useRef(null)
   const dispatch = useDispatch()
+  const [placingOrder, setPlacingOrder] = useState(false)
 
   const checkout: ((values: ContactShippingData, formikHelpers: FormikHelpers<ContactShippingData>) => void | Promise<any>) = async (values: ContactShippingData) => {
+
+    setPlacingOrder(true)
+
     switch (CheckoutType.COD as CheckoutType) {
       case CheckoutType.COD: {
         const order = getOrderDetails(items, values, CheckoutType.COD)
@@ -40,6 +44,7 @@ export const Checkout = (props: Props) => {
               orderId: order.id
             }
           })
+          setPlacingOrder(false)
         })
         break
       }
@@ -56,6 +61,7 @@ export const Checkout = (props: Props) => {
             }
           })
         })
+        setPlacingOrder(false)
         break
       }
       default: {
@@ -89,7 +95,7 @@ export const Checkout = (props: Props) => {
               <ContactShippingForm submitBtnRef={shippingFormSubmitRef} onSubmit={checkout} />
             </div>
           </div>
-          <Summary cartTotal={cartTotal} dark buttonComponent={<CheckoutButton shippingFormBtnRef={shippingFormSubmitRef} />} />
+          <Summary cartTotal={cartTotal} dark buttonComponent={<CheckoutButton shippingFormBtnRef={shippingFormSubmitRef} loading={placingOrder} />} />
         </div>
       </div>
     </Layout>
