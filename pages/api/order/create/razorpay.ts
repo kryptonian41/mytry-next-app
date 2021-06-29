@@ -4,7 +4,7 @@ import { authMiddleware, runMiddleware } from "utils/api-utils/middlewares";
 import { razorpayClient } from "utils/api-utils/razorpay-client";
 
 
-export const createOrderServerSide = async (order: any) => {
+export const createRazorpayOrderServerSide = async (order: any) => {
   const { data } = await wooClient.get('shipping/zones/1/methods/1')
   const shipping_lines = [{
     "method_id": data.method_id,
@@ -18,7 +18,7 @@ export const createOrderServerSide = async (order: any) => {
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === 'POST') {
     await runMiddleware(req, res, authMiddleware)
-    const { id, total, currency } = await createOrderServerSide(req.body);
+    const { id, total, currency } = await createRazorpayOrderServerSide(req.body);
     const orderPaymentDetails = await razorpayClient.orders.create({
       amount: parseInt(total) * 100,
       receipt: id,

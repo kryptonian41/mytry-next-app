@@ -27,7 +27,12 @@ export const getReviews = async () => {
   return data
 }
 
-export const createOrder = async (order: Order) => {
-  const { data } = await axios.post("/api/order/create", order)
+export enum CheckoutType {
+  COD = "cod",
+  Razorpay = "razorpay"
+}
+
+export const createOrder = async (order: Order, checkoutType: CheckoutType) => {
+  const { data } = await axios.post(`/api/order/create/${checkoutType}`, order)
   return data
 }

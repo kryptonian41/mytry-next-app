@@ -1,4 +1,5 @@
 import { Category, ContactShippingData, LineItem, Order, User } from "types/commons";
+import { CheckoutType } from "./api-utils";
 import { colorMap } from "./color-map";
 
 export const processCategories = (categories: Category[]) => {
@@ -67,32 +68,53 @@ export const createRazorpayInstance = ({
 }
 
 
-export const getOrderDetails = (cartItems: any[], values: ContactShippingData) => {
+const getPaymentMethodDetails = (checkoutType: CheckoutType) => {
+  switch (checkoutType) {
+    case CheckoutType.COD:
+      return {
+        payment_method: 'COD',
+        payment_method_title: 'Cash on delivery',
+      }
+    case CheckoutType.Razorpay:
+      return {
+        payment_method: 'Razorpay',
+        payment_method_title: 'Razorpay',
+      }
+    default:
+      return {
+        payment_method: 'COD',
+        payment_method_title: 'Cash on delivery',
+      }
+  }
+}
+
+
+export const getOrderDetails = (cartItems: any[], shippingFormValues: ContactShippingData, checkoutType: CheckoutType): Order => {
   const products: LineItem[] = cartItems.map(item => ({ product_id: item.id, quantity: item.qty }))
+
   return {
-    payment_method: 'Razorpay',
-    payment_method_title: 'Razorpay',
+    ...getPaymentMethodDetails(checkoutType),
     billing: {
-      address_1: values.flatAddress,
-      address_2: values.streetAddress,
-      city: values.city,
-      state: values.state,
+      address_1: shippingFormValues.flatAddress,
+      address_2: shippingFormValues.streetAddress,
+      city: shippingFormValues.city,
+      state: shippingFormValues.state,
       country: 'India',
-      first_name: values.firstName,
-      last_name: values.lastName,
-      postcode: values.pincode.toString(),
-      email: values.email,
-      phone: values.contactNo.toString()
+      first_name: shippingFormValues.firstName,
+      last_name: shippingFormValues.lastName,
+      postcode: shippingFormValues.pincode.toString(),
+      email: shippingFormValues.email,
+      phone: shippingFormValues.contactNo.toString()
     },
     shipping: {
-      address_1: values.flatAddress,
-      address_2: values.streetAddress,
-      city: values.city,
-      state: values.state,
+      address_1: shippingFormValues.flatAddress,
+      address_2: shippingFormValues.streetAddress,
+      city: shippingFormValues.city,
+      state: shippingFormValues.state,
       country: 'India',
-      first_name: values.firstName,
-      last_name: values.lastName,
-      postcode: values.pincode.toString(),
+      first_name: shippingFormValues.firstName,
+      last_name: shippingFormValues.lastName,
+      postcode: shippingFormValues.pincode.toString(),
     },
     line_items: products
   } as Order
