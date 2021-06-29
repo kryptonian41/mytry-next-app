@@ -8,7 +8,7 @@ import {
   SET_ADDRESSES,
   CLEAR_CART
 } from "../actions/types";
-
+import { produce } from 'immer'
 export const CART_LOCALSTORAGE_KEY = "maitri_cart_cache"
 
 const DEFAULT_STATE = {
@@ -54,7 +54,11 @@ const getNewState = (state, action) => {
     case SET_ADDRESSES:
       return setAddress(state, action.payload)
     case CLEAR_CART:
-      return DEFAULT_STATE
+      return {
+        itemsCount: 0,
+        items: [],
+        cartTotal: 0
+      }
     default:
       return state;
   }
@@ -65,14 +69,11 @@ const setAddress = (state, payload) => {
 }
 
 const addNewProduct = (state, product) => {
-  const items = state.items;
-  items.push(product);
-  return {
-    ...state,
-    itemsCount: state.itemsCount + product.qty,
-    cartTotal: state.cartTotal + product.price,
-    items: items,
-  };
+  return produce(state, draftState => {
+    draftState.items.push(product)
+    draftState.itemsCount += product.qty
+    draftState.cartTotal += product.price
+  })
 };
 
 const getProductIndex = (items, product) => {
@@ -81,15 +82,13 @@ const getProductIndex = (items, product) => {
 };
 
 const updateProduct = (state, product, index) => {
-  const items = state.items;
-  items[index].qty += product.qty;
-  items[index].totalPrice = items[index].qty * product.price;
-  return {
-    ...state,
-    itemsCount: state.itemsCount + product.qty,
-    cartTotal: state.cartTotal + product.price,
-    items: items,
-  };
+  return produce(state, draftState => {
+    const items = draftState.items;
+    items[index].qty += product.qty;
+    draftState.items[index].totalPrice = items[index].qty * product.price;
+    draftState.itemsCount += product.qty
+    draftState.cartTotal += product.price
+  })
 };
 
 const addItem = (state, product) => {
@@ -98,50 +97,48 @@ const addItem = (state, product) => {
     if (index >= 0) {
       return updateProduct(state, product, index);
     }
+    return addNewProduct(state, product)
   } else return addNewProduct(state, product);
 };
 
 const removeItem = (state, product) => {
   const index = getProductIndex(state.items, product);
   if (index >= 0) {
-    const items = state.items;
-    items.splice(index, 1);
-    return {
-      ...state,
-      itemsCount: state.itemsCount - product.qty,
-      cartTotal: state.cartTotal - product.totalPrice,
-      items: items,
-    };
+    return produce(state, draftState => {
+      const items = draftState.items;
+      const deletedItem = items.splice(index, 1)[0];
+      draftState.itemsCount -= deletedItem.qty
+      draftState.cartTotal -= product.totalPrice
+    })
   } else return state;
 };
 
 const increaseItemQty = (state, product) => {
   const index = getProductIndex(state.items, product);
   if (index >= 0) {
-    const items = state.items;
-    items[index].qty = product.qty + 1;
-    items[index].totalPrice = product.price * items[index].qty;
-    return {
-      ...state,
-      itemsCount: state.itemsCount + 1,
-      cartTotal: state.cartTotal + product.price,
-      items: items,
-    };
+    return produce(state, draftState => {
+      const items = draftState.items;
+      const item = items[index]
+      item.qty += 1;
+      item.totalPrice = item.qty * product.price;
+      draftState.itemsCount += 1
+      draftState.cartTotal += product.price
+    })
   } else return state;
 };
 
 const decreaseItemQty = (state, product) => {
   const index = getProductIndex(state.items, product);
   if (index >= 0) {
-    const items = state.items;
-    items[index].qty = product.qty - 1;
-    items[index].totalPrice = product.price * items[index].qty;
-    return {
-      ...state,
-      itemsCount: state.itemsCount - 1,
-      cartTotal: state.cartTotal - product.price,
-      items: items,
-    };
+    return produce(state, draftState => {
+      const items = draftState.items;
+      const index = getProductIndex(items, product);
+      const item = items[index]
+      item.qty -= 1;
+      item.totalPrice = item.qty * product.price;
+      draftState.itemsCount -= 1
+      draftState.cartTotal -= product.price
+    })
   } else return state;
 };
 
