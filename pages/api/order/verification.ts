@@ -1,8 +1,11 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { wooClient } from "utils/api-utils";
+import { runMiddleware } from "utils/api-utils/middlewares";
 import { razorpayClient } from "utils/api-utils/razorpay-client";
+import morgan from 'morgan'
+const logger = morgan('tiny')
 
-const updateOrder = async (orderId: string, updateData: any) => {
+export const updateOrder = async (orderId: string, updateData: any) => {
   const { data } = await wooClient.put(`orders/${orderId}`, updateData)
   return data
 }
@@ -10,6 +13,7 @@ const updateOrder = async (orderId: string, updateData: any) => {
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === 'POST') {
     try {
+      await runMiddleware(req, res, logger)
       const body = JSON.stringify(req.body),
         signature = req.headers['x-razorpay-signature'],
         secret = process.env.RAZORPAY_WEBHOOK_SECRET
