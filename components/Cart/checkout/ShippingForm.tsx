@@ -66,11 +66,11 @@ export const ContactShippingForm: React.FC<Props> = ({ submitBtnRef = null, onSu
           firstName: '',
           lastName: '',
           flatAddress: '',
-          pincode: null,
+          pincode: '',
           saveAddressAs: '',
           state: '',
           streetAddress: ''
-        } as ContactShippingData}
+        }}
         validationSchema={shippingAddressSchema}
         onSubmit={onSubmit}
       >
