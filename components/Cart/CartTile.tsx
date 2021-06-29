@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import cartStyles from "./cart.module.scss";
 
 const CartTile = ({ product, removeItem, updateItemQty }) => {
-  const { id, name, descQty, image, price, qty } = product;
+  const { name, descQty, image, price, qty } = product;
   const [currentQty, setCurrentQty] = useState(qty);
   return (
     <>
