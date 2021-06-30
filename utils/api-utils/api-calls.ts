@@ -1,9 +1,9 @@
-import { AxiosResponse } from 'axios'
+import { AxiosRequestConfig, AxiosResponse } from 'axios'
 import { Order, Product } from 'types/commons'
 import { axios } from 'utils/axios'
 
-export const getProducts = async () => {
-  const { data } = await axios.get<any, AxiosResponse<Product[]>>('/api/products')
+export const getProducts = async (config: AxiosRequestConfig = null) => {
+  const { data } = await axios.get<any, AxiosResponse<Product[]>>('/api/products', config)
   return data
 }
 

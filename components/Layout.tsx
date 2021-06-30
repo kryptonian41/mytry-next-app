@@ -12,7 +12,7 @@ const Layout = ({ children, title = null, description = null, keywords = null })
 
   useEffect(() => {
     if (!appInitialized) dispatch(initializeApp());
-  }, [appInitialized, dispatch]);
+  }, []);
 
 
   return (

@@ -28,7 +28,7 @@ const saveCartState = (newCartState) => {
 }
 
 const initialState = getCartState()
-
+debugger
 export default function cartReducer(state = initialState, action) {
   const newState = getNewState(state, action)
   saveCartState(newState)
@@ -41,7 +41,7 @@ const getNewState = (state, action) => {
     case FETCH_CART:
       return {
         ...state,
-        items: action.payload,
+        ...action.payload,
       };
     case ADD_ITEM:
       return addItem(state, action.payload);

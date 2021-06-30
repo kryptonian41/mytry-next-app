@@ -1,4 +1,4 @@
-import { wooClient } from "../../utils/api-utils";
+import { wooClient } from "../../../utils/api-utils";
 import type { NextApiRequest, NextApiResponse } from "next";
 import { Product } from "types/commons";
 

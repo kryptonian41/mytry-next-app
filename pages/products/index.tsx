@@ -44,51 +44,52 @@ export const Home: React.FC<
   parentCategories,
   parentToChildCategoryMap,
 }) => {
-  const { data, isLoading, isError } = useQuery("products", getProducts, {
-    initialData: productsFromServer,
-    staleTime: 1000 * 60,
-  });
+    const { data, isLoading, isError } = useQuery("products", async () => getProducts(),
+      {
+        initialData: productsFromServer,
+        staleTime: 1000 * 60,
+      });
 
-  useEffect(() => {
-    reactQueryClient.setQueryData("products", productsFromServer);
-  }, [productsFromServer]);
+    useEffect(() => {
+      reactQueryClient.setQueryData("products", productsFromServer);
+    }, [productsFromServer]);
 
-  const hero = (
-    <div className={styles.heroSection}>
-      <Navbar />
-      <Video page="product" />
-      <div className="homePage__bgVideo--overlay" />
-    </div>
-  );
+    const hero = (
+      <div className={styles.heroSection}>
+        <Navbar />
+        <Video page="product" />
+        <div className="homePage__bgVideo--overlay" />
+      </div>
+    );
 
-  const pageBody = useMemo(() => {
-    if (isLoading) return <div>Loading...</div>;
+    const pageBody = useMemo(() => {
+      if (isLoading) return <div>Loading...</div>;
 
-    if (isError) return <div>There was some error fetching products list</div>;
+      if (isError) return <div>There was some error fetching products list</div>;
 
-    if (data)
-      return (
-        <div className={styles.productsSectionContainer}>
-          <Categories
-            categories={parentCategories}
-            parentToChildCategoryMap={parentToChildCategoryMap}
-          />
-          <div className={styles.productsContainer}>
-            <Products products={data} />
+      if (data)
+        return (
+          <div className={styles.productsSectionContainer}>
+            <Categories
+              categories={parentCategories}
+              parentToChildCategoryMap={parentToChildCategoryMap}
+            />
+            <div className={styles.productsContainer}>
+              <Products products={data} />
+            </div>
           </div>
-        </div>
-      );
-  }, [isLoading, isError, data]);
+        );
+    }, [isLoading, isError, data]);
 
-  return (
-    <Layout title="Products" description={null} keywords={null}>
-      <React.Fragment>
-        {hero}
-        {pageBody}
-        <Footer />
-      </React.Fragment>
-    </Layout>
-  );
-};
+    return (
+      <Layout title="Products" description={null} keywords={null}>
+        <React.Fragment>
+          {hero}
+          {pageBody}
+          <Footer />
+        </React.Fragment>
+      </Layout>
+    );
+  };
 
 export default Home;
