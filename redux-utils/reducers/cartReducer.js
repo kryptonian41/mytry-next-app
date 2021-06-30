@@ -28,7 +28,6 @@ const saveCartState = (newCartState) => {
 }
 
 const initialState = getCartState()
-debugger
 export default function cartReducer(state = initialState, action) {
   const newState = getNewState(state, action)
   saveCartState(newState)

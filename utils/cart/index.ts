@@ -22,7 +22,6 @@ export const createCartState = (products: Product[], qtyMap: Map<number, number>
       totalPrice: parseInt(product.price) * productQuantity,
     }
   })
-  debugger
   const totalQty = cartItems.reduce((acc, item) => acc + item.qty, 0)
   const totalPrice = cartItems.reduce((acc, item) => acc + item.price, 0)
   return {

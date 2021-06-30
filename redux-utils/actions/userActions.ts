@@ -92,10 +92,7 @@ export const initializeApp = () => async (dispatch, getState) => {
 
 const updateUserCartState = async (dispatch, getState) => {
   const { cart: { items } } = getState() as { cart: { items: import("utils/cart").CartProduct[] } }
-  debugger
-
   if (items.length === 0) return
-
   const itemIds = items.map(item => item.id)
   const itemQuantityMap = new Map<number, number>()
   items.forEach(product => itemQuantityMap.set(product.id, product.qty))
