@@ -26,7 +26,7 @@ const ProductTile: React.FC<Props> = ({ product }) => {
               </div>
             )}
             <p className="text-xl font-medium mt-4">{product.name}</p>
-            {product.sale_price ? (
+            {product.on_sale && product.sale_price ? (
               <p>
                 {RUPEES_SYMBOL} {product.sale_price}
                 <span className="line-through pl-2 text-red-500">

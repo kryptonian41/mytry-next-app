@@ -26,9 +26,11 @@ const LoginForm = () => {
         }}
         validationSchema={validate}
         onSubmit={({ email, password }, { setSubmitting, resetForm }) => {
-          dispatch(logIn(email, password));
-          setSubmitting(false);
-          resetForm();
+          const onSuccess = () => {
+            setSubmitting(false);
+            resetForm();
+          };
+          dispatch(logIn(email, password, onSuccess));
         }}
       >
         {(formik) => (
@@ -72,7 +74,11 @@ const LoginForm = () => {
                 />
               </div>
               <div className={loginStyles.formOptions}>
-                <button className={loginStyles.submitBtn} type="submit">
+                <button
+                  className={loginStyles.submitBtn}
+                  type="submit"
+                  disabled={formik.isSubmitting}
+                >
                   Submit
                 </button>
                 <div className={loginStyles.registerLink}>

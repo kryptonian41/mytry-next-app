@@ -184,7 +184,20 @@ export const ProductPage: React.FC<
                     {productQuantity.length > 0 &&
                       productQuantity[0].options[0]}
                   </p>
-                  <p className={styles.productInfo}>INR {productData.price}</p>
+                  <p className={styles.productInfo}>
+                    {productData.on_sale && productData.sale_price ? (
+                      <p>
+                        INR {productData.sale_price}
+                        <span className="line-through pl-2 text-red-500">
+                          INR {productData.regular_price}
+                        </span>
+                      </p>
+                    ) : (
+                      <p>
+                        INR {productData.regular_price}
+                      </p>
+                    )}
+                  </p>
                   <div
                     className={`${styles.productInfo} ${styles.productDesc}`}
                     dangerouslySetInnerHTML={createDescMarkup(
