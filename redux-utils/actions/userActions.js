@@ -7,8 +7,7 @@ import {
   INIT_APP,
   FINISH_INIT_APP,
 } from "./types";
-import Router from 'next/router'
-
+import Router from "next/router";
 
 export const loadUser = (jwt, onSuccess) => async (dispatch) => {
   const config = {
@@ -21,35 +20,36 @@ export const loadUser = (jwt, onSuccess) => async (dispatch) => {
     const res = await axios.get("/api/users/me", config);
     dispatch({ type: LOGIN_SUCCESS, payload: jwt });
     dispatch({ type: LOAD_USER, payload: res.data });
-    if (onSuccess) onSuccess()
+    if (onSuccess) onSuccess();
   } catch (err) {
     window.alert("Error logging in. Please try again.");
     dispatch({ type: LOGIN_ERROR });
-    if (!window.location.pathname.includes("/login"))
-      Router.push('/login')
+    if (!window.location.pathname.includes("/login")) Router.push("/login");
   }
 };
 
-export const logIn = (email, password) => async (dispatch) => {
-  const config = {
-    headers: {
-      "Content-Type": "application/json",
-    },
+export const logIn =
+  (email, password, onSuccess = () => {}) =>
+  async (dispatch) => {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+
+    const body = JSON.stringify({ email, password });
+
+    try {
+      const res = await axios.post("/api/users/authenticate", body, config);
+      dispatch(loadUser(res.data.data.jwt, onSuccess));
+    } catch (err) {
+      const message = err.response.data.data.message;
+      window.alert(message);
+      dispatch({ type: LOGIN_ERROR });
+      if (!window.location.pathname.includes("/login"))
+        window.location.replace(`${window.location.host}/login`);
+    }
   };
-
-  const body = JSON.stringify({ email, password });
-
-  try {
-    const res = await axios.post("/api/users/authenticate", body, config);
-    dispatch(loadUser(res.data.data.jwt));
-  } catch (err) {
-    const message = err.response.data.data.message;
-    window.alert(message);
-    dispatch({ type: LOGIN_ERROR });
-    if (!window.location.pathname.includes("/login"))
-      window.location.replace(`${window.location.host}/login`);
-  }
-};
 
 export const registerUser =
   (firstName, lastName, email, password) => async (dispatch) => {
@@ -89,7 +89,11 @@ export const initializeApp = () => async (dispatch) => {
 
       const response = await axios.post("/api/users/refresh", body, config);
       if (response.status === 201) {
-        dispatch(loadUser(response.data.data.jwt, () => dispatch({ type: FINISH_INIT_APP })));
+        dispatch(
+          loadUser(response.data.data.jwt, () =>
+            dispatch({ type: FINISH_INIT_APP })
+          )
+        );
       } else {
         throw new Error("Could not refresh token.");
       }
