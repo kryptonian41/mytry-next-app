@@ -1,17 +1,14 @@
-import React from "react";
+import React, { useRef } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { useSelector } from "react-redux";
 import { applyCoupon } from "utils/api-utils";
 
-const CouponForm = ({
-  theme,
-  setCouponState,
-  isCouponApplied,
-  unsetCouponState,
-}) => {
+const CouponForm = ({ theme, setCouponState, isCouponApplied }) => {
   const { user } = useSelector((state) => state.user);
   const { cartTotal } = useSelector((state) => state.cart);
+
+  const formResetRef = useRef(null);
 
   return (
     <Formik
@@ -24,10 +21,6 @@ const CouponForm = ({
           .matches(/^[a-zA-Z0-9]+$/, "Please enter a valid promo code")
           .required("Please enter a valid promo code"),
       })}
-      onReset={(values, actions) => {
-        actions.setSubmitting(false);
-        actions.resetForm();
-      }}
       onSubmit={({ code }, { setSubmitting, setFieldError }) => {
         const onSuccess = () => setSubmitting(false);
         const onError = (message) => {
@@ -51,6 +44,8 @@ const CouponForm = ({
             placeholder="Promo Code"
             className="w-full bg-transparent pl-0 border-t-0 border-l-0 border-r-0 border border-b-2 focus:outline-none focus:ring-0 focus:border-black"
             name="code"
+            disabled={isCouponApplied}
+            style={isCouponApplied ? { border: "none" } : {}}
           />
           <ErrorMessage
             style={{ position: "absolute", fontSize: "0.8rem", color: "red" }}
@@ -60,7 +55,11 @@ const CouponForm = ({
         </div>
         {isCouponApplied ? (
           <button
-            type="reset"
+            type="button"
+            onClick={() => {
+              formResetRef.current.click();
+              setCouponState(false, null);
+            }}
             className="focus:outline-none"
             style={{
               backgroundColor: theme.orange,
@@ -85,6 +84,9 @@ const CouponForm = ({
             Apply
           </button>
         )}
+        <button className="hidden" type="reset" ref={formResetRef}>
+          Reset
+        </button>
       </Form>
     </Formik>
   );

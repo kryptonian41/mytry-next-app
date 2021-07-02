@@ -39,6 +39,7 @@
 
     .infoOuterContainer {
       margin-right: 1.5rem;
+      overflow-y: scroll;
 
       @media screen and (max-width: 640px) {
         margin: 0;

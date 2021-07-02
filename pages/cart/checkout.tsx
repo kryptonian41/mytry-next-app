@@ -102,11 +102,6 @@ export const Checkout = (props: Props) => {
     setCouponData(coupon);
   };
 
-  const unsetCouponState = () => {
-    setCouponApplied(false);
-    setCouponData(null);
-  };
-
   return (
     <Layout title="Place Order" description={null} keywords={null}>
       <div
@@ -148,7 +143,6 @@ export const Checkout = (props: Props) => {
                   theme={theme}
                   setCouponState={setCouponState}
                   isCouponApplied={isCouponApplied}
-                  unsetCouponState={unsetCouponState}
                 />
                 <div
                   className="bg-white p-6 rounded-xl"
