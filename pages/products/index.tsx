@@ -22,7 +22,7 @@ interface Props {
 }
 
 export const getServerSideProps: GetServerSideProps<Props> = async () => {
-  const { data } = await getProductsServerSide({ per_page: 50 });
+  const { data } = await getProductsServerSide({ per_page: 50, stock_status: 'instock' });
   let categories = await getCategoriesServerSide().then((res) => res.data);
 
   const { parentCategories, parentToChildMapping } =
@@ -44,7 +44,12 @@ export const Home: React.FC<
   parentCategories,
   parentToChildCategoryMap,
 }) => {
-    const { data, isLoading, isError } = useQuery("products", async () => getProducts(),
+    const { data, isLoading, isError } = useQuery("products", async () => getProducts({
+      params: {
+        stock_status: 'instock',
+        per_page: 50
+      }
+    }),
       {
         initialData: productsFromServer,
         staleTime: 1000 * 60,
