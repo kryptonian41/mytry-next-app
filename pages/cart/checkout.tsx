@@ -15,12 +15,13 @@ import { getOrderDetails } from "utils";
 import { CheckoutType } from "utils/api-utils";
 import { CODCheckout, RazorPayCheckout } from "utils/checkout";
 import { useTheme } from "utils/color-map";
-interface Props { }
+import CouponForm from "components/Cart/checkout/CouponForm";
+interface Props {}
 
 type ShippingFormOnSubmitFunc = (
   values: ContactShippingData,
   formikHelpers: FormikHelpers<ContactShippingData>
-) => void | Promise<any>
+) => void | Promise<any>;
 
 export const Checkout = (props: Props) => {
   const cart = useSelector((state) => (state as any).cart);
@@ -31,53 +32,75 @@ export const Checkout = (props: Props) => {
   const shippingFormSubmitRef = useRef(null);
   const dispatch = useDispatch();
   const [placingOrder, setPlacingOrder] = useState(false);
-  const [paymentMethod, setPaymentMethod] = useState(CheckoutType.COD)
+  const [paymentMethod, setPaymentMethod] = useState(CheckoutType.COD);
+  const [isCouponApplied, setCouponApplied] = useState(false);
+  const [couponData, setCouponData] = useState(null);
+
   useEffect(() => {
     if (!user) router.push("/cart");
   }, [user]);
 
-  const checkout = useCallback<ShippingFormOnSubmitFunc>(async (values: ContactShippingData) => {
-    setPlacingOrder(true);
-    switch (paymentMethod) {
-      case CheckoutType.COD: {
-        const order = getOrderDetails(items, values, CheckoutType.COD);
-        await CODCheckout(order, (order) => {
-          dispatch({
-            type: CLEAR_CART,
+  const checkout = useCallback<ShippingFormOnSubmitFunc>(
+    async (values: ContactShippingData) => {
+      setPlacingOrder(true);
+      switch (paymentMethod) {
+        case CheckoutType.COD: {
+          const order = getOrderDetails(
+            user.id,
+            items,
+            values,
+            CheckoutType.COD,
+            couponData
+          );
+          await CODCheckout(order, (order) => {
+            dispatch({
+              type: CLEAR_CART,
+            });
+            router.push({
+              pathname: "/order/success",
+              query: {
+                orderId: order.id,
+              },
+            });
+            setPlacingOrder(false);
           });
-          router.push({
-            pathname: "/order/success",
-            query: {
-              orderId: order.id,
-            },
+          break;
+        }
+        case CheckoutType.Razorpay: {
+          const order = getOrderDetails(
+            user.id,
+            items,
+            values,
+            CheckoutType.Razorpay,
+            couponData
+          );
+          await RazorPayCheckout(order, (rzpResponse) => {
+            dispatch({
+              type: CLEAR_CART,
+            });
+            router.push({
+              pathname: "/order/success",
+              query: {
+                orderId: rzpResponse.razorpay_order_id,
+              },
+            });
           });
           setPlacingOrder(false);
-        });
-        break;
+          break;
+        }
+        default: {
+          alert("Invalid checkout type selected");
+          break;
+        }
       }
-      case CheckoutType.Razorpay: {
-        const order = getOrderDetails(items, values, CheckoutType.Razorpay);
-        await RazorPayCheckout(order, (rzpResponse) => {
-          dispatch({
-            type: CLEAR_CART,
-          });
-          router.push({
-            pathname: "/order/success",
-            query: {
-              orderId: rzpResponse.razorpay_order_id,
-            },
-          });
-        });
-        setPlacingOrder(false);
-        break;
-      }
-      default: {
-        alert("Invalid checkout type selected");
-        break;
-      }
-    }
-  }, [paymentMethod])
+    },
+    [paymentMethod]
+  );
 
+  const setCouponState = (couponApplied, coupon) => {
+    setCouponApplied(couponApplied);
+    setCouponData(coupon);
+  };
 
   return (
     <Layout title="Place Order" description={null} keywords={null}>
@@ -112,19 +135,38 @@ export const Checkout = (props: Props) => {
           <Summary
             cartTotal={cartTotal}
             dark
+            isCouponApplied={isCouponApplied}
+            couponData={couponData}
             buttonComponent={
               <>
-                <div className="bg-white p-6 rounded-xl" style={{
-                  border: `1px solid ${theme.green}`
-                }}>
-                  <h1 className="text-2xl mb-4" style={{
-                    color: theme.green
-                  }}>Payment Mode</h1>
-                  <div className="flex flex-wrap space-x-3">
-                    <PaymentMethodSelector onChange={(paymentMode: string) => setPaymentMethod(paymentMode as CheckoutType)} defaultPaymentMode={paymentMethod} />
+                <CouponForm
+                  theme={theme}
+                  setCouponState={setCouponState}
+                  isCouponApplied={isCouponApplied}
+                />
+                <div
+                  className="bg-white p-6 rounded-xl"
+                  style={{
+                    border: `1px solid ${theme.green}`,
+                  }}
+                >
+                  <h1
+                    className="text-2xl mb-4"
+                    style={{
+                      color: theme.green,
+                    }}
+                  >
+                    Payment Mode
+                  </h1>
+                  <div>
+                    <PaymentMethodSelector
+                      onChange={(paymentMode: string) =>
+                        setPaymentMethod(paymentMode as CheckoutType)
+                      }
+                      defaultPaymentMode={paymentMethod}
+                    />
                   </div>
                   <div className="w-full mt-4">
-
                     <CheckoutButton
                       shippingFormBtnRef={shippingFormSubmitRef}
                       loading={placingOrder}

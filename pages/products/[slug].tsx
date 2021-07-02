@@ -6,7 +6,10 @@ import Layout from "components/Layout";
 import Navbar from "components/Navbar";
 import { GetStaticProps, InferGetServerSidePropsType } from "next";
 import { useRouter } from "next/router";
-import { getProductServerSide, getProductsServerSide } from "pages/api/products";
+import {
+  getProductServerSide,
+  getProductsServerSide,
+} from "pages/api/products";
 import { getReviewsServerSide } from "pages/api/reviews";
 import { useCallback, useEffect, useMemo, useRef } from "react";
 import { useQuery } from "react-query";
@@ -112,7 +115,7 @@ export const ProductPage: React.FC<
 
   // For maintianing the image aspect ratio on all browsers as the aspect ratio property is not supported by safari yet and the padding bottom hack cannot be used because the height of the image is fixed
   useEffect(() => {
-    if (!imageContainerRef.current) return
+    if (!imageContainerRef.current) return;
 
     const imageContainerWidth =
       (7 * imageContainerRef.current.offsetHeight) / 8;
@@ -123,7 +126,7 @@ export const ProductPage: React.FC<
       const imageContainerWidth = (7 * elm.offsetHeight) / 8;
       elm.style.width = imageContainerWidth + "px";
     });
-    observer.observe(imageContainerRef.current)
+    observer.observe(imageContainerRef.current);
   }, []);
 
   const dispatch = useDispatch();
@@ -139,28 +142,24 @@ export const ProductPage: React.FC<
     return { __html: desc };
   }
 
-  const addItem = useCallback(
-    () => {
-      const productQuantity = productData.attributes.filter(
-        (attribute) => attribute.name.toLowerCase() === "quantity"
-      );
-      const item = {
-        id: productData.id,
-        name: productData.name,
-        image: productData.images[0].src,
-        price: parseFloat(productData.price),
-        descQty: productQuantity.length ? productQuantity[0].options[0] : null,
-        qty: 1,
-        totalPrice: parseFloat(productData.price),
-      };
-      dispatch({
-        type: "ADD_ITEM",
-        payload: item,
-      })
-    },
-    [productData],
-  )
-
+  const addItem = useCallback(() => {
+    const productQuantity = productData.attributes.filter(
+      (attribute) => attribute.name.toLowerCase() === "quantity"
+    );
+    const item = {
+      id: productData.id,
+      name: productData.name,
+      image: productData.images[0].src,
+      price: parseFloat(productData.price).toFixed(2),
+      descQty: productQuantity.length ? productQuantity[0].options[0] : null,
+      qty: 1,
+      totalPrice: parseFloat(productData.price).toFixed(2),
+    };
+    dispatch({
+      type: "ADD_ITEM",
+      payload: item,
+    });
+  }, [productData]);
 
   return (
     <Layout
@@ -198,7 +197,7 @@ export const ProductPage: React.FC<
                     {productQuantity.length > 0 &&
                       productQuantity[0].options[0]}
                   </p>
-                  <p className={styles.productInfo}>
+                  <div className={styles.productInfo}>
                     {productData.on_sale && productData.sale_price ? (
                       <p>
                         INR {productData.sale_price}
@@ -207,11 +206,9 @@ export const ProductPage: React.FC<
                         </span>
                       </p>
                     ) : (
-                      <p>
-                        INR {productData.regular_price}
-                      </p>
+                      <p>INR {productData.regular_price}</p>
                     )}
-                  </p>
+                  </div>
                   <div
                     className={`${styles.productInfo} ${styles.productDesc}`}
                     dangerouslySetInnerHTML={createDescMarkup(
