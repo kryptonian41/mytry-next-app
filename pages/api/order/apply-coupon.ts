@@ -17,7 +17,10 @@ const calculateCart = (couponData, cartTotal) => {
       );
       break;
     case "fixed_cart":
-      response.data.discount = Math.min(Math.ceil(parseFloat(couponData.amount)), cartTotal)
+      response.data.discount = Math.min(
+        Math.ceil(parseFloat(couponData.amount)),
+        cartTotal
+      );
       break;
     default:
       throw new Error("Invalid coupon code");
@@ -30,8 +33,8 @@ export const applyCoupon = async (body = {}) => {
   let response;
   try {
     const { data } = await wooClient.get("coupons", { code });
+    if (data.length === 0) throw new Error("Invalid coupon code");
     const couponData = data[0];
-    if (couponData.length === 0) throw new Error("Invalid coupon code");
     if (couponData.date_expires_gmt) {
       const now = new Date();
       const expiry = new Date(`${couponData.date_expires_gmt}+00:00`);
