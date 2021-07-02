@@ -6,34 +6,39 @@ import {
   INCREASE_ITEM_QTY,
   DECREASE_ITEM_QTY,
   SET_ADDRESSES,
-  CLEAR_CART
+  CLEAR_CART,
 } from "../actions/types";
-import { produce } from 'immer'
-export const CART_LOCALSTORAGE_KEY = "maitri_cart_cache"
+import { produce } from "immer";
+export const CART_LOCALSTORAGE_KEY = "maitri_cart_cache";
 
 const DEFAULT_STATE = {
   itemsCount: 0,
   items: [],
-  cartTotal: 0
-}
+  cartTotal: 0,
+};
 
 const getCartState = () => {
-  if (typeof window === 'undefined') return DEFAULT_STATE
-  return JSON.parse(window.localStorage.getItem(CART_LOCALSTORAGE_KEY)) || DEFAULT_STATE
-}
+  if (typeof window === "undefined") return DEFAULT_STATE;
+  return (
+    JSON.parse(window.localStorage.getItem(CART_LOCALSTORAGE_KEY)) ||
+    DEFAULT_STATE
+  );
+};
 
 const saveCartState = (newCartState) => {
-  if (isServer()) return
-  window.localStorage.setItem(CART_LOCALSTORAGE_KEY, JSON.stringify(newCartState))
-}
+  if (isServer()) return;
+  window.localStorage.setItem(
+    CART_LOCALSTORAGE_KEY,
+    JSON.stringify(newCartState)
+  );
+};
 
-const initialState = getCartState()
+const initialState = getCartState();
 export default function cartReducer(state = initialState, action) {
-  const newState = getNewState(state, action)
-  saveCartState(newState)
-  return newState
+  const newState = getNewState(state, action);
+  saveCartState(newState);
+  return newState;
 }
-
 
 const getNewState = (state, action) => {
   switch (action.type) {
@@ -51,28 +56,30 @@ const getNewState = (state, action) => {
     case DECREASE_ITEM_QTY:
       return decreaseItemQty(state, action.payload);
     case SET_ADDRESSES:
-      return setAddress(state, action.payload)
+      return setAddress(state, action.payload);
     case CLEAR_CART:
       return {
         itemsCount: 0,
         items: [],
-        cartTotal: 0
-      }
+        cartTotal: 0,
+      };
     default:
       return state;
   }
-}
+};
 
 const setAddress = (state, payload) => {
-  return state
-}
+  return state;
+};
 
 const addNewProduct = (state, product) => {
-  return produce(state, draftState => {
-    draftState.items.push(product)
-    draftState.itemsCount += product.qty
-    draftState.cartTotal += product.price
-  })
+  return produce(state, (draftState) => {
+    draftState.items.push(product);
+    draftState.itemsCount += product.qty;
+    draftState.cartTotal = parseFloat(
+      (draftState.cartTotal + product.price).toFixed(2)
+    );
+  });
 };
 
 const getProductIndex = (items, product) => {
@@ -81,13 +88,17 @@ const getProductIndex = (items, product) => {
 };
 
 const updateProduct = (state, product, index) => {
-  return produce(state, draftState => {
+  return produce(state, (draftState) => {
     const items = draftState.items;
     items[index].qty += product.qty;
-    draftState.items[index].totalPrice = items[index].qty * product.price;
-    draftState.itemsCount += product.qty
-    draftState.cartTotal += product.price
-  })
+    draftState.items[index].totalPrice = parseFloat(
+      (items[index].qty * product.price).toFixed(2)
+    );
+    draftState.itemsCount += product.qty;
+    draftState.cartTotal = parseFloat(
+      (draftState.cartTotal + product.price).toFixed(2)
+    );
+  });
 };
 
 const addItem = (state, product) => {
@@ -96,48 +107,59 @@ const addItem = (state, product) => {
     if (index >= 0) {
       return updateProduct(state, product, index);
     }
-    return addNewProduct(state, product)
+    return addNewProduct(state, product);
   } else return addNewProduct(state, product);
 };
 
 const removeItem = (state, product) => {
   const index = getProductIndex(state.items, product);
   if (index >= 0) {
-    return produce(state, draftState => {
+    if (state.items.length === 1)
+      return {
+        itemsCount: 0,
+        items: [],
+        cartTotal: 0,
+      };
+    return produce(state, (draftState) => {
       const items = draftState.items;
       const deletedItem = items.splice(index, 1)[0];
-      draftState.itemsCount -= deletedItem.qty
-      draftState.cartTotal -= product.totalPrice
-    })
+      draftState.itemsCount -= deletedItem.qty;
+      draftState.cartTotal = parseFloat(
+        (draftState.cartTotal - product.totalPrice).toFixed()
+      );
+    });
   } else return state;
 };
 
 const increaseItemQty = (state, product) => {
   const index = getProductIndex(state.items, product);
   if (index >= 0) {
-    return produce(state, draftState => {
+    return produce(state, (draftState) => {
       const items = draftState.items;
-      const item = items[index]
+      const item = items[index];
       item.qty += 1;
-      item.totalPrice = item.qty * product.price;
-      draftState.itemsCount += 1
-      draftState.cartTotal += product.price
-    })
+      item.totalPrice = parseFloat((item.qty * product.price).toFixed(2));
+      draftState.itemsCount += 1;
+      draftState.cartTotal = parseFloat(
+        (draftState.cartTotal + product.price).toFixed(2)
+      );
+    });
   } else return state;
 };
 
 const decreaseItemQty = (state, product) => {
   const index = getProductIndex(state.items, product);
   if (index >= 0) {
-    return produce(state, draftState => {
+    return produce(state, (draftState) => {
       const items = draftState.items;
       const index = getProductIndex(items, product);
-      const item = items[index]
+      const item = items[index];
       item.qty -= 1;
-      item.totalPrice = item.qty * product.price;
-      draftState.itemsCount -= 1
-      draftState.cartTotal -= product.price
-    })
+      item.totalPrice = parseFloat((item.qty * product.price).toFixed(2));
+      draftState.itemsCount -= 1;
+      draftState.cartTotal = parseFloat(
+        (draftState.cartTotal - product.price).toFixed(2)
+      );
+    });
   } else return state;
 };
-

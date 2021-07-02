@@ -132,14 +132,15 @@ export const ProductPage: React.FC<
     const productQuantity = productData.attributes.filter(
       (attribute) => attribute.name.toLowerCase() === "quantity"
     );
+    const price = parseFloat(productData.price);
     const item = {
       id: productData.id,
       name: productData.name,
       image: productData.images[0].src,
-      price: parseFloat(productData.price).toFixed(2),
+      price,
       descQty: productQuantity.length ? productQuantity[0].options[0] : null,
       qty: 1,
-      totalPrice: parseFloat(productData.price).toFixed(2),
+      totalPrice: price,
     };
     dispatch({
       type: "ADD_ITEM",
