@@ -94,7 +94,7 @@ export const Checkout = (props: Props) => {
         }
       }
     },
-    [paymentMethod]
+    [paymentMethod, couponData, user]
   );
 
   const setCouponState = (couponApplied, coupon) => {

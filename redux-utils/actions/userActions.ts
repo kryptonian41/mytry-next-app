@@ -84,7 +84,7 @@ export const initializeApp = () => async (dispatch, getState) => {
     ])
     dispatch({ type: FINISH_INIT_APP })
   } catch (error) {
-    console.log("🚀 ~ file: userActions.ts ~ line 99 ~ initializeApp ~ error", error)
+    // console.log("🚀 ~ file: userActions.ts ~ line 99 ~ initializeApp ~ error", error)
     dispatch({ type: FINISH_INIT_APP })
   }
 };

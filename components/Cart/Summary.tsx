@@ -12,6 +12,7 @@ const Summary = ({
 }) => {
   const { items } = useSelector((state) => (state as any).cart);
   const cartFilled = useMemo(() => items.length !== 0, [items]);
+
   return (
     <div
       className={clsx(cartStyles.summaryContainer, { [cartStyles.dark]: dark })}
@@ -45,7 +46,8 @@ const Summary = ({
               <h3>
                 INR{" "}
                 {cartTotal +
-                  (cartFilled ? 50 : 0) - (isCouponApplied && couponData ? couponData.discount : 0)}
+                  (cartFilled ? 50 : 0) -
+                  (isCouponApplied && couponData ? couponData.discount : 0)}
               </h3>
             </div>
           </div>
