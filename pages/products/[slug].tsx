@@ -1,3 +1,5 @@
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 import clsx from "clsx";
 import Footer from "components/Footer";
 import Layout from "components/Layout";
@@ -16,6 +18,7 @@ import { getProduct, ProductFilters } from "utils/api-utils";
 import RelatedProducts from "../../components/Product/RelatedProducts/RelatedProducts";
 import Review from "../../components/Product/Reviews/Reviews";
 import styles from "./styles.module.scss";
+import Slider from "react-slick";
 
 interface Props {
   product: Product;
@@ -31,6 +34,17 @@ export async function getStaticPaths() {
 
   return { paths, fallback: "blocking" };
 }
+
+const ImageCarouselSettings = {
+  dots: true,
+  infinite: true,
+  speed: 500,
+  slidesToShow: 1,
+  slidesToScroll: 1,
+  arrows: false,
+  autoplay: true,
+  autoplaySpeed: 3500
+};
 
 export const getStaticProps: GetStaticProps<Props> = async ({ params }) => {
   const { slug } = params;
@@ -228,14 +242,18 @@ export const ProductPage: React.FC<
                 className={clsx(styles.imageContainer, "relative")}
                 ref={imageContainerRef}
               >
-                <img
-                  src={productData.images[0].src}
-                  alt="product-image"
-                  className={clsx(
-                    styles["hero-product-info-image"],
-                    "absolute left-0 top-0"
-                  )}
-                />
+                <Slider className="h-full" {...ImageCarouselSettings}>
+                  {product.images && product.images.map(image => <img
+                    src={image.src}
+                    key={image.src}
+                    alt="product-image"
+                    className={clsx(
+                      styles["hero-product-info-image"],
+                      "absolute left-0 top-0"
+                    )}
+                  />)}
+                </Slider>
+
                 <button
                   onClick={addItem}
                   type="button"
