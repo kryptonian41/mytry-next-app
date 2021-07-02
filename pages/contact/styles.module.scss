@@ -1,5 +1,8 @@
 .root {
   height: 100%;
+  @media (max-width: 640px) {
+    height: auto;
+  }
 }
 
 .hero {
@@ -18,7 +21,7 @@
     &-form {
       border-top-right-radius: 20rem;
       @media (max-width: 640px) {
-        height: 100vh;
+        height: 80vh;
         border-top-right-radius: 15rem;
       }
     }
