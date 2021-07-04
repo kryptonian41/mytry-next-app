@@ -1,0 +1,41 @@
+.insta-image {
+  aspect-ratio: 1/1;
+  @apply bg-gray-200;
+  @media (max-width: 640px) {
+    width: 48%;
+    margin-top: 1rem;
+  }
+}
+
+.plant-sticker {
+  width: 350px;
+  @media (max-width: 640px) {
+    width: 150px;
+  }
+}
+
+.homePageMarquee {
+  width: 100%;
+  padding: 1rem 0;
+  overflow: hidden;
+  white-space: nowrap;
+
+  & > div {
+    animation: marquee 15s linear infinite;
+  }
+
+  & span {
+    display: inline-block;
+    width: 20%;
+    text-align: center;
+  }
+}
+
+@keyframes marquee {
+  0% {
+    transform: translate(0, 0);
+  }
+  100% {
+    transform: translate(-100%, 0);
+  }
+}

@@ -1,0 +1,197 @@
+.root {
+  height: 100%;
+}
+
+.hero {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 2rem;
+
+  @media screen and (max-width: 640px) {
+    display: block;
+    min-height: 100vh;
+    height: max-content;
+  }
+
+  &-product-info {
+    display: flex;
+    flex-direction: row;
+    min-height: 0;
+    flex: 1;
+    width: 90%;
+    margin: auto;
+
+    @media screen and (max-width: 640px) {
+      flex-direction: column-reverse;
+    }
+
+    &-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-top-right-radius: 18rem;
+
+      @media screen and (max-width: 640px) {
+        border-top-right-radius: 12rem;
+      }
+    }
+
+    .infoOuterContainer {
+      margin-right: 1.5rem;
+      overflow-y: scroll;
+
+      @media screen and (max-width: 640px) {
+        margin: 0;
+        margin-top: 2.5rem;
+      }
+    }
+  }
+}
+
+.productInfoContainer {
+  width: 80%;
+  margin: 2rem auto;
+
+  @media screen and (max-width: 640px) {
+    width: 100%;
+  }
+}
+
+.productName {
+  font-size: 3rem;
+  text-transform: lowercase;
+  line-height: 1;
+  margin-bottom: 1rem;
+
+  @media screen and (max-width: 640px) {
+    font-size: 2.5rem;
+  }
+}
+
+.productInfo {
+  font-size: 0.9rem;
+}
+
+.productDesc {
+  margin: 1rem 0 2.5rem 0;
+}
+
+.ingredientsHeader {
+  text-transform: uppercase;
+}
+
+.productsIngredients {
+  font-size: 0.8rem;
+  margin: 1rem 0;
+}
+
+.ingredientsDivider {
+  margin: 1rem 0;
+}
+
+.imageContainer {
+  position: relative;
+
+  :global .slick-list {
+    height: 100%;
+    .slick-track {
+      height: 100%;
+      .slick-slide div {
+        height: 100%;
+        position: relative;
+      }
+    }
+  }
+
+  @media screen and (max-width: 640px) {
+    width: 100%;
+    height: calc(8 * (90vw / 7));
+  }
+}
+
+.shopNowBtn {
+  position: absolute;
+  bottom: 0;
+  background-color: #f8ec00;
+  text-transform: uppercase;
+  width: 100%;
+  font-size: 1rem;
+  height: 3rem;
+
+  &:focus {
+    outline: none;
+  }
+}
+
+.singleProductPage {
+  height: 100%;
+}
+
+.productsContainer {
+  display: grid;
+  width: 70%;
+  margin: auto;
+  padding-top: 6rem;
+  grid-template-columns: repeat(2, 1fr);
+  min-height: 100vh;
+
+  @media screen and (max-width: 640px) {
+    width: 90%;
+    gap: 20px;
+    row-gap: 40px;
+  }
+
+  .product,
+  .productOffset {
+    padding: 10%;
+
+    @media screen and (max-width: 640px) {
+      padding: 0;
+      height: fit-content;
+
+      & > a > div {
+        padding: 0;
+
+        & > div > div {
+          margin-bottom: 0.5rem;
+        }
+
+        & p,
+        & p:nth-of-type(2) {
+          font-size: 0.8rem;
+          margin: 0;
+          text-transform: uppercase;
+          line-height: 1;
+          margin-top: 0.2rem;
+        }
+      }
+    }
+  }
+
+  .productOffset {
+    padding-right: 12%;
+    position: relative;
+    top: -6rem;
+
+    @media screen and (max-width: 640px) {
+      padding: 0;
+      top: -2rem;
+    }
+  }
+}
+
+.heroSection {
+  height: 100vh;
+  position: relative;
+}
+
+.productsSectionContainer {
+  display: flex;
+  border-top: 1px solid black;
+
+  @media screen and (max-width: 640px) {
+    display: block;
+    border: none;
+  }
+}
