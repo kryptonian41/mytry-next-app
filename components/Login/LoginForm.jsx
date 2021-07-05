@@ -82,7 +82,9 @@ const LoginForm = () => {
                   Submit
                 </button>
                 <div className={loginStyles.registerLink}>
-                  New user? <Link href="/register">Register</Link>
+                  New user <span style={{
+                    fontFamily: 'Arial'
+                  }}>?</span>&nbsp;&nbsp; <Link href="/register">Register</Link>
                 </div>
               </div>
             </Form>

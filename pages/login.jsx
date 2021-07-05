@@ -1,15 +1,16 @@
-import { useEffect } from "react";
 import Login from "components/Login";
-import Layout from "../components/Layout";
-import { useSelector } from "react-redux";
 import { useRouter } from "next/router";
+import { useLayoutEffect } from "react";
+import { useSelector } from "react-redux";
+import Layout from "../components/Layout";
 
 const login = () => {
   const { user } = useSelector((state) => state.user);
   const router = useRouter();
 
-  useEffect(() => {
-    if (user) router.push("/");
+  useLayoutEffect(() => {
+    const redirectRoute = router.query.redirect || '/'
+    if (user) router.push(redirectRoute);
   }, [user]);
 
   return (

@@ -7,6 +7,7 @@ import { useCallback, useState } from "react";
 import { connect, useDispatch } from "react-redux";
 import { LOGOUT_USER } from "redux-utils/actions/types";
 import styles from "./style.module.scss";
+import router from "next/router";
 
 interface Props {
   color?: string;
@@ -77,13 +78,20 @@ const Navbar: React.FC<Props> = ({
               <li className="whitespace-nowrap">
                 <Link href="/contact">Contact Us</Link>
               </li>
-              <li className="whitespace-nowrap">
-                {isAuthenticated && (
+              {isAuthenticated && (
+                <li className="whitespace-nowrap">
+                  <span onClick={() => router.push('/account')}>
+                    My Account
+                  </span>
+                </li>
+              )}
+              {isAuthenticated && (
+                <li className="whitespace-nowrap">
                   <span onClick={() => dispatach({ type: LOGOUT_USER })}>
                     Logout
                   </span>
-                )}
-              </li>
+                </li>
+              )}
             </ul>
           )}
         </div>
