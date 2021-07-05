@@ -37,6 +37,12 @@ export const createOrder = async (order: Order, checkoutType: CheckoutType) => {
   return data
 }
 
+
+export const getOrders = async () => {
+  const { data } = await axios.get(`/api/users/orders`)
+  return data
+}
+
 export const applyCoupon = async (userId, cartTotal, code, onSuccess, onError, setCouponState) => {
   try {
     const body = JSON.stringify({ customer_id: userId, code, cartTotal });
