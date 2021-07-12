@@ -1,0 +1,39 @@
+.container {
+  background-color: rgb(247, 250, 238);
+  color: #034a38;
+
+  section {
+    width: 90%;
+    margin: auto;
+    margin-top: 2rem;
+
+    h1 {
+      text-align: center;
+      font-size: 3rem;
+      text-transform: lowercase;
+      color: #f26722;
+      margin-bottom: 1rem;
+
+      @media screen and (max-width: 640px) {
+        font-size: 2rem;
+      }
+    }
+
+    h2 {
+      font-size: 1.5rem;
+      color: #f26722;
+      text-transform: lowercase;
+      margin-bottom: 0.5rem;
+    }
+
+    ul {
+      padding-left: 2rem;
+      list-style-type: disc;
+    }
+
+    ol {
+      list-style-type: number;
+      padding-left: 2rem;
+    }
+  }
+}
