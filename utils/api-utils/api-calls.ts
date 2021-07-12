@@ -29,7 +29,7 @@ export const getReviews = async () => {
 
 export enum CheckoutType {
   COD = "cod",
-  Razorpay = "razorpay"
+  // Razorpay = "razorpay"
 }
 
 export const createOrder = async (order: Order, checkoutType: CheckoutType) => {
