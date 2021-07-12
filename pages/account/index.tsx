@@ -59,9 +59,9 @@ const AccountHome = () => {
               {orders && <OrderList orders={orders} />}
             </div>
           </div>
-          <div className="col-span-full mt-8 sm:mt-0 sm:col-span-4">
+          {/* <div className="col-span-full mt-8 sm:mt-0 sm:col-span-4">
             <h1 className="text-3xl">Saved Addresses</h1>
-          </div>
+          </div> */}
         </div>
       </div>
     </Layout>
