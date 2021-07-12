@@ -11,7 +11,7 @@ import {
   getProductsServerSide,
 } from "pages/api/products";
 import { getReviewsServerSide } from "pages/api/reviews";
-import { useCallback, useEffect, useMemo, useRef } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useQuery } from "react-query";
 import { useDispatch } from "react-redux";
 import { SET_REVIEWS } from "redux-utils/actions/types";
@@ -27,6 +27,7 @@ interface Props {
   product: Product;
   reviews: any;
   relatedProducts: any;
+  colorScheme: any
 }
 
 export async function getStaticPaths() {
@@ -73,11 +74,16 @@ export const getStaticProps: GetStaticProps<Props> = async ({ params }) => {
       })
     );
   }
+
+
+  const colorScheme = getRandomColorScheme()
+
   return {
     props: {
       relatedProducts,
       reviews,
       product,
+      colorScheme
     },
     revalidate: 20,
   };
@@ -85,8 +91,9 @@ export const getStaticProps: GetStaticProps<Props> = async ({ params }) => {
 
 export const ProductPage: React.FC<
   InferGetServerSidePropsType<typeof getStaticProps>
-> = ({ relatedProducts, reviews, product }) => {
+> = ({ relatedProducts, reviews, product, colorScheme: colorSchemeProp }) => {
   const router = useRouter();
+  const [colorScheme, setColorScheme] = useState(colorSchemeProp)
   const { slug } = router.query;
   const {
     data: productData,
@@ -111,7 +118,6 @@ export const ProductPage: React.FC<
     [productData]
   );
 
-  let colorScheme = useMemo(getRandomColorScheme, []);
 
   // For maintianing the image aspect ratio on all browsers as the aspect ratio property is not supported by safari yet and the padding bottom hack cannot be used because the height of the image is fixed
   useEffect(() => {
