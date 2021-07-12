@@ -13,7 +13,7 @@ import { CLEAR_CART } from "redux-utils/actions/types";
 import { ContactShippingData, User } from "types/commons";
 import { getOrderDetails } from "utils";
 import { CheckoutType } from "utils/api-utils";
-import { CODCheckout, RazorPayCheckout } from "utils/checkout";
+import { CODCheckout } from "utils/checkout";
 import { useTheme } from "utils/color-map";
 import CouponForm from "components/Cart/checkout/CouponForm";
 interface Props {}
@@ -66,28 +66,28 @@ export const Checkout = (props: Props) => {
           });
           break;
         }
-        case CheckoutType.Razorpay: {
-          const order = getOrderDetails(
-            user.id,
-            items,
-            values,
-            CheckoutType.Razorpay,
-            couponData
-          );
-          await RazorPayCheckout(order, (rzpResponse) => {
-            dispatch({
-              type: CLEAR_CART,
-            });
-            router.push({
-              pathname: "/order/success",
-              query: {
-                orderId: rzpResponse.razorpay_order_id,
-              },
-            });
-          });
-          setPlacingOrder(false);
-          break;
-        }
+        // case CheckoutType.Razorpay: {
+        //   const order = getOrderDetails(
+        //     user.id,
+        //     items,
+        //     values,
+        //     CheckoutType.Razorpay,
+        //     couponData
+        //   );
+        //   await RazorPayCheckout(order, (rzpResponse) => {
+        //     dispatch({
+        //       type: CLEAR_CART,
+        //     });
+        //     router.push({
+        //       pathname: "/order/success",
+        //       query: {
+        //         orderId: rzpResponse.razorpay_order_id,
+        //       },
+        //     });
+        //   });
+        //   setPlacingOrder(false);
+        //   break;
+        // }
         default: {
           alert("Invalid checkout type selected");
           break;

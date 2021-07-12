@@ -82,11 +82,11 @@ const getPaymentMethodDetails = (checkoutType: CheckoutType) => {
         payment_method: "COD",
         payment_method_title: "Cash on delivery",
       };
-    case CheckoutType.Razorpay:
-      return {
-        payment_method: "Razorpay",
-        payment_method_title: "Razorpay",
-      };
+    // case CheckoutType.Razorpay:
+    //   return {
+    //     payment_method: "Razorpay",
+    //     payment_method_title: "Razorpay",
+    //   };
     default:
       return {
         payment_method: "COD",
@@ -102,10 +102,13 @@ export const getOrderDetails = (
   checkoutType: CheckoutType,
   couponData
 ): Order => {
-  const products: LineItem[] = cartItems.map((item) => ({
-    product_id: item.id,
-    quantity: item.qty,
-  }));
+  const products: LineItem[] = cartItems.map(
+    (item) =>
+      ({
+        product_id: item.id,
+        quantity: item.qty,
+      } as LineItem)
+  );
 
   const coupon_lines = couponData ? [{ code: couponData.code }] : [];
 
