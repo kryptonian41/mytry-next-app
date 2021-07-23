@@ -9,8 +9,26 @@ import styles from "./styles.module.scss";
 import Video from "components/Video";
 import GreenOvalSticker from "assets/svgs/stickers/green-oval-badge.svg";
 import { useRouter } from "next/router";
+import { Media, InstragramBasicDisplay, MediaType } from 'utils/instagram-basic-display-api'
+import { GetServerSideProps } from "next";
+interface Props {
+  instaFeed: Media[]
+}
 
-export const Home: React.FC = () => {
+export const getServerSideProps: GetServerSideProps<Props> = async () => {
+  const igApi = new InstragramBasicDisplay({
+    INSTAGRAM_ACCESS_TOKEN: process.env.INSTAGRAM_ACCESS_TOKEN
+  })
+  const reponse = await igApi.getUserMedia()
+  return {
+    props: {
+      instaFeed: reponse.data
+    }
+  }
+}
+
+
+export const Home: React.FC<Props> = ({ instaFeed }) => {
   const theme = useTheme();
 
   const router = useRouter();
@@ -188,7 +206,7 @@ export const Home: React.FC = () => {
 
           {/* Instagram Feed is not for the current version v1.0.0 */}
 
-          {/* <div className="border-t border-gray-700 w-5/6 mt-12 m-auto">
+          <div className="border-t border-gray-700 w-5/6 mt-12 m-auto">
             <div className="text-center mt-14 mb-8">
               <span
                 style={{
@@ -210,23 +228,22 @@ export const Home: React.FC = () => {
             </p>
 
             <div className="flex flex-wrap justify-between sm:space-x-8">
-              <div
-                className={clsx("sm:w-auto sm:flex-1", styles["insta-image"])}
-              ></div>
-              <div
-                className={clsx("sm:w-auto sm:flex-1", styles["insta-image"])}
-              ></div>
-              <div
-                className={clsx("sm:w-auto sm:flex-1", styles["insta-image"])}
-              ></div>
-              <div
-                className={clsx("sm:w-auto sm:flex-1", styles["insta-image"])}
-              ></div>
-              <div
-                className={clsx("sm:w-auto sm:flex-1", styles["insta-image"])}
-              ></div>
+              {
+                instaFeed.map(media =>
+                  <a
+                    href={media.permalink}
+                    target="_blank"
+                    className={clsx("sm:w-auto sm:flex-1", styles["insta-image"])}
+                    key={media.id}
+                  > {
+                      media.media_type == MediaType.Video ?
+                        <video src={media.media_url}></video> :
+                        <img src={media.media_url} />
+                    }
+                  </a>)
+              }
             </div>
-          </div> */}
+          </div>
         </div>
         <Footer />
       </React.Fragment>
