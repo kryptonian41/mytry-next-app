@@ -16,6 +16,7 @@
     "formik": "^2.2.9",
     "immer": "^9.0.3",
     "morgan": "^1.10.0",
+    "nanoid": "^3.1.23",
     "next": "10.2.0",
     "next-images": "^1.7.0",
     "nprogress": "^0.2.0",

@@ -151,6 +151,13 @@ export interface Order {
   _links: Links;
 }
 
+export interface MytryOrder extends Order {
+  mytryMetaData?: {
+    shipping_address_id?: string,
+    saveAddress?: boolean
+  }
+}
+
 export interface Links {
   self: Collection[];
   collection: Collection[];
@@ -208,6 +215,10 @@ export interface Address {
   country: string;
   email?: string;
   phone?: string;
+}
+
+export interface AddressMeta extends Address {
+  id: string
 }
 
 export interface ShippingLine {
@@ -401,8 +412,14 @@ export interface User {
   shipping: Address;
   is_paying_customer: boolean;
   avatar_url: string;
-  meta_data: any[];
+  meta_data: MetaInfo[];
   _links: Links;
+}
+
+export interface MetaInfo {
+  key: string,
+  id?: number,
+  value: string
 }
 
 export interface Links {
@@ -425,5 +442,6 @@ export interface ContactShippingData {
   city: string,
   state: string,
   pincode: number,
-  saveAddressAs: string
+  saveAddressAs: string,
+  saveAddress: boolean,
 }

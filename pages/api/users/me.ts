@@ -1,9 +1,12 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { validateToken } from "./validate";
 import { wooClient } from "utils/api-utils";
+import { User } from "types/commons";
 
 export const getUser = async (id) => await wooClient.get(`customers/${id}`);
-
+export const updateUser = async (id, userData: User) => {
+  await wooClient.put(`customers/${id}`, userData)
+}
 // TODO - if request is made without proper request body, respond with 400
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {

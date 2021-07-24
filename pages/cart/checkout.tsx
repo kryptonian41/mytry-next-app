@@ -16,7 +16,7 @@ import { CheckoutType } from "utils/api-utils";
 import { CODCheckout } from "utils/checkout";
 import { useTheme } from "utils/color-map";
 import CouponForm from "components/Cart/checkout/CouponForm";
-interface Props {}
+interface Props { }
 
 type ShippingFormOnSubmitFunc = (
   values: ContactShippingData,
@@ -35,6 +35,7 @@ export const Checkout = (props: Props) => {
   const [paymentMethod, setPaymentMethod] = useState(CheckoutType.COD);
   const [isCouponApplied, setCouponApplied] = useState(false);
   const [couponData, setCouponData] = useState(null);
+  const [addressId, setAddressId] = useState(null)
 
   useEffect(() => {
     if (!user) router.push("/cart");
@@ -45,13 +46,14 @@ export const Checkout = (props: Props) => {
       setPlacingOrder(true);
       switch (paymentMethod) {
         case CheckoutType.COD: {
-          const order = getOrderDetails(
-            user.id,
-            items,
-            values,
-            CheckoutType.COD,
-            couponData
-          );
+          const order = getOrderDetails({
+            userId: user.id,
+            cartItems: items,
+            shippingFormValues: values,
+            checkoutType: CheckoutType.COD,
+            couponData,
+            shipping_address_id: addressId
+          });
           await CODCheckout(order, (order) => {
             dispatch({
               type: CLEAR_CART,
@@ -94,7 +96,7 @@ export const Checkout = (props: Props) => {
         }
       }
     },
-    [paymentMethod, couponData, user]
+    [paymentMethod, couponData, user, addressId]
   );
 
   const setCouponState = (couponApplied, coupon) => {

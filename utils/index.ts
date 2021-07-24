@@ -2,6 +2,7 @@ import {
   Category,
   ContactShippingData,
   LineItem,
+  MytryOrder,
   Order,
   User,
 } from "types/commons";
@@ -95,19 +96,53 @@ const getPaymentMethodDetails = (checkoutType: CheckoutType) => {
   }
 };
 
-export const getOrderDetails = (
+export const convertShippingInfoToBillingAddress = (shippingFormValues: ContactShippingData) => ({
+  address_1: shippingFormValues.flatAddress,
+  address_2: shippingFormValues.streetAddress,
+  city: shippingFormValues.city,
+  state: shippingFormValues.state,
+  country: "India",
+  first_name: shippingFormValues.firstName,
+  last_name: shippingFormValues.lastName,
+  postcode: shippingFormValues.pincode.toString(),
+  email: shippingFormValues.email,
+  phone: shippingFormValues.contactNo.toString(),
+})
+export const convertShippingInfoToShippingAddress = (shippingFormValues: ContactShippingData) => ({
+  address_1: shippingFormValues.flatAddress,
+  address_2: shippingFormValues.streetAddress,
+  city: shippingFormValues.city,
+  state: shippingFormValues.state,
+  country: "India",
+  first_name: shippingFormValues.firstName,
+  last_name: shippingFormValues.lastName,
+  postcode: shippingFormValues.pincode.toString(),
+})
+
+interface Options {
   userId,
   cartItems: any[],
-  shippingFormValues: ContactShippingData,
+  shippingFormValues?: ContactShippingData,
   checkoutType: CheckoutType,
-  couponData
+  couponData,
+  shipping_address_id?: string
+}
+
+export const getOrderDetails = (
+  { userId,
+    cartItems,
+    shippingFormValues,
+    checkoutType,
+    couponData,
+    shipping_address_id
+  }: Options
 ): Order => {
   const products: LineItem[] = cartItems.map(
     (item) =>
-      ({
-        product_id: item.id,
-        quantity: item.qty,
-      } as LineItem)
+    ({
+      product_id: item.id,
+      quantity: item.qty,
+    } as LineItem)
   );
 
   const coupon_lines = couponData ? [{ code: couponData.code }] : [];
@@ -115,31 +150,15 @@ export const getOrderDetails = (
   return {
     customer_id: userId,
     ...getPaymentMethodDetails(checkoutType),
-    billing: {
-      address_1: shippingFormValues.flatAddress,
-      address_2: shippingFormValues.streetAddress,
-      city: shippingFormValues.city,
-      state: shippingFormValues.state,
-      country: "India",
-      first_name: shippingFormValues.firstName,
-      last_name: shippingFormValues.lastName,
-      postcode: shippingFormValues.pincode.toString(),
-      email: shippingFormValues.email,
-      phone: shippingFormValues.contactNo.toString(),
-    },
-    shipping: {
-      address_1: shippingFormValues.flatAddress,
-      address_2: shippingFormValues.streetAddress,
-      city: shippingFormValues.city,
-      state: shippingFormValues.state,
-      country: "India",
-      first_name: shippingFormValues.firstName,
-      last_name: shippingFormValues.lastName,
-      postcode: shippingFormValues.pincode.toString(),
-    },
+    billing: shippingFormValues ?? convertShippingInfoToBillingAddress(shippingFormValues),
+    shipping: shippingFormValues ?? convertShippingInfoToShippingAddress(shippingFormValues),
     line_items: products,
     coupon_lines,
-  } as Order;
+    mytryMetaData: {
+      saveAddress: shippingFormValues?.saveAddress,
+      shipping_address_id
+    }
+  } as MytryOrder;
 };
 
 export function randomNumber(min, max) {
