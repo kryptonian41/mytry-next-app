@@ -3,9 +3,34 @@ import Layout from "components/Layout";
 import Navbar from "components/Navbar";
 import styles from "./styles.module.scss";
 import clsx from "clsx";
+import * as Yup from "yup";
+import { Formik, Form } from "formik";
+import { submitContactUsForm } from "utils/api-utils";
+import { InputField } from "components/Cart/checkout/InputField";
 
 export const ProductPage = () => {
   const theme = useTheme();
+
+  const inputField = (type, name) => (
+    <InputField
+      fieldProps={{
+        type,
+        name,
+        className: "block w-full border-0 border-b",
+      }}
+      errorProps={{ component: "div", name }}
+    />
+  );
+
+  const contactUsFormSchema = Yup.object({
+    name: Yup.string().required("Field is required"),
+    email: Yup.string()
+      .email("Please enter a valid email")
+      .required("Email is required"),
+    phone: Yup.number(),
+    msg: Yup.string().required("Field is required"),
+  });
+
   return (
     <Layout title="Contact Us" description={null} keywords={null}>
       <div
@@ -40,9 +65,7 @@ export const ProductPage = () => {
               >
                 +91 6359 874 699
               </p>
-              <p className="text-white uppercase sm:text-lg mb-1">
-                Address
-              </p>
+              <p className="text-white uppercase sm:text-lg mb-1">Address</p>
               <p
                 className="uppercase sm:text-xl"
                 style={{
@@ -75,95 +98,97 @@ export const ProductPage = () => {
               >
                 get in touch
               </p>
+              <Formik
+                initialValues={{
+                  name: "",
+                  email: "",
+                  phone: "",
+                  msg: "",
+                }}
+                validationSchema={contactUsFormSchema}
+                onSubmit={(values, { setSubmitting, resetForm }) => {
+                  setSubmitting(true);
+                  submitContactUsForm(
+                    values,
+                    () => {
+                      setSubmitting(false);
+                      resetForm();
+                    },
+                    () => {
+                      setSubmitting(false);
+                    }
+                  );
+                }}
+              >
+                {(props) => (
+                  <Form>
+                    <div className="flex items-end mb-3">
+                      <p
+                        style={{
+                          color: theme.green,
+                        }}
+                        className="uppercase sm:text-lg leading-none pb-7"
+                      >
+                        Name
+                      </p>
+                      <div className="flex-1 pl-8">
+                        {inputField("text", "name")}
+                      </div>
+                    </div>
+                    <div className="flex items-end mb-3">
+                      <p
+                        style={{
+                          color: theme.green,
+                        }}
+                        className="uppercase sm:text-lg leading-none pb-7"
+                      >
+                        Email
+                      </p>
+                      <div className="flex-1 pl-8">
+                        {inputField("text", "email")}
+                      </div>
+                    </div>
+                    <div className="flex items-end mb-6">
+                      <p
+                        style={{
+                          color: theme.green,
+                        }}
+                        className="uppercase sm:text-lg leading-none pb-7"
+                      >
+                        Phone
+                      </p>
+                      <div className="flex-1 pl-8">
+                        {inputField("tel", "phone")}
+                      </div>
+                    </div>
+                    <div className="flex items-end flex-wrap mb-6">
+                      <p
+                        style={{
+                          color: theme.green,
+                        }}
+                        className="uppercase sm:text-lg pn-7"
+                      >
+                        Message
+                      </p>
+                      <div className="w-full">{inputField("text", "msg")}</div>
+                    </div>
 
-              <div className="flex items-end mb-3">
-                <p
-                  style={{
-                    color: theme.green,
-                  }}
-                  className="uppercase sm:text-lg leading-none"
-                >
-                  Name
-                </p>
-                <div className="flex-1 pl-8">
-                  <input
-                    type="text"
-                    className="block w-full border-0 border-b"
-                    style={{
-                      borderBottomColor: theme.green,
-                    }}
-                  />
-                </div>
-              </div>
-              <div className="flex items-end mb-3">
-                <p
-                  style={{
-                    color: theme.green,
-                  }}
-                  className="uppercase sm:text-lg leading-none"
-                >
-                  Email
-                </p>
-                <div className="flex-1 pl-8">
-                  <input
-                    type="text"
-                    className="block w-full border-0 border-b"
-                    style={{
-                      borderBottomColor: theme.green,
-                    }}
-                  />
-                </div>
-              </div>
-              <div className="flex items-end mb-6">
-                <p
-                  style={{
-                    color: theme.green,
-                  }}
-                  className="uppercase sm:text-lg leading-none"
-                >
-                  Phone
-                </p>
-                <div className="flex-1 pl-8">
-                  <input
-                    type="text"
-                    className="block w-full border-0 border-b"
-                    style={{
-                      borderBottomColor: theme.green,
-                    }}
-                  />
-                </div>
-              </div>
-              <div className="flex items-end flex-wrap mb-6">
-                <p
-                  style={{
-                    color: theme.green,
-                  }}
-                  className="uppercase sm:text-lg"
-                >
-                  Message
-                </p>
-                <div className="w-full">
-                  <input
-                    type="text"
-                    className="block w-full border-0 border-b"
-                    style={{
-                      borderBottomColor: theme.green,
-                    }}
-                  />
-                </div>
-              </div>
-
-              <div className="text-right">
-                <button
-                  style={{
-                    backgroundColor: theme.orange,
-                    color: theme.yellow,
-                  }}
-                  className="px-4 py-1 rounded-full"
-                >
-                  submit
-                </button>
-              </div>
+                    <div className="text-right">
+                      <button
+                        type="submit"
+                        style={{
+                          backgroundColor: theme.orange,
+                          color: theme.yellow,
+                        }}
+                        className="px-4 py-1 rounded-full"
+                        disabled={props.isSubmitting}
+                      >
+                        submit
+                      </button>
+                    </div>
+                  </Form>
+                )}
+              </Formik>
             </div>
           </div>
         </div>

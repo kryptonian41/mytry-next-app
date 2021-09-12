@@ -23,7 +23,7 @@ const shippingAddressSchema = Yup.object({
   firstName: Yup.string().required("Field is required"),
   lastName: Yup.string().required("Field is required"),
   flatAddress: Yup.string()
-    .max(50, "Max length can be 200 characteres")
+    .max(50, "Max length can be 50 characteres")
     .required("Field is required"),
   streetAddress: Yup.string()
     .required("Field is required")
