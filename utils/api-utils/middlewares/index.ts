@@ -1,7 +1,8 @@
 import { NextApiRequest, NextApiResponse } from "next"
-import { getUser, updateUser } from "pages/api/users/me"
+import { getUserServerSide, updateUserServerSide } from "pages/api/users/me"
 import { validateToken } from "pages/api/users/validate"
-import { MytryOrder, Order, User } from "types/commons"
+import { Address, MetaInfo, MytryOrder, Order, User } from "types/commons"
+import { convertAddressToShippingFormInfo } from "utils"
 import { addShippingAddress, getShippingAddressByID } from "../shipping-address"
 export interface NextApiRequestWithAuth extends NextApiRequest {
   user: {
@@ -9,13 +10,12 @@ export interface NextApiRequestWithAuth extends NextApiRequest {
   }
 }
 
-export function runMiddleware(req: NextApiRequest, res: NextApiResponse, fn) {
-  return new Promise((resolve, reject) => {
-    fn(req, res, (result) => {
+export function runMiddleware<T = unknown>(req: NextApiRequest, res: NextApiResponse, fn) {
+  return new Promise<T>((resolve, reject) => {
+    fn(req, res, (result: T | Error) => {
       if (result instanceof Error) {
         return reject(result)
       }
-
       return resolve(result)
     })
   })
@@ -35,23 +35,25 @@ export const authMiddleware = async (req: NextApiRequestWithAuth, _res: NextApiR
   }
 }
 
+export interface ShippingMiddlewareResponse {
+  shippingAddress: Address,
+  updatedUserData?: User
+}
 
-export const shippingAddressMiddleWare = async (req: NextApiRequestWithAuth, _res: NextApiResponse, cb) => {
+export const shippingAddressMiddleware = async (req: NextApiRequestWithAuth, _res: NextApiResponse, cb) => {
   try {
-    const userData = await getUser(req.user.ID) as User
-    const { mytryMetaData: { shipping_address_id, saveAddress }, billing: shippingAddress } = req.body as MytryOrder
-
-    if (shipping_address_id) {
-      const address = getShippingAddressByID(userData, shipping_address_id)
-      if (!address) throw Error(`Address with ID:${shipping_address_id} not found`)
-      cb(address)
-    } else {
-      if (saveAddress) {
-        const updatedUserData = addShippingAddress(userData, shippingAddress)
-        await updateUser(userData.id, updatedUserData)
-      }
-      cb(shippingAddress)
+    let response: ShippingMiddlewareResponse
+    const userData = await getUserServerSide(req.user.ID)
+    const { mytryMetaData: { saveAddress, saveAddressAs }, billing: shippingAddress } = req.body as MytryOrder
+    if (saveAddress) {
+      const updatedUserMetaData = addShippingAddress(userData, convertAddressToShippingFormInfo(shippingAddress, {
+        saveAddressAs
+      }))
+      const updatedUserData = await updateUserServerSide(userData.id, { meta_data: updatedUserMetaData })
+      response = { ...response, updatedUserData }
     }
+    response.shippingAddress = shippingAddress
+    cb(response)
   } catch (error) {
     cb(error)
   }

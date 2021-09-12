@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import React from 'react';
+import React, { useCallback } from 'react';
 import { useTheme } from 'utils/color-map';
 import styles from './checkout.module.scss'
 
@@ -8,12 +8,12 @@ interface Props {
   loading: boolean
 }
 
-
 export const CheckoutButton = ({ shippingFormBtnRef, loading }: Props) => {
   const theme = useTheme()
-  const handleCheckoutClick = async () => {
+  const handleCheckoutClick = useCallback(() => {
     shippingFormBtnRef.current.click()
-  }
+  }, [])
+
   return (
     <button className={clsx("w-full p-4 text-xl no-outline", {
       [styles.loading]: loading

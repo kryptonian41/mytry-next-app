@@ -1,5 +1,5 @@
 import { AxiosRequestConfig, AxiosResponse } from 'axios'
-import { Order, Product } from 'types/commons'
+import { Order, Product, User } from 'types/commons'
 import { axios } from 'utils/axios'
 
 export const getProducts = async (config: AxiosRequestConfig = null) => {
@@ -58,3 +58,8 @@ export const applyCoupon = async (userId, cartTotal, code, onSuccess, onError, s
     else onError("Error applying coupon code");
   }
 };
+
+export const updateUser = async (payload: Partial<User>) => {
+  const { data } = await axios.put('/api/users/me', payload)
+  return data
+}

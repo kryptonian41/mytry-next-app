@@ -81,6 +81,13 @@ body {
   outline: none !important;
 }
 
+.btn {
+  @apply no-outline;
+  background: var(--orange);
+  color: var(--yellowDark);
+  border-radius: 100px;
+}
+
 @media screen and (max-width: 640px) {
   .product-tile__add-item-btn {
     display: none;

@@ -19,10 +19,10 @@ export const getServerSideProps: GetServerSideProps<Props> = async () => {
   const igApi = new InstragramBasicDisplay({
     INSTAGRAM_ACCESS_TOKEN: process.env.INSTAGRAM_ACCESS_TOKEN
   })
-  const reponse = await igApi.getUserMedia()
+  const response = await igApi.getUserMedia()
   return {
     props: {
-      instaFeed: reponse.data
+      instaFeed: response?.data || null
     }
   }
 }
@@ -227,7 +227,7 @@ export const Home: React.FC<Props> = ({ instaFeed }) => {
               FOLLOW ALONG OUR JOURNEY
             </p>
 
-            <div className="flex flex-wrap justify-between sm:space-x-8">
+            {instaFeed && <div className="flex flex-wrap justify-between sm:space-x-8">
               {
                 instaFeed.map(media =>
                   <a
@@ -242,7 +242,7 @@ export const Home: React.FC<Props> = ({ instaFeed }) => {
                     }
                   </a>)
               }
-            </div>
+            </div>}
           </div>
         </div>
         <Footer />

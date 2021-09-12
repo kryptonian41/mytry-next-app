@@ -1,4 +1,6 @@
 import {
+  Address,
+  AddressMeta,
   Category,
   ContactShippingData,
   LineItem,
@@ -108,6 +110,7 @@ export const convertShippingInfoToBillingAddress = (shippingFormValues: ContactS
   email: shippingFormValues.email,
   phone: shippingFormValues.contactNo.toString(),
 })
+
 export const convertShippingInfoToShippingAddress = (shippingFormValues: ContactShippingData) => ({
   address_1: shippingFormValues.flatAddress,
   address_2: shippingFormValues.streetAddress,
@@ -118,6 +121,24 @@ export const convertShippingInfoToShippingAddress = (shippingFormValues: Contact
   last_name: shippingFormValues.lastName,
   postcode: shippingFormValues.pincode.toString(),
 })
+
+export const convertAddressToShippingFormInfo = (address: Address, {
+  saveAddressAs = ''
+} = {}): ContactShippingData => {
+  return {
+    flatAddress: address.address_1,
+    streetAddress: address.address_2,
+    city: address.city,
+    state: address.state,
+    firstName: address.first_name,
+    lastName: address.last_name,
+    pincode: parseInt(address.postcode),
+    contactNo: address.phone,
+    email: address.email,
+    saveAddress: false,
+    saveAddressAs,
+  }
+}
 
 interface Options {
   userId,
@@ -134,7 +155,6 @@ export const getOrderDetails = (
     shippingFormValues,
     checkoutType,
     couponData,
-    shipping_address_id
   }: Options
 ): Order => {
   const products: LineItem[] = cartItems.map(
@@ -144,19 +164,17 @@ export const getOrderDetails = (
       quantity: item.qty,
     } as LineItem)
   );
-
   const coupon_lines = couponData ? [{ code: couponData.code }] : [];
-
   return {
     customer_id: userId,
     ...getPaymentMethodDetails(checkoutType),
-    billing: shippingFormValues ?? convertShippingInfoToBillingAddress(shippingFormValues),
-    shipping: shippingFormValues ?? convertShippingInfoToShippingAddress(shippingFormValues),
+    billing: shippingFormValues && convertShippingInfoToBillingAddress(shippingFormValues),
+    shipping: shippingFormValues && convertShippingInfoToShippingAddress(shippingFormValues),
     line_items: products,
     coupon_lines,
     mytryMetaData: {
       saveAddress: shippingFormValues?.saveAddress,
-      shipping_address_id
+      saveAddressAs: shippingFormValues.saveAddressAs
     }
   } as MytryOrder;
 };

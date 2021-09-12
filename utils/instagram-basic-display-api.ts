@@ -43,9 +43,14 @@ export class InstragramBasicDisplay {
       fields: 'media_count,media_type,permalink,media_url',
       access_token: this.options.INSTAGRAM_ACCESS_TOKEN
     }
-    const { data } = await axios.get<InstaResponse>(endpoint, {
-      params
-    })
-    return data
+    try {
+      const { data } = await axios.get<InstaResponse>(endpoint, {
+        params
+      })
+      return data
+    } catch (error) {
+      console.log(error)
+      return null
+    }
   }
 }

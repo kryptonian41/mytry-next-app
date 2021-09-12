@@ -1,8 +1,10 @@
-import { Order } from "types/commons"
+import { Order, User } from "types/commons"
 import { CheckoutType, createOrder } from "utils/api-utils"
 
+type callback = (orderDetails, updatedUserDetails?: User) => void
+
 export const CODCheckout =
-  async (orderDetails: Order, onSuccess) => {
-    const order = await createOrder(orderDetails, CheckoutType.COD)
-    onSuccess(order)
+  async (order: Order, onSuccess: callback) => {
+    const { orderDetails, updatedUserData } = await createOrder(order, CheckoutType.COD)
+    onSuccess(orderDetails, updatedUserData)
   }

@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { Address, MytryOrder, Order } from "types/commons";
 import { wooClient } from "utils/api-utils";
-import { authMiddleware, runMiddleware, shippingAddressMiddleWare } from "utils/api-utils/middlewares";
+import { authMiddleware, runMiddleware, shippingAddressMiddleware, ShippingMiddlewareResponse } from "utils/api-utils/middlewares";
 import { razorpayClient } from "utils/api-utils/razorpay-client";
 
 
@@ -19,7 +19,7 @@ export const createRazorpayOrderServerSide = async (order: Order) => {
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === 'POST') {
     await runMiddleware(req, res, authMiddleware)
-    const shippingAddress = await runMiddleware(req, res, shippingAddressMiddleWare) as Address
+    const { shippingAddress, updatedUserData } = await runMiddleware<ShippingMiddlewareResponse>(req, res, shippingAddressMiddleware)
     const { mytryMetaData, ...order } = req.body as MytryOrder
     const { id, total, currency } = await createRazorpayOrderServerSide({ ...order, shipping: shippingAddress, billing: shippingAddress });
     const orderPaymentDetails = await razorpayClient.orders.create({
@@ -27,6 +27,8 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       receipt: id,
       currency
     })
-    res.json(orderPaymentDetails)
+    const response: Record<string, any> = { orderPaymentDetails }
+    if (updatedUserData) response.updatedUserData = updatedUserData
+    res.json(response)
   }
 };

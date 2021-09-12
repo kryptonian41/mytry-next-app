@@ -73,3 +73,32 @@
 		}
 	}
 }
+
+.saveForLaterBtn {
+	@apply relative;
+	.radio {
+		@apply absolute;
+		left: 10px;
+		top: 50%;
+		width: 16px;
+		height: 16px;
+		transform: translateY(-50%);
+		border-radius: 50%;
+		border: 1px solid;
+		&::after {
+			content: "";
+			position: absolute;
+			left: 3px;
+			top: 50%;
+			width: 8px;
+			height: 8px;
+			transform: translateY(-50%);
+			border-radius: 50%;
+		}
+		&.selected {
+			&::after {
+				background: var(--yellow);
+			}
+		}
+	}
+}

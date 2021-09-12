@@ -1,21 +1,22 @@
 import cartStyles from "components/Cart/cart.module.scss";
 import { CheckoutButton } from "components/Cart/checkout/CheckoutButton";
 import PaymentMethodSelector from "components/Cart/checkout/PaymentMethodSelector";
-import { ContactShippingForm } from "components/Cart/checkout/ShippingForm";
+import { ContactShippingForm } from "components/Cart/checkout";
 import Summary from "components/Cart/Summary";
 import Layout from "components/Layout";
 import Navbar from "components/Navbar";
 import { FormikHelpers } from "formik";
 import { useRouter } from "next/router";
-import React, { useRef, useState, useEffect, useCallback } from "react";
+import React, { useRef, useState, useEffect, useCallback, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { CLEAR_CART } from "redux-utils/actions/types";
-import { ContactShippingData, User } from "types/commons";
+import { CLEAR_CART, LOAD_USER } from "redux-utils/actions/types";
+import { ContactShippingData } from "types/commons";
 import { getOrderDetails } from "utils";
 import { CheckoutType } from "utils/api-utils";
 import { CODCheckout } from "utils/checkout";
 import { useTheme } from "utils/color-map";
 import CouponForm from "components/Cart/checkout/CouponForm";
+
 interface Props { }
 
 type ShippingFormOnSubmitFunc = (
@@ -35,7 +36,6 @@ export const Checkout = (props: Props) => {
   const [paymentMethod, setPaymentMethod] = useState(CheckoutType.COD);
   const [isCouponApplied, setCouponApplied] = useState(false);
   const [couponData, setCouponData] = useState(null);
-  const [addressId, setAddressId] = useState(null)
 
   useEffect(() => {
     if (!user) router.push("/cart");
@@ -52,12 +52,17 @@ export const Checkout = (props: Props) => {
             shippingFormValues: values,
             checkoutType: CheckoutType.COD,
             couponData,
-            shipping_address_id: addressId
           });
-          await CODCheckout(order, (order) => {
+          await CODCheckout(order, (order, userDetails) => {
             dispatch({
               type: CLEAR_CART,
             });
+            if (userDetails) {
+              dispatch({
+                type: LOAD_USER,
+                payload: userDetails
+              })
+            }
             router.push({
               pathname: "/order/success",
               query: {
@@ -96,7 +101,7 @@ export const Checkout = (props: Props) => {
         }
       }
     },
-    [paymentMethod, couponData, user, addressId]
+    [paymentMethod, couponData, user]
   );
 
   const setCouponState = (couponApplied, coupon) => {

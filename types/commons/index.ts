@@ -153,8 +153,8 @@ export interface Order {
 
 export interface MytryOrder extends Order {
   mytryMetaData?: {
-    shipping_address_id?: string,
-    saveAddress?: boolean
+    saveAddress?: boolean,
+    saveAddressAs?: string
   }
 }
 
@@ -217,8 +217,8 @@ export interface Address {
   phone?: string;
 }
 
-export interface AddressMeta extends Address {
-  id: string
+export interface AddressMeta extends ContactShippingData {
+  id: string,
 }
 
 export interface ShippingLine {

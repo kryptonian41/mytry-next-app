@@ -20,13 +20,13 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         signature = req.headers["x-razorpay-signature"],
         secret = process.env.RAZORPAY_WEBHOOK_SECRET;
 
-      const validSignature = Razorpay.validateWebhookSignature(
+      const isValidSignature = Razorpay.validateWebhookSignature(
         body,
         signature,
         secret
       );
 
-      if (validSignature) {
+      if (isValidSignature) {
         const {
           entity: { order_id },
         } = req.body.payload.payment;

@@ -3,26 +3,43 @@ import { validateToken } from "./validate";
 import { wooClient } from "utils/api-utils";
 import { User } from "types/commons";
 
-export const getUser = async (id) => await wooClient.get(`customers/${id}`);
-export const updateUser = async (id, userData: User) => {
-  await wooClient.put(`customers/${id}`, userData)
+export const getUserServerSide = async (id) => {
+  const { data } = await wooClient.get(`customers/${id}`)
+  return data
+};
+
+export const updateUserServerSide = async (id, userData: Partial<User>) => {
+  const { data } = await wooClient.put(`customers/${id}`, userData)
+  return data
 }
-// TODO - if request is made without proper request body, respond with 400
+
+const getUserIdFromAuthorizationHeader = async (authorizationHeader: string) => {
+  const JWT = authorizationHeader.substr(authorizationHeader.indexOf("ey"), authorizationHeader.length);
+  const response = await validateToken({ JWT });
+  if (response.status === 201) {
+    return response.data.data.user.ID
+  } else throw new Error(response.data.data.message)
+}
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
-  if (req.method === "GET") {
+  try {
+    let userDetails: User
     if (req.headers.authorization) {
-      try {
-        const auth = req.headers.authorization;
-        const JWT = auth.substr(auth.indexOf("ey"), auth.length);
-        const response = await validateToken({ JWT });
-        if (response.status === 201) {
-          const userRes = await getUser(response.data.data.user.ID);
-          res.status(userRes.status).json(userRes.data);
-        } else throw new Error(response.data.data.message);
-      } catch (err) {
-        res.status(405).json({ message: err.message });
-      }
-    } else res.status(405).json("");
-  } else res.status(405).json("");
+      const userId = await getUserIdFromAuthorizationHeader(req.headers.authorization)
+      if (!userId) throw "Invalid Authorization Header"
+      userDetails = await getUserServerSide(userId);
+    }
+    else return res.status(405).send("Bad Request");
+    if (req.method === "GET") {
+      res.json(userDetails)
+    }
+
+    else if (req.method === 'PUT') {
+      const updatedUserData = await updateUserServerSide(userDetails.id, req.body)
+      res.json(updatedUserData)
+    }
+
+  } catch (err) {
+    res.status(405).json({ message: err.message });
+  }
 };
