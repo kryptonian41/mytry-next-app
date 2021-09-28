@@ -35,7 +35,7 @@ export const getReviews = async () => {
 
 export enum CheckoutType {
   COD = "cod",
-  // Razorpay = "razorpay"
+  Razorpay = "razorpay"
 }
 
 export const createOrder = async (order: Order, checkoutType: CheckoutType) => {
@@ -93,7 +93,7 @@ export const submitContactUsForm = async (values, onSuccess, onError) => {
   } else {
     onSuccess();
     window.alert(
-      "There was an error submitting the data. Please try again, or write to us on: contact@mytryshop.com"
+      "There was an error submitting the data. Please try again, or write to us on: mytryskin@gmail.com"
     );
   }
 };
