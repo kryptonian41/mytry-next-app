@@ -3,11 +3,13 @@
     "DOSHI",
     "firstname",
     "insta",
+    "instock",
     "lastname",
     "MAITRI",
     "mytry",
     "mytryshop",
     "svgs",
+    "turbopack",
     "woocommerce"
   ],
   "tailwindCSS.experimental.classRegex": [

@@ -1,34 +1,34 @@
-import { getProducts } from 'utils/api-utils'
-import Navbar from 'components/Navbar'
-import { GetServerSideProps, InferGetServerSidePropsType } from 'next'
-import React, { useEffect, useMemo } from 'react'
-import Layout from 'components/Layout'
-import Footer from 'components/Footer'
-import Categories from 'components/Categories'
-import Products from 'components/Products'
-import FullPageVideo from 'components/FullPageVideo'
-import { useQuery, useQueryClient } from 'react-query'
-import { Category, Product } from 'types'
-import { getCategoriesServerSide } from '../api/categories'
-import { getProductsServerSide } from '../api/products'
-import styles from './styles.module.scss'
-import { processCategories } from 'utils'
+import { getProducts } from "utils/api-utils";
+import Navbar from "components/Navbar";
+import { GetServerSideProps, InferGetServerSidePropsType } from "next";
+import React, { useEffect, useMemo } from "react";
+import Layout from "components/Layout";
+import Footer from "components/Footer";
+import Categories from "components/Categories";
+import Products from "components/Products";
+import FullPageVideo from "components/FullPageVideo";
+import { useQuery, useQueryClient } from "react-query";
+import { Category, Product } from "types";
+import { getCategoriesServerSide } from "../api/categories";
+import { getProductsServerSide } from "../api/products";
+import styles from "./styles.module.scss";
+import { processCategories } from "utils";
 
 interface Props {
-  products: Product[]
-  parentCategories: Category[]
-  parentToChildCategoryMap: { [parentId: string]: Category[] }
+  products: Product[];
+  parentCategories: Category[];
+  parentToChildCategoryMap: { [parentId: string]: Category[] };
 }
 
 export const getServerSideProps: GetServerSideProps<Props> = async () => {
   const { data } = await getProductsServerSide({
     per_page: 50,
-    stock_status: 'instock',
-  })
-  let categories = await getCategoriesServerSide().then((res) => res.data)
+    stock_status: "instock",
+  });
+  let categories = await getCategoriesServerSide().then((res) => res.data);
 
   const { parentCategories, parentToChildMapping } =
-    processCategories(categories)
+    processCategories(categories);
 
   return {
     props: {
@@ -36,8 +36,8 @@ export const getServerSideProps: GetServerSideProps<Props> = async () => {
       parentCategories,
       parentToChildCategoryMap: parentToChildMapping,
     },
-  }
-}
+  };
+};
 
 export const Home: React.FC<
   InferGetServerSidePropsType<typeof getServerSideProps>
@@ -46,13 +46,13 @@ export const Home: React.FC<
   parentCategories,
   parentToChildCategoryMap,
 }) => {
-  const reactQueryClient = useQueryClient()
+  const reactQueryClient = useQueryClient();
   const { data, isLoading, isError } = useQuery(
-    'products',
+    "products",
     async () =>
       getProducts({
         params: {
-          stock_status: 'instock',
+          stock_status: "instock",
           per_page: 50,
         },
       }),
@@ -60,11 +60,11 @@ export const Home: React.FC<
       initialData: productsFromServer,
       staleTime: 1000 * 60,
     }
-  )
+  );
 
   useEffect(() => {
-    reactQueryClient.setQueryData('products', productsFromServer)
-  }, [productsFromServer])
+    reactQueryClient.setQueryData("products", productsFromServer);
+  }, [productsFromServer]);
 
   const hero = (
     <div className={styles.heroSection}>
@@ -72,12 +72,12 @@ export const Home: React.FC<
       <FullPageVideo page="product" />
       <div className="homePage__bgVideo--overlay" />
     </div>
-  )
+  );
 
   const pageBody = useMemo(() => {
-    if (isLoading) return <div>Loading...</div>
+    if (isLoading) return <div>Loading...</div>;
 
-    if (isError) return <div>There was some error fetching products list</div>
+    if (isError) return <div>There was some error fetching products list</div>;
 
     if (data)
       return (
@@ -90,8 +90,8 @@ export const Home: React.FC<
             <Products products={data} />
           </div>
         </div>
-      )
-  }, [isLoading, isError, data])
+      );
+  }, [isLoading, isError, data]);
 
   return (
     <Layout title="Products">
@@ -101,7 +101,7 @@ export const Home: React.FC<
         <Footer />
       </React.Fragment>
     </Layout>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;

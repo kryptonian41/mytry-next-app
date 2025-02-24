@@ -28,7 +28,7 @@ Router.events.on('routeChangeError', () => NProgress.done())
 export const reactQueryClient = new QueryClient()
 
 export default function App({ Component, pageProps }: AppProps) {
-  const storeRef = useRef<AppStore>()
+  const storeRef = useRef<AppStore>(undefined)
   if (!storeRef.current) {
     // Create the store instance the first time this renders
     storeRef.current = makeStore()

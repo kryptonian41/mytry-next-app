@@ -93,11 +93,11 @@
 .imageContainer {
   position: relative;
 
-  :global .slick-list {
+  :global(.slick-list) {
     height: 100%;
-    .slick-track {
+    :global(.slick-track) {
       height: 100%;
-      .slick-slide div {
+      :global(.slick-slide) {
         height: 100%;
         position: relative;
       }

@@ -10,7 +10,7 @@ import GreenOvalSticker from "assets/svgs/stickers/green-oval-badge.svg";
 import { useRouter } from "next/router";
 import { useTheme } from "utils/hooks/useTheme";
 
-export const Home: React.FC = () => {
+const Home: React.FC = () => {
   const theme = useTheme();
 
   const router = useRouter();
