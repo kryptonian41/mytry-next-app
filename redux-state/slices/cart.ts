@@ -44,7 +44,7 @@ const addNewProduct = (state: CartState, product: { qty: any; price: any }) => {
   return produce(state, (draftState) => {
     draftState.items.push(product)
     draftState.itemsCount += product.qty
-    draftState.cartTotal = parseFloat(
+    draftState.cartTotal = Number.parseFloat(
       (draftState.cartTotal + product.price).toFixed(2)
     )
   })
@@ -64,11 +64,11 @@ const updateProduct = (
 ) => {
   return produce(state, (draftState) => {
     const items = (draftState.items[index].qty += product.qty)
-    draftState.items[index].totalPrice = parseFloat(
+    draftState.items[index].totalPrice = Number.parseFloat(
       (items[index].qty * product.price).toFixed(2)
     )
     draftState.itemsCount += product.qty
-    draftState.cartTotal = parseFloat(
+    draftState.cartTotal = Number.parseFloat(
       (draftState.cartTotal + product.price).toFixed(2)
     )
   })
@@ -81,7 +81,7 @@ const addItem = (state: CartState, product: any) => {
       return updateProduct(state, product, index)
     }
     return addNewProduct(state, product)
-  } else return addNewProduct(state, product)
+  }return addNewProduct(state, product)
 }
 
 const removeItem = (state: CartState, product: any) => {
@@ -96,12 +96,12 @@ const removeItem = (state: CartState, product: any) => {
         const items = draftState.items
         const deletedItem = items.splice(index, 1)[0]
         draftState.itemsCount -= deletedItem.qty
-        draftState.cartTotal = parseFloat(
+        draftState.cartTotal = Number.parseFloat(
           (draftState.cartTotal - product.totalPrice).toFixed()
         )
       }
     )
-  } else return state
+  }return state
 }
 
 const increaseItemQty = (state: CartState, product: any) => {
@@ -114,9 +114,9 @@ const increaseItemQty = (state: CartState, product: any) => {
         const items = draftState.items
         const item = items[index]
         item.qty += 1
-        item.totalPrice = parseFloat((item.qty * product.price).toFixed(2))
+        item.totalPrice = Number.parseFloat((item.qty * product.price).toFixed(2))
         draftState.itemsCount += 1
-        draftState.cartTotal = parseFloat(
+        draftState.cartTotal = Number.parseFloat(
           (draftState.cartTotal + product.price).toFixed(2)
         )
       }
@@ -137,9 +137,9 @@ const decreaseItemQty = (state: CartState, product: any) => {
         const index = getProductIndex(items, product)
         const item = items[index]
         item.qty -= 1
-        item.totalPrice = parseFloat((item.qty * product.price).toFixed(2))
+        item.totalPrice = Number.parseFloat((item.qty * product.price).toFixed(2))
         draftState.itemsCount -= 1
-        draftState.cartTotal = parseFloat(
+        draftState.cartTotal = Number.parseFloat(
           (draftState.cartTotal - product.price).toFixed(2)
         )
       }
@@ -152,7 +152,7 @@ const decreaseItemQty = (state: CartState, product: any) => {
 const applyCoupon = (state: CartState, payload: { couponCode: string }) => {}
 
 export function cartReducer(
-  state: CartState = initialState,
+  state: CartState,
   action: any
 ): CartState {
   const newState = reduceCartState(state, action)

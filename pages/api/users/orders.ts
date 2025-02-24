@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { wooClient } from "utils/api-utils";
-import { authMiddleware, NextApiRequestWithAuth, runMiddleware } from "utils/api-utils/middlewares";
+import { authMiddleware, type NextApiRequestWithAuth, runMiddleware } from "utils/api-utils/middlewares";
 
 const getUserOrdersServerSide = async (customerId: string) => {
   const { data } = await wooClient.get('orders', {

@@ -1,5 +1,5 @@
-import React from 'react'
-import Header, { HeaderProps } from './Header'
+import type React from 'react'
+import Header, { type HeaderProps } from './Header'
 
 interface LayoutProps extends HeaderProps {
   children: React.ReactNode

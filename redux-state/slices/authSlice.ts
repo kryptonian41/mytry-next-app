@@ -1,6 +1,6 @@
 import { createAxiosInstance, setDefaultAxios } from 'utils/axios'
 
-import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { createSlice, type PayloadAction } from '@reduxjs/toolkit'
 
 interface AuthData {
   token?: string

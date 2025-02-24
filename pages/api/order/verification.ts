@@ -16,9 +16,9 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === "POST") {
     try {
       await runMiddleware(req, res, logger);
-      const body = JSON.stringify(req.body),
-        signature = req.headers["x-razorpay-signature"],
-        secret = process.env.RAZORPAY_WEBHOOK_SECRET;
+      const body = JSON.stringify(req.body);
+      const signature = req.headers["x-razorpay-signature"];
+      const secret = process.env.RAZORPAY_WEBHOOK_SECRET;
 
       const validSignature = Razorpay.validateWebhookSignature(
         body,

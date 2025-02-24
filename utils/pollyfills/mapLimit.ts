@@ -60,8 +60,8 @@ export const mapLimit = async <T, K>(
   const { promise: selfPromise, resolve, reject } = Promise.withResolvers();
   const results: [number, K][] = [];
   const total = array.length;
-  let inProgress: number = 0;
-  let completed: number = 0;
+  let inProgress = 0;
+  let completed = 0;
   let arrayCursor = 0;
 
   // Use typescript's predicates feature to check if the value is an object. Helps with type narrowing and keeps the code clean.

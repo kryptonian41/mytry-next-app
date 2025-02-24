@@ -9,7 +9,7 @@ import PaymentMethodSelector from './PaymentMethodSelector'
 import CouponForm from './CouponForm'
 import { useTheme } from 'utils/hooks/useTheme'
 
-interface CheckOrderSummaryProps {}
+type CheckOrderSummaryProps = {}
 
 export const CheckOutOrderSummary: React.FunctionComponent<
   CheckOrderSummaryProps

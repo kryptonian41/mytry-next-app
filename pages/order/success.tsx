@@ -2,7 +2,7 @@ import Layout from 'components/Layout'
 import Navbar from 'components/Navbar'
 import { useMatchMedia } from 'utils/hooks/useMatchMedia'
 import { useTheme } from 'utils/hooks/useTheme'
-interface Props {}
+type Props = {}
 
 const OrderSuccess = (props: Props) => {
   const theme = useTheme()

@@ -6,19 +6,19 @@ import { useAppSelector } from "redux-state/hooks";
 import Layout from "../components/Layout";
 
 const login = () => {
-  const { user } = useAppSelector((state) => state.auth);
-  const router = useRouter();
+	const { user } = useAppSelector((state) => state.auth);
+	const { query, push } = useRouter();
 
-  useEffect(() => {
-    const redirectRoute = (router.query.redirect as string) || "/";
-    if (user) router.push(redirectRoute);
-  }, [user]);
+	useEffect(() => {
+		const redirectRoute = (query.redirect as string) || "/";
+		if (user) push(redirectRoute);
+	}, [user, push, query.redirect]);
 
-  return (
-    <Layout title="Login">
-      <Login />
-    </Layout>
-  );
+	return (
+		<Layout title="Login">
+			<Login />
+		</Layout>
+	);
 };
 
 export default login;

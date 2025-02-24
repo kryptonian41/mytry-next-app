@@ -3,16 +3,16 @@ import { CheckOutOrderSummary } from 'components/Checkout/CheckoutOrderSummary'
 import { OrderShippingForm } from 'components/Checkout/ShippingForm'
 import Layout from 'components/Layout'
 import Navbar from 'components/Navbar'
-import { FormikConfig } from 'formik'
+import type { FormikConfig } from 'formik'
 import { useRouter } from 'next/router'
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { getOrderDetails } from 'utils'
 import { CheckoutType } from 'utils/api-utils'
 import { CODCheckout } from 'utils/checkout'
-import { OrderShippingAddressData } from 'utils/data-validators/orderShippingAddress'
+import type { OrderShippingAddressData } from 'utils/data-validators/orderShippingAddress'
 import { useTheme } from 'utils/hooks/useTheme'
-interface Props {}
+type Props = {}
 
 export const Checkout = (props: Props) => {
   const cart = useSelector((state) => (state as any).cart)

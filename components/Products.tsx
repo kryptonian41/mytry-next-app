@@ -2,8 +2,8 @@ import { useMemo } from "react";
 import ProductTile from "./ProductTile";
 import { connect } from "react-redux";
 import styles from "pages/products/styles.module.scss";
-import { RootState } from "redux-state/store";
-import { Category, Product } from "types";
+import type { RootState } from "redux-state/store";
+import type { Category, Product } from "types";
 
 const checkProductBelongsToCategory = (
   productCategories: Category[],
@@ -24,9 +24,9 @@ const sortAToZ = (products: Product[]) => {
 
 const sortPrice = (products: Product[], isDescending = false) => {
   const sortedProducts = products.sort((a, b) =>
-    parseFloat(a.price) > parseFloat(b.price)
+    Number.parseFloat(a.price) > Number.parseFloat(b.price)
       ? 1
-      : parseFloat(b.price) > parseFloat(a.price)
+      : Number.parseFloat(b.price) > Number.parseFloat(a.price)
       ? -1
       : 0
   );

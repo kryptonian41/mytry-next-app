@@ -30,7 +30,7 @@ const AccountHome = () => {
   }, [isAuthenticated, user])
 
   if (isServer()) return null
-  else if (!isAuthenticated || !user) return null
+  if (!isAuthenticated || !user) return null
   return (
     <Layout title="My Account">
       <div

@@ -1,4 +1,4 @@
-import { Product } from 'types'
+import type { Product } from 'types'
 
 export interface CartProduct {
   id: number
@@ -20,10 +20,10 @@ export const createCartState = (
       id: product.id,
       name: product.name,
       image: product.images[0].src,
-      price: parseFloat(product.price),
+      price: Number.parseFloat(product.price),
       qty: productQuantity,
-      totalPrice: parseFloat(
-        (parseFloat(product.price) * productQuantity).toFixed(2)
+      totalPrice: Number.parseFloat(
+        (Number.parseFloat(product.price) * productQuantity).toFixed(2)
       ),
     }
   })

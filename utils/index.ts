@@ -1,4 +1,4 @@
-import { Category, ContactShippingData, LineItem, Order, User } from 'types'
+import { type Category, type ContactShippingData, type LineItem, type Order, User } from 'types'
 import { CheckoutType } from './api-utils'
 import { colorMap } from './theme'
 
@@ -30,7 +30,7 @@ interface RazorpayInstanceOptions {
   }
   onSuccess: (...any) => any
 }
-const defaultSuccessCallback = function (response) {
+const defaultSuccessCallback = (response) => {
   alert(response.razorpay_payment_id)
   alert(response.razorpay_order_id)
   alert(response.razorpay_signature)

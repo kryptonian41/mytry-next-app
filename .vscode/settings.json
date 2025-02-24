@@ -1,19 +1,32 @@
 {
-  "cSpell.words": [
-    "DOSHI",
-    "firstname",
-    "insta",
-    "instock",
-    "lastname",
-    "MAITRI",
-    "mytry",
-    "mytryshop",
-    "svgs",
-    "turbopack",
-    "woocommerce"
-  ],
-  "tailwindCSS.experimental.classRegex": [
-    ["cva\\(((?:[^()]|\\([^()]*\\))*)\\)", "[\"'`]([^\"'`]*).*?[\"'`]"],
-    ["cx\\(((?:[^()]|\\([^()]*\\))*)\\)", "(?:'|\"|`)([^']*)(?:'|\"|`)"]
-  ]
+	"cSpell.words": [
+		"abled",
+		"backorder",
+		"backordered",
+		"backorders",
+		"compunknown",
+		"DOSHI",
+		"firstname",
+		"insta",
+		"instock",
+		"lastname",
+		"MAITRI",
+		"mytry",
+		"mytryshop",
+		"svgs",
+		"turbopack",
+		"upsell",
+		"WCOMM",
+		"woocommerce"
+	],
+	"css.validate": false,
+	"editor.codeActionsOnSave": {
+		"source.organizeImports.biome": "explicit"
+	},
+	"editor.defaultFormatter": "biomejs.biome",
+	"scss.validate": false,
+	"tailwindCSS.experimental.classRegex": [
+		["cva\\(((?:[^()]|\\([^()]*\\))*)\\)", "[\"'`]([^\"'`]*).*?[\"'`]"],
+		["cx\\(((?:[^()]|\\([^()]*\\))*)\\)", "(?:'|\"|`)([^']*)(?:'|\"|`)"]
+	]
 }

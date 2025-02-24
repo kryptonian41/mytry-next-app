@@ -1,7 +1,7 @@
 import ExpandIcon from "assets/svgs/icons/expand.svg";
 import { useEffect, useState } from "react";
 import { useAppSelector } from "redux-state/hooks";
-import CreateReview, { ColorScheme } from "./CreateReview";
+import CreateReview, { type ColorScheme } from "./CreateReview";
 import reviewStyles from "./review.module.css";
 import SingleReview from "./SingleReview";
 

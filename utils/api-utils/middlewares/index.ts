@@ -1,4 +1,4 @@
-import { NextApiRequest, NextApiResponse } from "next"
+import type { NextApiRequest, NextApiResponse } from "next"
 import { validateToken } from "pages/api/users/validate"
 export interface NextApiRequestWithAuth extends NextApiRequest {
   user: {

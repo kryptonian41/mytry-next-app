@@ -3,7 +3,7 @@ import { authMiddleware, runMiddleware } from 'utils/api-utils/middlewares'
 import type { NextApiRequest, NextApiResponse } from 'next'
 
 const calculateCart = (couponData, cartTotal) => {
-  let response = {
+  const response = {
     data: {
       code: couponData.code,
       discount: 0,
@@ -14,12 +14,12 @@ const calculateCart = (couponData, cartTotal) => {
   switch (couponData.discount_type) {
     case 'percent':
       response.data.discount = Math.floor(
-        cartTotal * (parseFloat(couponData.amount) / 100)
+        cartTotal * (Number.parseFloat(couponData.amount) / 100)
       )
       break
     case 'fixed_cart':
       response.data.discount = Math.min(
-        Math.ceil(parseFloat(couponData.amount)),
+        Math.ceil(Number.parseFloat(couponData.amount)),
         cartTotal
       )
       break
@@ -62,14 +62,14 @@ export const applyCoupon = async (body = {}) => {
   }
 
   if (couponData.minimum_amount === '0.00') {
-    if (cartTotal < parseFloat(couponData.minimum_amount))
+    if (cartTotal < Number.parseFloat(couponData.minimum_amount))
       throw new Error(
         `Minimum spend for this coupon is INR ${couponData.minimum_amount}`
       )
   }
 
   if (couponData.maximum_amount === '0.00') {
-    if (cartTotal < parseFloat(couponData.maximum_amount))
+    if (cartTotal < Number.parseFloat(couponData.maximum_amount))
       throw new Error(
         `Maximum spend for this coupon is INR ${couponData.maximum_amount}`
       )

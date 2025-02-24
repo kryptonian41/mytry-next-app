@@ -3,7 +3,7 @@ import { user } from "utils/api-utils/request-body/register-user";
 import Router from "next/router";
 import { getProducts } from "utils/api-utils";
 import { createCartState } from "utils/cart";
-import { AppDispatch, AppStoreGetState } from "redux-state/store";
+import type { AppDispatch, AppStoreGetState } from "redux-state/store";
 import { authSliceActions } from "redux-state/slices/authSlice";
 import { appBootstrapSliceActions } from "redux-state/slices/appBootstrap";
 

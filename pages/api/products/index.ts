@@ -1,6 +1,6 @@
 import { wooClient } from '../../../utils/api-utils'
 import type { NextApiRequest, NextApiResponse } from 'next'
-import { Product } from 'types'
+import type { Product } from 'types'
 
 export const getProductServerSide = async (id: string) =>
   await wooClient.get(`products/${id}`)

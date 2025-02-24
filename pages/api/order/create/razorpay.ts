@@ -20,7 +20,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     await runMiddleware(req, res, authMiddleware)
     const { id, total, currency } = await createRazorpayOrderServerSide(req.body);
     const orderPaymentDetails = await razorpayClient.orders.create({
-      amount: parseInt(total) * 100,
+      amount: Number.parseInt(total) * 100,
       receipt: id,
       currency
     })

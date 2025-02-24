@@ -1,4 +1,4 @@
-import Axios, { AxiosInstance, AxiosRequestConfig } from 'axios'
+import Axios, { type AxiosInstance, type AxiosRequestConfig } from 'axios'
 
 export let axios: AxiosInstance = Axios.create({})
 

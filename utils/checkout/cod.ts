@@ -1,4 +1,4 @@
-import { Order } from 'types'
+import type { Order } from 'types'
 import { CheckoutType, createOrder } from 'utils/api-utils'
 
 export const CODCheckout = async (orderDetails: Order) => {

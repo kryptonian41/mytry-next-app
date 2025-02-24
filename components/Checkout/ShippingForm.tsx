@@ -1,10 +1,10 @@
-import { Form, Formik, FormikConfig } from 'formik'
-import React from 'react'
+import { Form, Formik, type FormikConfig } from 'formik'
+import type React from 'react'
 import { useAppSelector } from 'redux-state/hooks'
 import { useTheme } from 'utils/hooks/useTheme'
 import { InputField } from 'components/Form/InputField'
 import {
-  OrderShippingAddressData,
+  type OrderShippingAddressData,
   orderShippingAddressSchema,
 } from 'utils/data-validators/orderShippingAddress'
 

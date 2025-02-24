@@ -1,4 +1,5 @@
-import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
+import type React from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { useMatchMedia } from "utils/hooks/useMatchMedia";
 
 interface FullPageVideoProps {
@@ -40,12 +41,12 @@ const FullPageVideo: React.FunctionComponent<FullPageVideoProps> = ({
       ref={videoElRef}
     >
       <source
-        src={`/assets/videos/product-desktop.webm`}
+        src={"/assets/videos/product-desktop.webm"}
         type="video/webm"
         id="srcWebM"
       />
       <source
-        src={`/assets/videos/product-desktop.mp4`}
+        src={"/assets/videos/product-desktop.mp4"}
         type="video/mp4"
         id="srcMp4"
       />

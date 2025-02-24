@@ -1,5 +1,5 @@
-import { isAxiosError, AxiosRequestConfig, AxiosResponse } from 'axios'
-import { Order, Product } from 'types'
+import { isAxiosError, type AxiosRequestConfig, type AxiosResponse } from 'axios'
+import type { Order, Product } from 'types'
 import { axios } from 'utils/axios'
 
 export const getProducts = async (config: AxiosRequestConfig = null) => {
@@ -44,7 +44,7 @@ export const createOrder = async (order: Order, checkoutType: CheckoutType) => {
 }
 
 export const getOrders = async () => {
-  const { data } = await axios.get(`/api/users/orders`)
+  const { data } = await axios.get("/api/users/orders")
   return data
 }
 

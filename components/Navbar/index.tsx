@@ -8,7 +8,7 @@ import { useCallback, useState } from "react";
 import { connect } from "react-redux";
 import { useAppDispatch } from "redux-state/hooks";
 import { authSliceActions } from "redux-state/slices/authSlice";
-import { RootState } from "redux-state/store";
+import type { RootState } from "redux-state/store";
 import { cva } from "class-variance-authority";
 
 const navbarVariants = cva(

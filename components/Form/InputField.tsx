@@ -1,6 +1,6 @@
-import React from 'react'
+import type React from 'react'
 import { useTheme } from 'utils/hooks/useTheme'
-import { ErrorMessage, Field, FieldAttributes } from 'formik'
+import { ErrorMessage, Field, type FieldAttributes } from 'formik'
 import clsx from 'clsx'
 import checkoutStyles from './checkout.module.scss'
 

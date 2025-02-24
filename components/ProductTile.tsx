@@ -1,4 +1,4 @@
-import { Product } from 'types'
+import type { Product } from 'types'
 import Link from 'next/link'
 import { RUPEES_SYMBOL } from 'components'
 

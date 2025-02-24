@@ -1,5 +1,5 @@
 import axios from "axios";
-import { AppDispatch } from "redux-state/store";
+import type { AppDispatch } from "redux-state/store";
 
 export const createReview =
   (data: any, onSuccess = () => {}) =>
