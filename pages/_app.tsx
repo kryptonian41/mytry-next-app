@@ -1,38 +1,44 @@
-import Router from 'next/router';
-import 'node_modules/nprogress/nprogress.css';
-import NProgress from 'nprogress';
-import { QueryClient, QueryClientProvider } from "react-query";
-import { Provider } from "react-redux";
-import store from "../store";
-import "../styles/globals.css";
+import Router from 'next/router'
+import type { AppProps } from 'next/app'
+import 'node_modules/nprogress/nprogress.css'
+import NProgress from 'nprogress'
+import { QueryClient, QueryClientProvider } from 'react-query'
+import { Provider } from 'react-redux'
+import { AppStore, makeStore } from '../redux-state/store'
+import 'styles/globals.css'
+import { useRef } from 'react'
 
 NProgress.configure({
   minimum: 0.3,
   easing: 'ease',
   speed: 800,
-  showSpinner: false
+  showSpinner: false,
 })
 
 Router.events.on('routeChangeStart', () => {
   NProgress.start()
 })
 
-Router.events.on('routeChangeComplete', url => {
+Router.events.on('routeChangeComplete', (url) => {
   NProgress.done()
 })
 
 Router.events.on('routeChangeError', () => NProgress.done())
 
-export const reactQueryClient = new QueryClient();
+export const reactQueryClient = new QueryClient()
 
-function MyApp({ Component, pageProps }) {
+export default function App({ Component, pageProps }: AppProps) {
+  const storeRef = useRef<AppStore>()
+  if (!storeRef.current) {
+    // Create the store instance the first time this renders
+    storeRef.current = makeStore()
+  }
+
   return (
-    <Provider store={store}>
-      <QueryClientProvider client={reactQueryClient}>
+    <QueryClientProvider client={reactQueryClient}>
+      <Provider store={storeRef.current}>
         <Component {...pageProps} />
-      </QueryClientProvider>
-    </Provider>
-  );
+      </Provider>
+    </QueryClientProvider>
+  )
 }
-
-export default MyApp;

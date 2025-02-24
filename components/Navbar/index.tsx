@@ -1,16 +1,41 @@
-import HamburgerIcon from "assets/svgs/icons/hamburger.svg";
 import HamburgerCross from "assets/svgs/icons/hamburger-cross.svg";
+import HamburgerIcon from "assets/svgs/icons/hamburger.svg";
 import MyTryLogo from "assets/svgs/logos/main.svg";
 import clsx from "clsx";
 import Link from "next/link";
-import { useCallback, useState } from "react";
-import { connect, useDispatch } from "react-redux";
-import { LOGOUT_USER } from "redux-utils/actions/types";
-import styles from "./style.module.scss";
 import router from "next/router";
+import { useCallback, useState } from "react";
+import { connect } from "react-redux";
+import { useAppDispatch } from "redux-state/hooks";
+import { authSliceActions } from "redux-state/slices/authSlice";
+import { RootState } from "redux-state/store";
+import { cva } from "class-variance-authority";
+
+const navbarVariants = cva(
+  "flex items-center justify-between sm:[&>a]:text-sm text-base uppercase sm:p-4 p-2",
+  {
+    variants: {
+      color: {
+        light: "text-white",
+        dark: "text-green-900",
+      },
+    },
+  }
+);
+
+const navbarButtonVariants = cva(
+  "p-2 cursor-pointer no-outline flex items-center justify-center grow-0 focus:outline-none w-[40px] h-[40px]",
+  {
+    variants: {
+      isDark: {
+        true: "text-green-900",
+      },
+    },
+  }
+);
 
 interface Props {
-  color?: string;
+  color?: "light" | "dark";
   itemsCount: number;
   className?: string;
   isAuthenticated: boolean;
@@ -22,51 +47,48 @@ const Navbar: React.FC<Props> = ({
   itemsCount,
   className,
   isAuthenticated,
-  bgColor = null,
+  bgColor = "#034a38",
 }) => {
-
   const [showNavMenu, setShowNavMenu] = useState(false);
 
   const handleHamburgerClick = useCallback(() => {
     setShowNavMenu((prev) => !prev);
   }, []);
 
-
-  const dispatach = useDispatch();
+  const dispatch = useAppDispatch();
+  const isDark = color === "dark";
 
   return (
-    <div
-      style={{ height: "4rem" }}
-      className={clsx(
-        styles["navbar"],
-        "py-6 px-8 flex items-start justify-between",
-        {
-          "text-white": color === "light",
-          "text-green-900": color === "dark",
-        },
-        className
-      )}
-    >
-      <div className="space-x-6 flex items-center flex-wrap">
-        <div className="cursor-pointer relative">
-          <button className={clsx(styles.hamburger, 'no-outline')} onClick={handleHamburgerClick}>
-            {showNavMenu ? <HamburgerCross /> : <HamburgerIcon />}
+    <div className={clsx(navbarVariants({ color }), className)}>
+      <div className="flex items-center space-x-6">
+        <div className="relative">
+          <button
+            className={clsx(navbarButtonVariants({ isDark }), {
+              "bg-white": isDark && showNavMenu,
+            })}
+            onClick={handleHamburgerClick}
+          >
+            {showNavMenu ? (
+              <HamburgerCross width="100%" />
+            ) : (
+              <HamburgerIcon width="100%" />
+            )}
           </button>
           {showNavMenu && (
             <ul
-              className="absolute space-y-2 pt-4 z-10"
+              className="absolute space-y-2 pt-4 z-10 "
               style={
                 color === "dark"
                   ? {
-                    backgroundColor: "transparent",
-                    padding: "1rem",
-                    color: "#034a38",
-                  }
+                      backgroundColor: "white",
+                      padding: "1rem",
+                      color: "#034a38",
+                    }
                   : {
-                    backgroundColor: bgColor || "#034a38",
-                    padding: "1rem",
-                    color: "#fff",
-                  }
+                      backgroundColor: bgColor,
+                      padding: "1rem",
+                      color: "#fff",
+                    }
               }
             >
               <li className="whitespace-nowrap">
@@ -80,14 +102,14 @@ const Navbar: React.FC<Props> = ({
               </li>
               {isAuthenticated && (
                 <li className="whitespace-nowrap">
-                  <span onClick={() => router.push('/account')}>
+                  <span onClick={() => router.push("/account")}>
                     My Account
                   </span>
                 </li>
               )}
               {isAuthenticated && (
                 <li className="whitespace-nowrap">
-                  <span onClick={() => dispatach({ type: LOGOUT_USER })}>
+                  <span onClick={() => dispatch(authSliceActions.logout())}>
                     Logout
                   </span>
                 </li>
@@ -96,42 +118,21 @@ const Navbar: React.FC<Props> = ({
           )}
         </div>
         <Link href="/cart">
-          <a>
-            <span suppressHydrationWarning={true}>Cart ({itemsCount})</span>
-          </a>
+          <span suppressHydrationWarning={true}>Cart ({itemsCount})</span>
         </Link>
         {!isAuthenticated && <Link href="/login">Log In</Link>}
-        {/* {!mobileView && (
-          <>
-            <Link href="/products">Products</Link>
-            <Link href="/about">About Us</Link>
-            <Link href="/contact">Contact Us</Link>
-            {isAuthenticated ? (
-              <span
-                style={{ cursor: "pointer" }}
-                onClick={() => dispatach({ type: LOGOUT_USER })}
-              >
-                Logout
-              </span>
-            ) : (
-              <Link href="/login">Log In</Link>
-            )}
-          </>
-        )} */}
       </div>
 
       <Link href="/">
-        <a className={styles.mytryLogo}>
-          <MyTryLogo />
-        </a>
+        <MyTryLogo className="w-[50px] h-[50px]" />
       </Link>
     </div>
   );
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state: RootState) => ({
   itemsCount: state.cart.itemsCount,
-  isAuthenticated: state.user.isAuthenticated,
+  isAuthenticated: state.auth.isAuthenticated,
 });
 
 export default connect(mapStateToProps)(Navbar);

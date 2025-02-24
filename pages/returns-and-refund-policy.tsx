@@ -1,12 +1,12 @@
-import Layout from "components/Layout";
-import Link from "next/link";
-import Navbar from "components/Navbar";
-import Footer from "components/Footer";
-import styles from "./policy.module.scss";
+import Layout from 'components/Layout'
+import Link from 'next/link'
+import Navbar from 'components/Navbar'
+import Footer from 'components/Footer'
+import styles from './policy.module.scss'
 
 const ReturnsRefundPolicy = () => {
   return (
-    <Layout title="Returns & Refund Policy" description={null} keywords={null}>
+    <Layout title="Returns & Refund Policy">
       <div className={styles.container}>
         <Navbar />
         <section>
@@ -88,7 +88,7 @@ const ReturnsRefundPolicy = () => {
         <Footer />
       </div>
     </Layout>
-  );
-};
+  )
+}
 
-export default ReturnsRefundPolicy;
+export default ReturnsRefundPolicy

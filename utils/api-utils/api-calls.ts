@@ -1,9 +1,12 @@
-import { AxiosRequestConfig, AxiosResponse } from 'axios'
-import { Order, Product } from 'types/commons'
+import { isAxiosError, AxiosRequestConfig, AxiosResponse } from 'axios'
+import { Order, Product } from 'types'
 import { axios } from 'utils/axios'
 
 export const getProducts = async (config: AxiosRequestConfig = null) => {
-  const { data } = await axios.get<any, AxiosResponse<Product[]>>('/api/products', config)
+  const { data } = await axios.get<any, AxiosResponse<Product[]>>(
+    '/api/products',
+    config
+  )
   return data
 }
 
@@ -13,11 +16,14 @@ export interface ProductFilters {
 }
 
 export const getProduct = async (slug: string) => {
-  const { data } = await axios.get<any, AxiosResponse<Product[]>>('/api/products', {
-    params: {
-      slug
-    } as ProductFilters
-  })
+  const { data } = await axios.get<any, AxiosResponse<Product[]>>(
+    '/api/products',
+    {
+      params: {
+        slug,
+      } as ProductFilters,
+    }
+  )
   if (data.length === 0) throw Error('Product not found')
   return data[0]
 }
@@ -28,7 +34,7 @@ export const getReviews = async () => {
 }
 
 export enum CheckoutType {
-  COD = "cod",
+  COD = 'cod',
   // Razorpay = "razorpay"
 }
 
@@ -37,24 +43,31 @@ export const createOrder = async (order: Order, checkoutType: CheckoutType) => {
   return data
 }
 
-
 export const getOrders = async () => {
   const { data } = await axios.get(`/api/users/orders`)
   return data
 }
 
-export const applyCoupon = async (userId, cartTotal, code, onSuccess, onError, setCouponState) => {
+export const applyCoupon = async (
+  userId,
+  cartTotal,
+  code,
+  onSuccess,
+  onError,
+  setCouponState
+) => {
   try {
-    const body = JSON.stringify({ customer_id: userId, code, cartTotal });
-    const res = await axios.post("/api/order/apply-coupon", body, {
+    const body = JSON.stringify({ customer_id: userId, code, cartTotal })
+    const res = await axios.post('/api/order/apply-coupon', body, {
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
-    });
-    setCouponState(true, res.data);
-    onSuccess();
+    })
+    setCouponState(true, res.data)
+    onSuccess()
   } catch (error) {
-    if (error.response.data.message) onError(error.response.data.message);
-    else onError("Error applying coupon code");
+    // axios throws an error when the response code is anything other than 2XX
+    if (isAxiosError(error)) {
+    }
   }
-};
+}

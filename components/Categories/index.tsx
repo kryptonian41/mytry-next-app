@@ -1,74 +1,57 @@
-import React, {
-  useState,
-  useEffect,
-  useRef,
-  useMemo,
-  useCallback,
-  useLayoutEffect,
-} from "react";
-import { connect } from "react-redux";
-import categoriesStyle from "./categories.module.css";
+import React, { useCallback, useMemo, useRef, useState } from 'react'
+import { connect } from 'react-redux'
+import categoriesStyle from './categories.module.css'
+import { useMatchMedia } from 'utils/hooks/useMatchMedia'
+import { useAppDispatch } from 'redux-state/hooks'
+import { productFilterActions } from 'redux-state/slices/productFiltersSlice'
 
 interface Props {
-  categories: import("types/commons").Category[];
+  categories: import('types').Category[]
   parentToChildCategoryMap: {
-    [parentId: string]: import("types/commons").Category[];
-  };
-  setCategory: (...any) => void;
-  setSorting: (...any) => void;
+    [parentId: string]: import('types').Category[]
+  }
 }
 
-const SKIN_TYPE_CATEGORY_SLUG = "skin-type";
+const SKIN_TYPE_CATEGORY_SLUG = 'skin-type'
 
 const Categories: React.FC<Props> = ({
   categories,
   parentToChildCategoryMap,
-  setCategory,
-  setSorting,
 }) => {
+  const dispatch = useAppDispatch()
+
+  const setCategory = useCallback(
+    (categoryId: number) =>
+      dispatch(productFilterActions.setCategory({ categoryId })),
+    []
+  )
+
+  const setSorting = useCallback(
+    (sorting: string) => dispatch(productFilterActions.setSorting({ sorting })),
+    []
+  )
+
   const { parentCategories, skinTypeCategory } = useMemo(() => {
     const skinTypeCategoryIndex = categories.findIndex(
       (category) => category.slug === SKIN_TYPE_CATEGORY_SLUG
-    );
-    const parentCategories = [...categories];
+    )
+    const parentCategories = [...categories]
     const skinTypeCategory =
       skinTypeCategoryIndex !== -1
         ? parentCategories.splice(skinTypeCategoryIndex, 1)[0]
-        : null;
-    return { parentCategories, skinTypeCategory };
-  }, [categories, parentToChildCategoryMap]);
+        : null
+    return { parentCategories, skinTypeCategory }
+  }, [categories, parentToChildCategoryMap])
 
-  const [mobileView, setMobileView] = useState(null);
+  const { matching: mobileView } = useMatchMedia({
+    mediaQuery: '(max-width: 640px)',
+  })
 
-  const mobileViewRef = useRef(mobileView);
-
-  const [showCategories, setShowCategories] = useState(false);
+  const [showCategories, setShowCategories] = useState(false)
 
   const handleClick = useCallback(() => {
-    setShowCategories((prev) => !prev);
-  }, []);
-
-  useLayoutEffect(() => {
-    setMobileView(window.matchMedia("(max-width: 640px)").matches);
-  }, []);
-
-  const matchHandler = ({ matches }) => {
-    if (matches === mobileViewRef.current) return;
-    mobileViewRef.current = matches;
-    setMobileView(matches);
-  };
-
-  useEffect(() => {
-    window
-      .matchMedia("(max-width: 640px)")
-      .addEventListener("change", matchHandler);
-
-    return () => {
-      window
-        .matchMedia("(max-width: 640px)")
-        .removeEventListener("change", matchHandler);
-    };
-  }, []);
+    setShowCategories((prev) => !prev)
+  }, [])
 
   return (
     <div className={categoriesStyle.container} onClick={() => handleClick()}>
@@ -113,19 +96,19 @@ const Categories: React.FC<Props> = ({
         {((mobileView && showCategories) || !mobileView) && (
           <div className={categoriesStyle.categoriesWrapper}>
             <button
-              onClick={() => setSorting("priceAscending")}
+              onClick={() => setSorting('priceAscending')}
               className={categoriesStyle.category}
             >
               Price Low-High
             </button>
             <button
-              onClick={() => setSorting("priceDescending")}
+              onClick={() => setSorting('priceDescending')}
               className={categoriesStyle.category}
             >
               Price High-Low
             </button>
             <button
-              onClick={() => setSorting("atoz")}
+              onClick={() => setSorting('atoz')}
               className={categoriesStyle.category}
             >
               A to Z
@@ -134,16 +117,7 @@ const Categories: React.FC<Props> = ({
         )}
       </div>
     </div>
-  );
-};
+  )
+}
 
-const mapDispatchToProps = (dispatch) => ({
-  setCategory: (categoryId) => {
-    dispatch({ type: "SET_CATEGORY", payload: categoryId });
-  },
-  setSorting: (sorting) => {
-    dispatch({ type: "SET_SORT", payload: sorting });
-  },
-});
-
-export default connect(null, mapDispatchToProps)(Categories);
+export default Categories

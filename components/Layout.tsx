@@ -1,29 +1,22 @@
-import { useEffect, useLayoutEffect } from "react";
-import Header from "./Header";
-import Loading from "./Loading";
-import { useSelector, useDispatch } from "react-redux";
-import { initializeApp } from "redux-utils/actions/userActions";
+import React from 'react'
+import Header, { HeaderProps } from './Header'
 
-export const Layout = ({ children, title = null, description = null, keywords = null }) => {
-  const dispatch = useDispatch();
-  const { isInitializing, appInitialized } = useSelector(
-    (state) => (state as any).initApp
-  );
+interface LayoutProps extends HeaderProps {
+  children: React.ReactNode
+}
 
-  useEffect(() => {
-    if (!appInitialized) dispatch(initializeApp());
-  }, []);
-
-
+export const Layout: React.FunctionComponent<LayoutProps> = ({
+  children,
+  title,
+  description,
+  keywords,
+}) => {
   return (
     <>
-      {isInitializing &&
-        <Loading />
-      }
       <Header title={title} description={description} keywords={keywords} />
       {children}
     </>
-  );
-};
+  )
+}
 
-export default Layout;
+export default Layout

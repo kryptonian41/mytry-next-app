@@ -5,7 +5,7 @@ import styles from "./policy.module.scss";
 
 const ShippingPolicy = () => {
   return (
-    <Layout title="Shipping Policy" description={null} keywords={null}>
+    <Layout title="Shipping Policy">
       <div className={styles.container}>
         <Navbar />
         <section>
@@ -22,7 +22,7 @@ const ShippingPolicy = () => {
                 the order value &lt; Rs2500/-, a flat charge of Rs. 50 shall be
                 applicable. All process listed on website are inclusive of all
                 taxes. For shipping charges, check free shipping eligibility
-                before order.{" "}
+                before order.
               </li>
               <li>
                 MyTry shall dispatch the order at the earliest and the purchaser

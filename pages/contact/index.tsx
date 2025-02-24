@@ -1,13 +1,13 @@
-import { useTheme } from "utils/color-map";
-import Layout from "components/Layout";
-import Navbar from "components/Navbar";
-import styles from "./styles.module.scss";
-import clsx from "clsx";
+import { useTheme } from 'utils/hooks/useTheme'
+import Layout from 'components/Layout'
+import Navbar from 'components/Navbar'
+import styles from './styles.module.scss'
+import clsx from 'clsx'
 
 export const ProductPage = () => {
-  const theme = useTheme();
+  const theme = useTheme()
   return (
-    <Layout title="Contact Us" description={null} keywords={null}>
+    <Layout title="Contact Us">
       <div
         className={styles.root}
         style={{
@@ -16,11 +16,11 @@ export const ProductPage = () => {
       >
         <div className={styles.hero}>
           <Navbar color="light" className="z-10" />
-          <div className={clsx(styles["hero-contact-wrapper"], "z-0")}>
+          <div className={clsx(styles['hero-contact-wrapper'], 'z-0')}>
             <div
               className={clsx(
-                "mt-8 sm:mt-0 py-6 pt-16 sm:pt-6 pl-6 pr-12 sm:pr-0 sm:pl-12 order-2 sm:order-none",
-                styles["hero-contact-info"]
+                'mt-8 sm:mt-0 py-6 pt-16 sm:pt-6 pl-6 pr-12 sm:pr-0 sm:pl-12 order-2 sm:order-none',
+                styles['hero-contact-info']
               )}
               style={{
                 backgroundColor: theme.orange,
@@ -40,9 +40,7 @@ export const ProductPage = () => {
               >
                 +91 6359 874 699
               </p>
-              <p className="text-white uppercase sm:text-lg mb-1">
-                Address
-              </p>
+              <p className="text-white uppercase sm:text-lg mb-1">Address</p>
               <p
                 className="uppercase sm:text-xl"
                 style={{
@@ -63,8 +61,8 @@ export const ProductPage = () => {
 
             <div
               className={clsx(
-                "bg-white px-8 sm:px-16 py-12 order-1 sm:order-none",
-                styles["hero-contact-form"]
+                'bg-white px-8 sm:px-16 py-12 order-1 sm:order-none',
+                styles['hero-contact-form']
               )}
             >
               <p
@@ -169,7 +167,7 @@ export const ProductPage = () => {
         </div>
       </div>
     </Layout>
-  );
-};
+  )
+}
 
-export default ProductPage;
+export default ProductPage

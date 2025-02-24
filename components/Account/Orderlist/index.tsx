@@ -1,56 +1,55 @@
-import { useRouter } from "next/router";
-import React, { useCallback, useMemo, useState } from "react";
-import { useDispatch } from "react-redux";
-import { FETCH_CART } from "redux-utils/actions/types";
-import { Order } from "types/commons";
-import { getProducts } from "utils/api-utils";
-import { createCartState } from "utils/cart";
-import { useTheme } from "utils/color-map";
+import { useRouter } from 'next/router'
+import React, { useCallback, useMemo, useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { Order } from 'types'
+import { getProducts } from 'utils/api-utils'
+import { createCartState } from 'utils/cart'
+import { useTheme } from 'utils/hooks/useTheme'
 
 interface OrderListProps {
-  orders: Order[];
+  orders: Order[]
 }
 
 interface OrdeTileProps {
-  order: Order;
-  active: boolean;
-  [key: string]: any;
+  order: Order
+  active: boolean
+  [key: string]: any
 }
 
 const OrderTile = ({ order, active = false, ...restProps }: OrdeTileProps) => {
-  const theme = useTheme();
-  const dispatch = useDispatch();
-  const router = useRouter();
-  const [isOrderBeingCloned, setIsOrderBeingCloned] = useState(false);
+  const theme = useTheme()
+  const dispatch = useDispatch()
+  const router = useRouter()
+  const [isOrderBeingCloned, setIsOrderBeingCloned] = useState(false)
   const orderDate = useMemo(() => {
-    const orderCreatedDate = new Date(order.date_created);
-    const day = orderCreatedDate.getDate();
-    const month = orderCreatedDate.getMonth() + 1;
-    const year = orderCreatedDate.getFullYear();
-    return `${day}\\${month}\\${year}`;
-  }, [order.date_created]);
+    const orderCreatedDate = new Date(order.date_created)
+    const day = orderCreatedDate.getDate()
+    const month = orderCreatedDate.getMonth() + 1
+    const year = orderCreatedDate.getFullYear()
+    return `${day}\\${month}\\${year}`
+  }, [order.date_created])
 
   const handleRepeatClick = useCallback(async () => {
-    setIsOrderBeingCloned(true);
-    const items = order.line_items;
-    const itemIds = items.map((item) => item.product_id);
-    const itemQuantityMap = new Map<number, number>();
+    setIsOrderBeingCloned(true)
+    const items = order.line_items
+    const itemIds = items.map((item) => item.product_id)
+    const itemQuantityMap = new Map<number, number>()
     items.forEach((product) =>
       itemQuantityMap.set(product.product_id, product.quantity)
-    );
+    )
     const productsInfo = await getProducts({
       params: {
-        include: itemIds.join(","),
+        include: itemIds.join(','),
       },
-    });
-    const cartState = createCartState(productsInfo, itemQuantityMap);
+    })
+    const cartState = createCartState(productsInfo, itemQuantityMap)
     dispatch({
-      type: FETCH_CART,
+      type: 'FETCH_CART',
       payload: cartState,
-    });
-    router.push("/cart");
-    setIsOrderBeingCloned(false);
-  }, [order.id]);
+    })
+    router.push('/cart')
+    setIsOrderBeingCloned(false)
+  }, [order.id])
 
   return (
     <div className="grid grid-cols-12 border border-gray-500" {...restProps}>
@@ -78,7 +77,7 @@ const OrderTile = ({ order, active = false, ...restProps }: OrdeTileProps) => {
                   {order.currency_symbol} {item.total}
                 </span>
               </div>
-            );
+            )
           })}
           <div className="flex text-xl mt-4">
             <div className="flex-1">Total</div>
@@ -95,17 +94,17 @@ const OrderTile = ({ order, active = false, ...restProps }: OrdeTileProps) => {
               }}
               onClick={handleRepeatClick}
             >
-              {isOrderBeingCloned ? "Cloning" : "Repeat"}
+              {isOrderBeingCloned ? 'Cloning' : 'Repeat'}
             </button>
           </div>
         </div>
       )}
     </div>
-  );
-};
+  )
+}
 
 const OrderList = ({ orders }: OrderListProps) => {
-  const [activeOrderId, setActiveOrderId] = useState(null);
+  const [activeOrderId, setActiveOrderId] = useState<number | undefined>()
   return (
     <div className="space-y-4">
       {orders.map((order) => (
@@ -116,7 +115,7 @@ const OrderList = ({ orders }: OrderListProps) => {
         />
       ))}
     </div>
-  );
-};
+  )
+}
 
-export default OrderList;
+export default OrderList

@@ -1,14 +1,14 @@
-import { useTheme } from "utils/color-map";
-import Navbar from "components/Navbar";
-import Layout from "components/Layout";
-import MyTrySvg from "assets/svgs/icons/mytry.svg";
-import Footer from "components/Footer";
+import { useTheme } from 'utils/hooks/useTheme'
+import Navbar from 'components/Navbar'
+import Layout from 'components/Layout'
+import MyTrySvg from 'assets/svgs/icons/mytry.svg'
+import Footer from 'components/Footer'
 
 export const About = () => {
-  const theme = useTheme();
+  const theme = useTheme()
   return (
-    <Layout title="About Us" description={null} keywords={null}>
-      <div style={{ backgroundColor: "#F7FAEE" }}>
+    <Layout title="About Us">
+      <div style={{ backgroundColor: '#F7FAEE' }}>
         <Navbar />
         <p
           style={{
@@ -61,7 +61,7 @@ export const About = () => {
             </p>
             <div>
               <img
-                style={{ width: "100%", maxWidth: "450px" }}
+                style={{ width: '100%', maxWidth: '450px' }}
                 className="m-auto"
                 src="/assets/images/about/founder.jpg"
                 alt=""
@@ -99,7 +99,7 @@ export const About = () => {
           </p>
           <div className="mb-10 sm:mb-20">
             <img
-              style={{ width: "100%", maxWidth: "450px" }}
+              style={{ width: '100%', maxWidth: '450px' }}
               className="m-auto"
               src="/assets/images/about/2.jpg"
               alt=""
@@ -127,7 +127,7 @@ export const About = () => {
         <Footer />
       </div>
     </Layout>
-  );
-};
+  )
+}
 
-export default About;
+export default About

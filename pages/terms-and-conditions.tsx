@@ -5,7 +5,7 @@ import styles from "./policy.module.scss";
 
 const TnC = () => {
   return (
-    <Layout title="Privacy Policy" description={null} keywords={null}>
+    <Layout title="Privacy Policy">
       <div className={styles.container}>
         <Navbar />
         <section>
@@ -28,13 +28,13 @@ const TnC = () => {
           <p>
             Upon use of the website, you are solely responsible for maintaining
             the confidentiality of your account and password and for restricting
-            access to your computer to prevent unauthorised access to your
+            access to your computer to prevent unauthorized access to your
             account. You agree to accept responsibility for all activities that
             occur under your account or password. You should take all necessary
             steps to ensure that the password is kept confidential and secure
             and should inform us immediately if you have any reason to believe
             that your password has become known to anyone else, or if the
-            password is being, or is likely to be, used in an unauthorised
+            password is being, or is likely to be, used in an unauthorized
             manner.
           </p>
           <p>
@@ -72,7 +72,7 @@ const TnC = () => {
           <p>
             All content included on the website, such as text, images, graphics,
             logos, button icons, audio clips, video clips are property of
-            mytryshop.com is protectable under applicable Indian Law, common law
+            mytryshop.com is protected under applicable Indian Law, common law
             or international copyright, laws. The compilation of all content on
             this website is the exclusive property of mytryshop.com.
           </p>

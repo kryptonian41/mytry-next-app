@@ -1,0 +1,17 @@
+{
+  "cSpell.words": [
+    "DOSHI",
+    "firstname",
+    "insta",
+    "lastname",
+    "MAITRI",
+    "mytry",
+    "mytryshop",
+    "svgs",
+    "woocommerce"
+  ],
+  "tailwindCSS.experimental.classRegex": [
+    ["cva\\(((?:[^()]|\\([^()]*\\))*)\\)", "[\"'`]([^\"'`]*).*?[\"'`]"],
+    ["cx\\(((?:[^()]|\\([^()]*\\))*)\\)", "(?:'|\"|`)([^']*)(?:'|\"|`)"]
+  ]
+}

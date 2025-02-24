@@ -1,10 +1,11 @@
-import { useState } from "react";
-import { connect } from "react-redux";
-import cartStyles from "./cart.module.scss";
+import { useState } from 'react'
+import { connect } from 'react-redux'
+import cartStyles from './cart.module.scss'
+import { AppDispatch } from 'redux-state/store'
 
 const CartTile = ({ product, removeItem, updateItemQty }) => {
-  const { name, descQty, image, price, qty } = product;
-  const [currentQty, setCurrentQty] = useState(qty);
+  const { name, descQty, image, price, qty } = product
+  const [currentQty, setCurrentQty] = useState(qty)
   return (
     <>
       <div className={cartStyles.itemContainer}>
@@ -21,18 +22,18 @@ const CartTile = ({ product, removeItem, updateItemQty }) => {
               <button
                 onClick={() => {
                   if (currentQty > 1) {
-                    updateItemQty(product, false);
-                    setCurrentQty(currentQty - 1);
+                    updateItemQty(product, false)
+                    setCurrentQty(currentQty - 1)
                   }
                 }}
               >
                 -
-              </button>{" "}
-              {currentQty}{" "}
+              </button>{' '}
+              {currentQty}{' '}
               <button
                 onClick={() => {
-                  updateItemQty(product, true);
-                  setCurrentQty(currentQty + 1);
+                  updateItemQty(product, true)
+                  setCurrentQty(currentQty + 1)
                 }}
               >
                 +
@@ -44,17 +45,17 @@ const CartTile = ({ product, removeItem, updateItemQty }) => {
       </div>
       <hr className={cartStyles.itemDivider} />
     </>
-  );
-};
+  )
+}
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = (dispatch: AppDispatch) => ({
   removeItem: (product) => {
-    dispatch({ type: "REMOVE_ITEM", payload: product });
+    dispatch({ type: 'REMOVE_ITEM', payload: product })
   },
   updateItemQty: (product, increase) => {
-    if (increase) dispatch({ type: "INCREASE_ITEM_QTY", payload: product });
-    else dispatch({ type: "DECREASE_ITEM_QTY", payload: product });
+    if (increase) dispatch({ type: 'INCREASE_ITEM_QTY', payload: product })
+    else dispatch({ type: 'DECREASE_ITEM_QTY', payload: product })
   },
-});
+})
 
-export default connect(null, mapDispatchToProps)(CartTile);
+export default connect(null, mapDispatchToProps)(CartTile)

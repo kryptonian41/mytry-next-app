@@ -1,14 +1,14 @@
-import { useTheme } from "utils/color-map";
 import Layout from "components/Layout";
 import clsx from "clsx";
 import { HomeProductTile } from "components/HomeProductTile";
 import Navbar from "components/Navbar";
 import React from "react";
 import Footer from "components/Footer";
-import styles from "./styles.module.scss";
-import Video from "components/Video";
+import styles from "./home.module.scss";
+import FullPageVideo from "components/FullPageVideo";
 import GreenOvalSticker from "assets/svgs/stickers/green-oval-badge.svg";
 import { useRouter } from "next/router";
+import { useTheme } from "utils/hooks/useTheme";
 
 export const Home: React.FC = () => {
   const theme = useTheme();
@@ -16,11 +16,11 @@ export const Home: React.FC = () => {
   const router = useRouter();
 
   return (
-    <Layout title="Home" description={null} keywords={null}>
+    <Layout title="Home">
       <React.Fragment>
         <div className="h-full relative">
           <Navbar />
-          <Video page="homepage" />
+          <FullPageVideo page="homepage" />
           <div className="homePage__bgVideo--overlay" />
           <div
             onClick={() => router.push("/products")}
@@ -185,48 +185,6 @@ export const Home: React.FC = () => {
               className="w-full h-full object-cover"
             />
           </div>
-
-          {/* Instagram Feed is not for the current version v1.0.0 */}
-
-          {/* <div className="border-t border-gray-700 w-5/6 mt-12 m-auto">
-            <div className="text-center mt-14 mb-8">
-              <span
-                style={{
-                  color: theme.green,
-                }}
-                className="text-lg"
-              >
-                @MYTRYSHOP
-              </span>
-            </div>
-
-            <p
-              className="text-2xl sm:text-5xl text-center uppercase mb-8 sm:mb-14"
-              style={{
-                color: theme.pink,
-              }}
-            >
-              FOLLOW ALONG OUR JOURNEY
-            </p>
-
-            <div className="flex flex-wrap justify-between sm:space-x-8">
-              <div
-                className={clsx("sm:w-auto sm:flex-1", styles["insta-image"])}
-              ></div>
-              <div
-                className={clsx("sm:w-auto sm:flex-1", styles["insta-image"])}
-              ></div>
-              <div
-                className={clsx("sm:w-auto sm:flex-1", styles["insta-image"])}
-              ></div>
-              <div
-                className={clsx("sm:w-auto sm:flex-1", styles["insta-image"])}
-              ></div>
-              <div
-                className={clsx("sm:w-auto sm:flex-1", styles["insta-image"])}
-              ></div>
-            </div>
-          </div> */}
         </div>
         <Footer />
       </React.Fragment>

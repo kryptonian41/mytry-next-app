@@ -1,11 +1,21 @@
-import Head from "next/head";
+import Head from 'next/head'
+export interface HeaderProps {
+  title?: string
+  keywords?: string
+  description?: string
+}
 
-const Header = ({ title, keywords, description }) => {
+const Header: React.FunctionComponent<HeaderProps> = ({
+  title,
+  keywords,
+  description,
+}) => {
   const globalKeywords =
-    "skin care, organic, vegan, beauty, sleep oil, lip oil, sustainable, homegrown";
+    'skin care, organic, vegan, beauty, sleep oil, lip oil, sustainable, homegrown'
 
   const globalDesc =
-    "MyTry is a homegrown skincare brand that works closely with responsibly sourced ingredients. We are different because we are vegan. Our products are organic and made with care by our founder Maitri and constitute raw materials you can find in your kitchen. Maitri overlooks every stage of the production process. From choosing the ingredients to adding the right amount of essential oils, she adds her touch throughout.";
+    'MyTry is a homegrown skincare brand that works closely with responsibly sourced ingredients. We are different because we are vegan. Our products are organic and made with care by our founder Maitri and constitute raw materials you can find in your kitchen. Maitri overlooks every stage of the production process. From choosing the ingredients to adding the right amount of essential oils, she adds her touch throughout.'
+
   return (
     <Head>
       <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -77,9 +87,9 @@ const Header = ({ title, keywords, description }) => {
       <meta name="msapplication-TileColor" content="#ffffff" />
       <meta name="msapplication-TileImage" content="/ms-icon-144x144.png" />
       <meta name="theme-color" content="#ffffff"></meta>
-      <title>{title ? `${title} | Mytry` : "Mytry"}</title>
+      <title>{title ? `${title} | Mytry` : 'Mytry'}</title>
     </Head>
-  );
-};
+  )
+}
 
-export default Header;
+export default Header

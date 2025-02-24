@@ -5,7 +5,7 @@ import styles from "./policy.module.scss";
 
 const PrivacyPolicy = () => {
   return (
-    <Layout title="Privacy Policy" description={null} keywords={null}>
+    <Layout title="Privacy Policy">
       <div className={styles.container}>
         <Navbar />
         <section>
@@ -43,7 +43,7 @@ const PrivacyPolicy = () => {
           <p>
             MyTry collect non-personal information such as your browser type, IP
             address, operating system, internet service provider, and the domain
-            name from which you accessed the website, browsing behaviour
+            name from which you accessed the website, browsing behavior
             including but not limited to date and time of visit, total time of
             visit, pages visited, general demographic information for
             statistical purposes and uses. MyTry will not share any personal
@@ -53,7 +53,7 @@ const PrivacyPolicy = () => {
                 The information may be shared and stored, on a strictly need to
                 know basis with any third party service providers of our
                 preference we may engage for hosting the website, to provide
-                service relating to order fulfilment, website operation etc.,
+                service relating to order fulfillment, website operation etc.,
                 solely for the purpose of providing services in relation to the
                 website.{" "}
               </li>
